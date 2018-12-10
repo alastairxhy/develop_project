@@ -1,0 +1,453 @@
+html,
+body,
+ul,
+li,
+span,
+dt,
+dd,
+dl,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: 14px;
+	color: #444;
+	margin: 0;
+	padding: 0;
+}
+
+i{
+	color: #666;
+}
+
+
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #999;
+}
+
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #999;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #999;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #999;
+}
+
+blockquote {
+	font-size: 16px;
+	margin-bottom: 30px!important;
+}
+
+body {
+	height: 100%;
+}
+
+.font_bold {
+	font-weight: bold;
+}
+
+.layui-tab-card>.layui-tab-title {
+	background: #07a4ff;
+}
+
+.layui-tab-card>.layui-tab-title a {
+	color: #fff;
+}
+
+.layui-tab-card>.layui-tab-title>.layui-this a {
+	color: #444;
+}
+
+.layui-header,
+.footer {
+	background: #333333;
+	color: rgba(255, 255, 255, .7);
+}
+
+.logo {
+	margin: 0 auto;
+}
+
+.navigation {
+	width: 720px;
+	margin: 0 auto;
+}
+
+.content {
+	padding: 20px 0;
+}
+
+.main {
+	width: 100%;
+	border: 0;
+	overflow: auto;
+	height: 100%;
+}
+
+.footer {
+	width: 100%;
+	text-align: center;
+	padding: 10px 0;
+	color: white;
+	/*position: absolute;
+	left: 0;
+	bottom: 0;*/
+}
+
+.breadcrumb {
+	margin: 20px 0 40px;
+}
+
+.checkbox_group {
+	margin-left: 40px;
+}
+
+.checkbox_group input[type=checkbox] {
+	display: block;
+	opacity: 0;
+}
+
+.nav_list {
+	text-align: center;
+	border: 1px solid #e3e3e3;
+	position: fixed;
+	width: 240px;
+	left: 9%;
+	top: 130px;
+}
+
+.nav_list li {
+	padding: 10px 0;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-left: 3px;
+}
+
+.nav_list .nav_list_this {
+	border-left: 3px solid #07a4ff;
+	padding-left: 0;
+	background: rgba(30, 159, 255, 0.1);
+}
+
+.nav_list li:hover {
+	border-left: 3px solid #07a4ff;
+	padding-left: 0;
+	background: rgba(30, 159, 255, 0.1);
+}
+
+.nav_list_title {
+	padding: 15px 0 5px;
+	font-weight: bold;
+	color: #07a4ff;
+	font-size: 16px;
+}
+
+.layui-layer-content {
+	overflow-y: scroll;
+}
+
+.layui-layer-content::-webkit-scrollbar {
+	display: none;
+}
+
+#risk_grade_form,
+
+
+#add_tow_level_rescue {}
+
+#add_rescue_bnt {
+	position: absolute;
+	bottom: 12px;
+	left: 690px;
+}
+
+.evaluate_item {
+	margin: 10px 0 !important;
+}
+
+.layui-input-block .evaluate_item_content {
+	border: 1px solid #E3E3E3;
+	border-radius: 2px;
+	min-width: 260px;
+	width: calc(100% - 300px);
+	padding-left: 10px !important;
+}
+
+.evaluate_item_content2 {
+	border: 1px solid #e3e3e3;
+	border-radius: 2px;
+	padding: 0 10px;
+	margin-bottom: 10px;
+}
+
+.layui-input-block .mark {
+	border: 1px solid #e3e3e3;
+	border-radius: 2px;
+	width: 80px;
+	/*padding-right: 10px !important;
+	padding-left: 10px !important;*/
+	text-align: center;
+}
+
+.layui-card {
+	border: 1px solid #e3e3e3;
+}
+
+.call_the_police_info {
+	padding: 10px;
+	border: 1px solid #e3e3e3;
+	margin-top: 10px;
+}
+
+.layui-form-pane .question {
+	min-width: 140px;
+	width: calc(100% - 410px);
+}
+
+.step {
+	padding: 36px 0;
+}
+
+.autograph {
+	width: 80%;
+	height: 60%;
+	position: absolute;
+	top: 20%;
+	left: 10%;
+	background: white;
+}
+
+.autograph_box {
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.3);
+	position: fixed;
+	left: 0%;
+	top: 0%
+}
+
+.base64_data {
+	width: 0;
+	opacity: 0;
+	padding: 0;
+	margin: 0;
+}
+
+.autograph_bnt_box {
+	width: 150px;
+	margin: 10px 20px;
+}
+
+.anchorBL {
+	display: none;
+}
+
+.search_box_1 {
+	margin: 0 0 20px 150px;
+}
+
+.media_input_1 {
+	width: 530px;
+}
+
+.media_lien_input_1 {
+	width: 200px!important;
+}
+
+.verify_search {
+	margin: 0 0 20px 10%;
+}
+
+.bottom_right_section,
+.bottom_left_section {
+	border-radius: 2px;
+}
+
+.bottom_left_section .layui-form-item,
+.bottom_right_section .layui-form-item {
+	margin-bottom: 0;
+}
+
+.bottom_left_section {
+	position: fixed;
+	left: 20px;
+	bottom: 50px;
+	background: #333333;
+	width: 339px;
+	padding: 20px 0;
+	border-radius: 5px;
+}
+
+.top_right_section {
+	position: fixed;
+	right: 20px;
+	top: 20px;
+}
+
+.bottom_right_section {
+	position: fixed;
+	right: 20px;
+	bottom: 20px;
+	background: #333333;
+	padding-bottom: 20px;
+	width: 380px;
+	max-height: 380px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+	border-radius: 5px;
+}
+
+.bottom_right_section::-webkit-scrollbar {
+	display: none
+}
+
+.bottom_right_section h2 {
+	background: #333333!important;
+	color: white;
+}
+
+.bottom_right_section .layui-collapse {
+	width: 95%;
+	margin: 0 auto;
+}
+
+.bottom_left_section div,
+.bottom_left_section label,
+.bottom_right_section div,
+.bottom_right_section label,
+.top_right_section_2 label,
+.top_right_section_2 div {
+	color: white;
+}
+
+.top_right_section_2 div:nth-child(1),.echart_map .lable{
+	background: #2a2a2a;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	color: white;
+}
+
+.top_right_section .lable{
+	background: #2a2a2a;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	color: white;
+}
+
+.lable {
+	padding: 10px 0;
+	text-align: center;
+	font-size: 16px;
+}
+
+body .confirm_style .layui-layer-title{
+	background: #333;
+	color: white;
+}
+
+body .confirm_style .layui-layer-content{
+	line-height: 40px;
+	text-align: center;
+}
+
+body .confirm_style .layui-layer-btn .layui-layer-btn0{
+	background: white;
+	color: #333;
+	border-color: #dedede;
+}
+
+body .confirm_style .layui-layer-btn{
+	text-align: center;
+}
+
+body .confirm_style .layui-layer-btn .layui-layer-btn1{
+	background: #07a4ff;
+	color: white;
+	border-color: #07a4ff;
+}
+
+body .layui-layer{
+				border-radius: 5px;
+			}
+
+
+
+/*@media screen and (max-width:1370px) {*/
+	/*.logo_box {*/
+		/*margin-left: 50px!important;*/
+	/*}*/
+	/*.search_box_1 {*/
+		/*margin: 0 0 20px 0px;*/
+	/*}*/
+/*}*/
+
+@media screen and (max-width:1440px) {
+	.media_input_1 {
+		width: 420px!important;
+	}
+	.media_lien_input_1 {
+		width: 145px!important;
+	}
+	.nav_list {
+		left: 5%;
+	}
+	.verify_search {
+		margin: 0 0 20px 6%;
+	}
+	.verify_search input {
+		width: 130px;
+	}
+	.verify_search button {
+		margin-left: 20px;
+	}
+}
+
+.form_text {
+	height: 38px;
+	line-height: 38px;
+	width: 220px;
+}
+
+.breadcrumb{
+	color: #808080;
+}
+
+.layui-table th div{
+	font-weight: bold;
+	text-align: center;
+}
+
+
+.layui-table{
+	text-align: center;
+}
+
+.layui_form_content{
+	padding-top: 10px;
+}
+
+.programme_list{
+	width: 1200px;
+	margin: 0 auto;
+}
+
+.programme_list li{
+	font-size: 14px;
+	line-height: 28px;
+	padding: 5px 0;
+}
+
+.programme_list li:hover{
+	color: #07a4ff;
+	cursor: pointer;
+}
+
+
+
+
