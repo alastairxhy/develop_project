@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="websource/js/layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="websource/css/style.css" />
+	</head>
+
+	<body>
+
+		<div id="user_info">
+			<!--最大容器-->
+			<div class="top_left_window1">
+				<!--左上第一容器-->
+			
+			</div>
+			<div class="top_left_window2">
+				<!--左上第二容器-->
+
+			</div>
+			<div class="top_right_window">
+				<!--右上第一容器-->
+				<div class="top_right_window_title">入网统计</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">物联电梯:</label>
+					<div class="layui-input-block " ></div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">在线电梯:</label>
+					<div class="layui-input-block " ></div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">离线电梯:</label>
+					<div class="layui-input-block " ></div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">维保单位:</label>
+					<div class="layui-input-block " ></div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">使用单位:</label>
+					<div class="layui-input-block " ></div>
+				</div>
+
+			</div>
+
+		</div>
+
+		<script src="websource/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="websource/js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="websource/js/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
+
+		<script src="" type="text/javascript" charset="utf-8">
+			layui.use(["layer", "element", "form"], function() {
+				var layer = layui.layer,
+					element = layui.element,
+					form = layui.form;
+
+				var user_info = new Vue({
+					el: "#user_info",
+					data: {
+						
+					},
+					methods: {
+
+					},
+				})
+
+			})
+		</script>
+
+	</body>
+
+</html>

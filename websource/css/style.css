@@ -322,7 +322,13 @@ body {
 .bottom_right_section div,
 .bottom_right_section label,
 .top_right_section_2 label,
-.top_right_section_2 div {
+.top_right_section_2 div
+.top_left_window1 div,
+.top_left_window1 label,
+.top_left_window2 div,
+.top_left_window2 label,
+.top_right_window div,
+.top_right_window label{
 	color: white;
 }
 
@@ -446,6 +452,21 @@ body .layui-layer{
 .programme_list li:hover{
 	color: #07a4ff;
 	cursor: pointer;
+}
+.top_right_window{
+	background-color: #333333;;
+	position: fixed;
+	top: 20px;
+	right: 20px;	
+	width: 350px;
+	border-radius:5px;
+}
+.top_right_window .top_right_window_title{
+	background-color: #0C0C0C;
+	font-size: 16px;
+	padding: 10px 0 ;
+	text-align:center;
+	border-radius: 5px 5px 0px 0px;
 }
 
 
