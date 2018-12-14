@@ -453,8 +453,25 @@ body .layui-layer{
 	color: #07a4ff;
 	cursor: pointer;
 }
+.top_left_window1{
+	background-color: #333333;
+	position: fixed;
+	top: 20px;
+	left: 20px;
+	width: 350px;
+	border-radius:5px;
+}
+.top_left_window1 .top_left_window1_title{
+	color: white;
+	background-color: #0C0C0C;
+	font-size: 16px;
+	padding: 10px 0 ;
+	text-align:center;
+	border-radius: 5px 5px 0px 0px;
+}
+
 .top_right_window{
-	background-color: #333333;;
+	background-color: #333333;
 	position: fixed;
 	top: 20px;
 	right: 20px;	

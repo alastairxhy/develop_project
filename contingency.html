@@ -14,6 +14,12 @@
                 height: 100%;margin: 0px;padding: 0px
             }
             #baiduMap {width: 100%;height: 100%;overflow: hidden;margin:0;}
+			.top_left_window1{
+				z-index: 100;
+			}
+			.top_left_window2{
+				z-index: 100;
+			}
             .top_right_window{
                 z-index: 100;
             }
@@ -27,7 +33,11 @@
 			<!--信息容器-->
 			<div class="top_left_window1">
 				<!--左上第一容器-->
-
+				<div class="top_left_window1_title">电梯密度分布图</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">物联电梯:</label>
+					<div class="layui-input-block " ></div>
+				</div>
 			</div>
                 <div class="top_left_window2"  >
 				<!--左上第二容器-->
@@ -70,6 +80,8 @@
 		<script src="websource/js/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
         <script src="http://api.map.baidu.com/api?v=2.0&ak=3b55d902d2eb9763e7a76a40a2bfa0bf" type="text/javascript" ></script>
         <script src="websource/js/public.js" type="text/javascript" charset="utf-8"></script>
+		<script src="websource/js/echarts.js" type="text/javascript" charset="utf-8"></script>
+
 
 		<script type="text/javascript" charset="utf-8">
 			layui.use(["layer", "element", "form"], function() {
@@ -84,13 +96,34 @@
                 $.ajax({
                     data:{
                         "methodName": "serviceData",
-                        "distance":"10"
+                        "distance":"10000"
                     },
                     success:function (res) {
+                        var obj=res.obj;
                         console.log(res);
-                        map.centerAndZoom(new BMap.Point(res.obj.userInfo.longitude, res.obj.userInfo.latitude), 17);//初始化地图,设置中心点坐标和地图级别
+                        //定位初始点
+                        var long = res.obj.userInfo.longitude,
+                            lati = res.obj.userInfo.latitude; // 经纬度变量
+
+                        var point = new BMap.Point(long, lati);//设置中心点
+                        map.centerAndZoom(point, 18);		   //初始化地图,设置中心点坐标和地图级别
+
+						function addMarker(point){
+						//创建标注点
+                            var marker = new BMap.Marker(point);// 创建标注
+                            map.addOverlay(marker);				// 将标注添加到地图中
+                        }
+						//电梯分布
+						console.log(obj.list.length);
+						for (i = 0; i < obj.list.length; i++) {
+                            var point = new BMap.Point(obj.list[i].longitude, obj.list[i].latitude);
+                            addMarker(point);
+						}
+
                     }
                 })
+
+
 
 			})
 
