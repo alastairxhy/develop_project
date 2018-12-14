@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>首页</title>
+		<link rel="stylesheet" type="text/css" href="websource/js/layui/css/layui.css" />
+		<link rel="stylesheet" type="text/css" href="websource/css/style.css" />
+	    <style type="text/css">
+            html {
+                height: 100%
+            }
+            body {
+                height: 100%;margin: 0px;padding: 0px
+            }
+            #baiduMap {width: 100%;height: 100%;overflow: hidden;margin:0;}
+            .top_right_window{
+                z-index: 100;
+            }
+            .layui-form-label{
+                width: 60px !important;
+            }
+        </style>
+    </head>
+	<body>
+		<div id="user_info">
+			<!--信息容器-->
+			<div class="top_left_window1">
+				<!--左上第一容器-->
+
+			</div>
+                <div class="top_left_window2"  >
+				<!--左上第二容器-->
+			</div>
+			<div class="top_right_window">
+				<!--右上第一容器-->
+				<div class="top_right_window_title">入网统计</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">物联电梯:</label>
+					<div class="layui-input-block " ></div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">在线电梯:</label>
+					<div class="layui-input-block " ></div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">离线电梯:</label>
+					<div class="layui-input-block " ></div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">维保单位:</label>
+					<div class="layui-input-block " ></div>
+				</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">使用单位:</label>
+					<div class="layui-input-block " ></div>
+				</div>
+
+			</div>
+		</div>
+        <div id="baiduMap">
+            <!--地图容器-->
+
+        </div>
+
+
+
+		<script src="websource/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="websource/js/vue.js" type="text/javascript" charset="utf-8"></script>
+		<script src="websource/js/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
+        <script src="http://api.map.baidu.com/api?v=2.0&ak=3b55d902d2eb9763e7a76a40a2bfa0bf" type="text/javascript" ></script>
+        <script src="websource/js/public.js" type="text/javascript" charset="utf-8"></script>
+
+		<script type="text/javascript" charset="utf-8">
+			layui.use(["layer", "element", "form"], function() {
+				var layer = layui.layer,
+					element = layui.element,
+					form = layui.form;
+
+                //地图说明
+                var map = new BMap.Map("baiduMap", {enableMapClick: false}); //实例化地图
+                map.enableScrollWheelZoom(true);//开启鼠标滚轮缩
+
+                $.ajax({
+                    data:{
+                        "methodName": "serviceData",
+                        "distance":"10"
+                    },
+                    success:function (res) {
+                        console.log(res);
+                        map.centerAndZoom(new BMap.Point(res.obj.userInfo.longitude, res.obj.userInfo.latitude), 17);//初始化地图,设置中心点坐标和地图级别
+                    }
+                })
+
+			})
+
+		</script>
+
+	</body>
+
+</html>
