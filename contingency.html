@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<title>首页</title>
+		<title>电梯应急处理平台</title>
 		<link rel="stylesheet" type="text/css" href="websource/js/layui/css/layui.css" />
 		<link rel="stylesheet" type="text/css" href="websource/css/style.css" />
 	    <style type="text/css">
@@ -17,6 +17,7 @@
 			.top_left_window1{
 				z-index: 100;
 			}
+			#echart_map{width: 250px;height: 250px;margin: 0 auto;}
 			.top_left_window2{
 				z-index: 100;
 			}
@@ -32,12 +33,9 @@
 		<div id="user_info">
 			<!--信息容器-->
 			<div class="top_left_window1">
-				<!--左上第一容器-->
+				<!--左上第一容器，存放图标插件-->
 				<div class="top_left_window1_title">电梯密度分布图</div>
-				<div class="layui-form-item">
-					<label class="layui-form-label">物联电梯:</label>
-					<div class="layui-input-block " ></div>
-				</div>
+				<div id="echart_map"></div>
 			</div>
                 <div class="top_left_window2"  >
 				<!--左上第二容器-->
@@ -70,7 +68,6 @@
 		</div>
         <div id="baiduMap">
             <!--地图容器-->
-
         </div>
 
 
@@ -84,7 +81,9 @@
 		<!--实现聚合点API-->
 		<script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
 		<script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
-		<!---->
+		<!--地图插件数据-->
+		<script src="websource/js/jinhua.js" type="text/javascript" charset="utf-8"></script>
+
 
 		<script type="text/javascript" charset="utf-8">
 			layui.use(["layer", "element", "form"], function() {
@@ -133,14 +132,54 @@
                         }
                         markerClusterer();
 
-
-
                     }
                 })
 
+				//图表插件使用
+                var echart_map = echarts.init(document.getElementById("echart_map"));
+                var options ={
+                    series:{
+                        type:"map",
+                        map:"金华",
+                        itemStyle:{
+                            normal:{label:{show:true}},
+                            emphasis:{
+                                label:{
+                                    show:true,
+                                    textStyle:{
+                                        color:"#fff"
+                                    }
+                                },
+                                areaColor:"#FF5722"
+                            }
+                        },
+                        data:[
+                            {name: "金东区", point: {lng:119.699478,lat:29.105633}},
+                            {name: "兰溪市", point: {lng:119.466961,lat:29.214706}},
+                            {name: "磐安县", point: {lng:120.456445,lat:29.060475}},
+                            {name: "永康市", point: {lng:120.053905,lat:28.894695}},
+                            {name: "武义县", point: {lng:119.823983,lat:28.89966}},
+                            {name: "浦江县", point: {lng:119.89901,lat:29.459795}},
+                            {name: "义乌市", point: {lng:120.081546,lat:29.312268}},
+                            {name: "婺城区", point: {lng:119.578019,lat:29.092707}},
+                            {name: "东阳市", point: {lng:120.248208,lat:29.29657}}
+                        ],
+                    },
+                    roam:true,
+                    itemStyle:{
+                        normal:{label:{show:true}},
+                        emphasis:{label:{show:true}}
+                    },
 
 
-			})
+                    backgroundColor:"#333"
+                };
+                echart_map.setOption(options);
+
+
+
+
+            })
 
 		</script>
 
