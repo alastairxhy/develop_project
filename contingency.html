@@ -14,7 +14,7 @@
                 height: 100%;margin: 0px;padding: 0px
             }
             #baiduMap {width: 100%;height: 100%;overflow: hidden;margin:0;}
-			#echart_map{width: 280px;height: 280px;margin: 0 auto;}
+			#echart_map{width: 250px;height: 200px;margin: 0 auto;}
 			.top_left_window1{z-index: 100;}
 			.top_left_window2{z-index: 100;}
             .top_right_window{z-index: 100;}
@@ -31,8 +31,13 @@
 				<div class="top_left_window1_title">电梯密度分布图</div>
 				<div id="echart_map"></div>
 			</div>
-                <div class="top_left_window2"  >
+			<div class="top_left_window2"  >
 				<!--左上第二容器-->
+				<div class="top_left_window2_title">电梯最近报警</div>
+				<div class="layui-form-item">
+					<label class="layui-form-label">物联电梯:</label>
+					<div class="layui-input-block " ></div>
+				</div>
 			</div>
 			<div class="top_right_window">
 				<!--右上第一容器-->
@@ -101,7 +106,7 @@
                         var long = res.obj.userInfo.longitude,
                             lati = res.obj.userInfo.latitude; // 经纬度变量
 						//设置初始点
-                        var initiationpoint = new BMap.Point(long, lati);//设置中心点
+                        var initiationpoint = new BMap.Point(long, lati);//设置初始中心点
                         map.centerAndZoom(initiationpoint, 18);		   //初始化地图,设置中心点坐标和地图级别
 						//地图标注函数
 						function addMarker(point){
@@ -111,7 +116,7 @@
                         }
 						//电梯分布
                         var markers = []; //聚合点数组
-						for (i = 0; i < obj.list.length; i++) {
+						for (var i = 0; i < obj.list.length; i++) {
                             var point = new BMap.Point(obj.list[i].longitude, obj.list[i].latitude);
                             addMarker(point);
                             markers.push(new BMap.Marker(point));
@@ -130,7 +135,6 @@
                 })
 
 				//图表插件使用
-
                 var echart_map = echarts.init(document.getElementById("echart_map"));
                 var options ={
                     series:{
@@ -182,8 +186,10 @@
                     var click_point = new BMap.Point(click_point.lng, click_point.lat);
                     map.centerAndZoom(click_point, 18);//设置中心点坐标和地图级别
 					addMarker(click_point);//添加标记点
+
                 });
 
+                //替换标记点，换成电梯图标
 
 
             })
