@@ -90,6 +90,15 @@
 					element = layui.element,
 					form = layui.form;
 
+                //动态获取地图距离位置(暂定)
+                var distance_map = function() {
+                    var southwest = map.getBounds().getSouthWest();   //获取可视区域
+                    var northeast = map.getBounds().getNorthEast();   //可视区域左下角
+                    var distance = map.getDistance(southwest,northeast).toFixed(2);
+                    console.log(distance);//查看当前视角的距离
+                    return distance;
+                }
+
                 //地图说明
                 var map = new BMap.Map("baiduMap", {enableMapClick: false}); //实例化地图
                 map.enableScrollWheelZoom(true);//开启鼠标滚轮缩
@@ -97,10 +106,10 @@
                 $.ajax({
                     data:{
                         "methodName": "serviceData",
-                        "distance":"10000"
+                        "distance":"100000"
                     },
                     success:function (res) {
-                        // console.log(obj);
+                        // console.log(res);
                         var obj=res.obj;
                         //定位初始点
                         var long = res.obj.userInfo.longitude,
@@ -108,11 +117,16 @@
 						//设置初始点
                         var initiationpoint = new BMap.Point(long, lati);//设置初始中心点
                         map.centerAndZoom(initiationpoint, 18);		   //初始化地图,设置中心点坐标和地图级别
+						//判断电梯状态
+
 						//地图标注函数
 						function addMarker(point){
 						//创建标注点
-                            var marker = new BMap.Marker(point);// 创建标注
-                            map.addOverlay(marker);				// 将标注添加到地图中
+                            var marker = new BMap.Marker(point,{
+                            	icon:new BMap.Icon("websource/img/icon/green_marker.png", new BMap.Size(50,50))
+							});// 创建标注
+							map.addOverlay(marker);				// 将标注添加到地图中
+
                         }
 						//电梯分布
                         var markers = []; //聚合点数组
@@ -125,12 +139,10 @@
 						//电梯分布点聚合
                         //最简单的用法，生成一个marker数组，然后调用markerClusterer类即可。
 						function markerClusterer() {
-                            addMarker(initiationpoint);
                             var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers});
-
                         }
                         markerClusterer();
-
+                        addMarker(initiationpoint);//添加初始位置
                     }
                 })
 
@@ -140,8 +152,8 @@
                     series:{
                         type:"map",
                         map:"金华",
+                        aspectScale:1,
                         itemStyle:{
-
                             normal:{label:{show:true}},
                             emphasis:{
                                 label:{
@@ -166,18 +178,17 @@
                             {name: "东阳市", point: {lng:120.248208,lat:29.29657}}
                         ],
                     },
-
                     roam:false,//开启鼠标平移
-                    backgroundColor:"#333"
+                    // backgroundColor:"#333"
+
 
                 };
                 echart_map.setOption(options);
 
                 //点击事件：点击图表插件对应区域，自动进入对应区域政府
                 echart_map.on('click', function (params) {
-                    // console.log(params);
+                    console.log(params);
                     var click_point = params.data.point;
-                    console.log(params.data.point.lng);
                     function addMarker(point){
                         //创建标注点
                         var marker = new BMap.Marker(point);// 创建标注
@@ -187,7 +198,22 @@
                     map.centerAndZoom(click_point, 18);//设置中心点坐标和地图级别
 					addMarker(click_point);//添加标记点
 
+
+
                 });
+
+                //地图监听：监听视角切换,对当前地图进行标记
+				map.addEventListener('zoomend',function () {
+                    $.ajax({
+                        data:{
+                            "methodName": "serviceData",
+                            "distance":distance_map(),
+                        },
+                        success:function (res){
+
+						}
+					})
+                })
 
                 //替换标记点，换成电梯图标
 
