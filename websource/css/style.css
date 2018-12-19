@@ -456,9 +456,9 @@ body .layui-layer{
 .top_left_window1{
 	background-color: #333333;
 	position: fixed;
-	top: 20px;
+	top: 10px;
 	left: 20px;
-	width: 300px;
+	width: 270px;
 	border-radius:5px;
 
 }
@@ -470,11 +470,28 @@ body .layui-layer{
 	text-align:center;
 	border-radius: 5px 5px 0px 0px;
 }
+.top_left_window2{
+    background-color: #333333;
+    position: fixed;
+    top: 262px;
+    left: 20px;
+    width: 270px;
+    border-radius:5px;
+
+}
+.top_left_window2 .top_left_window2_title{
+    color: white;
+    background-color: #0C0C0C;
+    font-size: 16px;
+    padding: 10px 0 ;
+    text-align:center;
+    border-radius: 5px 5px 0px 0px;
+}
 
 .top_right_window{
 	background-color: #333333;
 	position: fixed;
-	top: 20px;
+	top: 10px;
 	right: 20px;	
 	width: 250px;
 	border-radius:5px;
