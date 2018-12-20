@@ -1,0 +1,21 @@
+.header_1 div:nth-child(1){
+    float: left;
+    background: url("../../websource/img/monitor_platform/logo/logo.png") no-repeat;
+    width: 264px;
+    height:40px ;
+}
+
+.header_1 div:nth-child(2){
+    float: right;
+
+}
+
+.header_1{
+    width: 100%;
+    background: #0C0C0C;
+}
+
+.header_1:after{
+    content: '';
+    clear: both;
+}
