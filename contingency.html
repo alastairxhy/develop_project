@@ -251,6 +251,11 @@
                     "distance":distance_map(),
                 },
                 success:function (res){
+					var zoom = map.getZoom();//获取地图当前缩放级别
+					console.log(zoom);
+					if (zoom >= 19){
+                        // map.clearOverlays();
+					}
 
                 }
             })
