@@ -13,9 +13,35 @@
 .header_1{
     width: 100%;
     background: #0C0C0C;
+    padding: 15px 10px;
 }
 
 .header_1:after{
     content: '';
     clear: both;
+}
+
+.menus_box{
+    border-radius:47px ;
+    overflow: hidden;
+    margin: 20px 0;
+    box-shadow: rgba(0,0,0,0.5) 0px 3px 5px;
+}
+#menus{
+    padding: 0 50px;
+}
+
+.layui-layout-right{
+    right: 47px;
+}
+#_date{
+    line-height: 40px;
+}
+
+.layui-header,.layui-nav{
+    background: #239fd7;
+}
+
+.footer{
+    padding: 24px;
 }
