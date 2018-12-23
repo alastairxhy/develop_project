@@ -101,6 +101,79 @@
             return distance;
         }
 
+        //获取电梯状态
+		var myicon = function (status) {
+            switch (status) {
+                case 0:
+				{var _icon = new BMap.Icon("websource/img/icon/elevator_hpmt.png", new BMap.Size(40,40));
+				return _icon;}
+                    break; //调试
+                case 1:
+				{var _icon = new BMap.Icon("websource/img/icon/green_marker.png", new BMap.Size(40,40));
+				return _icon;}
+                	break;//正常
+                case 2:
+				{var _icon = new BMap.Icon("websource/img/icon/gray_marker.png", new BMap.Size(40,40));
+				return _icon;}
+                    break;//停用
+                case 3:
+				{var _icon = new BMap.Icon("websource/img/icon/elevator_warnning.png", new BMap.Size(40,40));
+				return _icon;}
+                    break;//设备上报检修
+                case 4:
+				{var _icon = new BMap.Icon("websource/img/icon/red_marker.png", new BMap.Size(40,40));
+				return _icon;}
+                    break;//故障
+                case null:
+                {var _icon = new BMap.Icon("websource/img/icon/green_marker.png", new BMap.Size(40,40));
+                    return _icon;}
+                    break;//无状态
+
+            }
+        }
+
+        //根据电梯状态，标注地图
+        function addMarker(point,status) {
+            //判断电梯状态
+            switch (status) {
+                case 0: {
+                    var marker = new BMap.Marker(point,
+                        {icon: new BMap.Icon("websource/img/icon/elevator_hpmt.png", new BMap.Size(40, 40))}
+                    );// 创建标注
+                    map.addOverlay(marker);//将标注添加到地图中
+                }
+                    break;
+                case 1: {
+                    var marker = new BMap.Marker(point,
+                        {icon: new BMap.Icon("websource/img/icon/green_marker.png", new BMap.Size(40, 40))}
+                    );// 创建标注
+                    map.addOverlay(marker);//将标注添加到地图中
+                }
+                    break;
+                case 2: {
+                    var marker = new BMap.Marker(point,
+                        {icon: new BMap.Icon("websource/img/icon/red_marker.png", new BMap.Size(40, 40))}
+                    );// 创建标注
+                    map.addOverlay(marker);//将标注添加到地图中
+                }
+                    break;
+                case 3: {
+                    var marker = new BMap.Marker(point,
+                        {icon: new BMap.Icon("websource/img/icon/red_marker.png", new BMap.Size(40, 40))}
+                    );// 创建标注
+                    map.addOverlay(marker);//将标注添加到地图中
+                }
+                    break;
+                case 4: {
+                    var marker = new BMap.Marker(point,
+                        {icon: new BMap.Icon("websource/img/icon/red_marker.png", new BMap.Size(40, 40))}
+                    );// 创建标注
+                    map.addOverlay(marker);//将标注添加到地图中
+                }
+                    break;
+            }
+        }
+
         //地图说明
         var map = new BMap.Map("baiduMap", {enableMapClick: false}); //实例化地图
         map.enableScrollWheelZoom(true);//开启鼠标滚轮缩
@@ -108,7 +181,7 @@
         $.ajax({
             data:{
                 "methodName": "serviceData",
-                "distance":"1000"
+                "distance":"3000"
             },
             success:function (res) {
                 // console.log(res);
@@ -116,19 +189,10 @@
                 //定位初始点
                 var long = res.obj.userInfo.longitude,
                     lati = res.obj.userInfo.latitude; // 经纬度变量
-                //设置初始点
+                //设置初始点位置
                 var initiationpoint = new BMap.Point(long, lati);//设置初始中心点
+                var initiationmarker = new BMap.Marker(initiationpoint);// 创建标注
                 map.centerAndZoom(initiationpoint, 18);		   //初始化地图,设置中心点坐标和地图级别
-
-
-                //地图标注函数
-                function addMarker(point){
-                    //创建标注点
-                    var marker = new BMap.Marker(point,
-                        {icon:new BMap.Icon("websource/img/icon/green_marker.png", new BMap.Size(40,40))}
-                    );// 创建标注
-                    map.addOverlay(marker);			// 将标注添加到地图中
-                }
 
                 //替换标记点，换成电梯图标(暂定)
                 var replace_icon = function (point) {
@@ -143,25 +207,6 @@
                         case 3:{break;}
                     }
                 }
-                var myicon = function (status) {
-                    switch (status) {
-                        case 0:{
-                            var icon = new BMap.Icon("websource/img/icon/elevator_hpmt.png", new BMap.Size(40,40));
-                        };break; //调试
-                        case 1:{
-                            var icon = new BMap.Icon("websource/img/icon/green_marker.png", new BMap.Size(40,40));
-                        };break;//正常
-                        case 2:{
-                            var icon = new BMap.Icon("websource/img/icon/red_marker.png", new BMap.Size(40,40));
-                        };break;//停用
-                        case 3:{
-                            var icon = new BMap.Icon("websource/img/icon/red_marker.png", new BMap.Size(40,40));
-                        };break;//设备上报检修
-                        case 4:{
-                            var icon = new BMap.Icon("websource/img/icon/red_marker.png", new BMap.Size(40,40));
-                        };break;//故障
-                    }
-                }
 
                 //电梯分布
                 var markers = []; //聚合点数组
@@ -172,20 +217,21 @@
                 }]; //聚合点样式
                 for (var i = 0; i < obj.list.length; i++) {
                     var point = new BMap.Point(obj.list[i].longitude, obj.list[i].latitude);
-                    // addMarker(point);
-                    // replace_icon(point);
-                    markers.push(new BMap.Marker(point));
-                    // map.clearOverlays();
+                    // markers.push(new BMap.Marker(point,{icon: myicon(obj.list[i].status)})
+                    markers.push(new BMap.Marker(point,{icon: myicon(null)})
+				);
                 }
 
                 //电梯分布点聚合
                 //最简单的用法，生成一个marker数组，然后调用markerClusterer类即可。
                 function markerClusterer() {
                     var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers,styles: myStyle});
+
                 }
                 markerClusterer();
 
-                addMarker(initiationpoint);//添加初始位置
+                // addMarker(initiationpoint);//添加初始位置
+                map.addOverlay(initiationmarker);//添加初始位置
             }
         })
 
@@ -251,12 +297,30 @@
                     "distance":distance_map(),
                 },
                 success:function (res){
-					var zoom = map.getZoom();//获取地图当前缩放级别
-					console.log(zoom);
-					if (zoom >= 19){
-                        // map.clearOverlays();
-					}
+                    map.clearOverlays();
+                    var obj=res.obj;
+					// var zoom = map.getZoom();//获取地图当前缩放级别
+                    //电梯分布
+                    var markers = []; //聚合点数组
+                    var myStyle = [{
+                        url:'websource/img/icon/m0.png',
+                        size: new BMap.Size(53,52),
+                        gridSize:80
+                    }]; //聚合点样式
+                    for (var i = 0; i < obj.list.length; i++) {
+                        var point = new BMap.Point(obj.list[i].longitude, obj.list[i].latitude);
+                        // markers.push(new BMap.Marker(point,{icon: myicon(obj.list[i].status)})
+                        markers.push(new BMap.Marker(point,{icon: myicon(null)})
+                        );
+                    }
 
+                    //电梯分布点聚合
+                    //最简单的用法，生成一个marker数组，然后调用markerClusterer类即可。
+                    function markerClusterer() {
+                        var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers,styles: myStyle});
+
+                    }
+                    markerClusterer();
                 }
             })
         })
