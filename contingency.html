@@ -132,7 +132,7 @@
             }
         }
 
-        //根据电梯状态，标注地图
+        //根据电梯状态，标注地图（暂定）
         function addMarker(point,status) {
             //判断电梯状态
             switch (status) {
@@ -217,9 +217,9 @@
                 }]; //聚合点样式
                 for (var i = 0; i < obj.list.length; i++) {
                     var point = new BMap.Point(obj.list[i].longitude, obj.list[i].latitude);
-                    // markers.push(new BMap.Marker(point,{icon: myicon(obj.list[i].status)})
-                    markers.push(new BMap.Marker(point,{icon: myicon(null)})
-				);
+                    markers.push(new BMap.Marker(point,{icon: myicon(obj.list[i].status)})
+                    // markers.push(new BMap.Marker(point,{icon: myicon(3)})//测试语句
+                    );
                 }
 
                 //电梯分布点聚合
@@ -289,7 +289,7 @@
 
         });
 
-        //地图监听：监听视角切换,对当前地图进行标记
+        // 地图监听：监听视角切换,对当前地图进行标记
         map.addEventListener('zoomend',function () {
             $.ajax({
                 data:{
@@ -297,30 +297,30 @@
                     "distance":distance_map(),
                 },
                 success:function (res){
-                    map.clearOverlays();
                     var obj=res.obj;
 					// var zoom = map.getZoom();//获取地图当前缩放级别
-                    //电梯分布
-                    var markers = []; //聚合点数组
-                    var myStyle = [{
-                        url:'websource/img/icon/m0.png',
-                        size: new BMap.Size(53,52),
-                        gridSize:80
-                    }]; //聚合点样式
-                    for (var i = 0; i < obj.list.length; i++) {
-                        var point = new BMap.Point(obj.list[i].longitude, obj.list[i].latitude);
-                        // markers.push(new BMap.Marker(point,{icon: myicon(obj.list[i].status)})
-                        markers.push(new BMap.Marker(point,{icon: myicon(null)})
-                        );
-                    }
-
-                    //电梯分布点聚合
-                    //最简单的用法，生成一个marker数组，然后调用markerClusterer类即可。
-                    function markerClusterer() {
-                        var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers,styles: myStyle});
-
-                    }
-                    markerClusterer();
+                    // map.clearOverlays();
+					//电梯分布
+                    // var markers = []; //聚合点数组
+                    // var myStyle = [{
+                    //     url:'websource/img/icon/m0.png',
+                    //     size: new BMap.Size(53,52),
+                    //     gridSize:80
+                    // }]; //聚合点样式
+                    // for (var i = 0; i < obj.list.length; i++) {
+                    //     var point = new BMap.Point(obj.list[i].longitude, obj.list[i].latitude);
+                    //     // markers.push(new BMap.Marker(point,{icon: myicon(obj.list[i].status)})
+                    //     markers.push(new BMap.Marker(point,{icon: myicon(null)})
+                    //     );
+                    // }
+					//
+                    // //电梯分布点聚合
+                    // //最简单的用法，生成一个marker数组，然后调用markerClusterer类即可。
+                    // function markerClusterer() {
+                    //     var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers,styles: myStyle});
+					//
+                    // }
+                    // markerClusterer();
                 }
             })
         })
