@@ -25,17 +25,17 @@ i{
 
 
 ::-webkit-input-placeholder { /* WebKit browsers */
-    color:    #999;
+	color:    #999;
 }
 
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:    #999;
+	color:    #999;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color:    #999;
+	color:    #999;
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
-    color:    #999;
+	color:    #999;
 }
 
 blockquote {
@@ -379,18 +379,18 @@ body .confirm_style .layui-layer-btn .layui-layer-btn1{
 }
 
 body .layui-layer{
-				border-radius: 5px;
-			}
+	border-radius: 5px;
+}
 
 
 
 /*@media screen and (max-width:1370px) {*/
-	/*.logo_box {*/
-		/*margin-left: 50px!important;*/
-	/*}*/
-	/*.search_box_1 {*/
-		/*margin: 0 0 20px 0px;*/
-	/*}*/
+/*.logo_box {*/
+/*margin-left: 50px!important;*/
+/*}*/
+/*.search_box_1 {*/
+/*margin: 0 0 20px 0px;*/
+/*}*/
 /*}*/
 
 @media screen and (max-width:1440px) {
@@ -460,6 +460,7 @@ body .layui-layer{
 	left: 20px;
 	width: 270px;
 	border-radius:5px;
+	opacity: 0.9;
 
 }
 .top_left_window1 .top_left_window1_title{
@@ -471,30 +472,31 @@ body .layui-layer{
 	border-radius: 5px 5px 0px 0px;
 }
 .top_left_window2{
-    background-color: #333333;
-    position: fixed;
-    top: 262px;
-    left: 20px;
-    width: 270px;
-    border-radius:5px;
-
+	background-color: #333333;
+	position: fixed;
+	top: 262px;
+	left: 20px;
+	width: 270px;
+	border-radius:5px;
+	opacity: 0.9;
 }
 .top_left_window2 .top_left_window2_title{
-    color: white;
-    background-color: #0C0C0C;
-    font-size: 16px;
-    padding: 10px 0 ;
-    text-align:center;
-    border-radius: 5px 5px 0px 0px;
+	color: white;
+	background-color: #0C0C0C;
+	font-size: 16px;
+	padding: 10px 0 ;
+	text-align:center;
+	border-radius: 5px 5px 0px 0px;
 }
 
 .top_right_window{
 	background-color: #333333;
 	position: fixed;
 	top: 10px;
-	right: 20px;	
+	right: 20px;
 	width: 250px;
 	border-radius:5px;
+	opacity: 0.9;
 }
 .top_right_window .top_right_window_title{
 	background-color: #0C0C0C;
@@ -503,6 +505,7 @@ body .layui-layer{
 	text-align:center;
 	border-radius: 5px 5px 0px 0px;
 }
+
 
 
 
