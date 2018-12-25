@@ -1,5 +1,6 @@
 var develop = {
     debug: true,
+    menus_level:3
 };
 var request_url, request_url_json;
 
@@ -27,6 +28,31 @@ $.ajaxSetup({
     },
 });
 
-var menus_data = {
 
+
+if(!sessionStorage.getItem("menus_data")){
+    sessionStorage.setItem("menus_data",JSON.stringify(getMenus("0",develop.menus_level)));
 };
+
+function getMenus(id,recurrence) {
+    recurrence--;
+    var getData;
+    $.ajax({
+        data:{
+            methodName:'menus',
+            pId:id,
+            menuType:3
+        },
+        async:false,
+        success:function (res) {
+            getData = res.obj;
+            getData.find(function (obj) {
+                if(obj.id && recurrence > 0){
+                    obj.children=getMenus(obj.id,recurrence)
+                }
+            });
+        }
+    });
+    return getData;
+}
+var menus_data = JSON.parse(sessionStorage.getItem("menus_data"));

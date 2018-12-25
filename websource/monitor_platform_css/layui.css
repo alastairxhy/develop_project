@@ -832,7 +832,7 @@ a cite {
 }
 
 .layui-main {
-	width: 1660px;
+	width: 1280px;
 	margin: 0 auto
 }
 
@@ -3681,7 +3681,7 @@ body .layui-table-tips .layui-layer-content {
 	*display: inline;
 	*zoom: 1;
 	vertical-align: middle;
-	line-height: 76px;
+	line-height: 75px;
 }
 
 .layui-nav .layui-nav-item:after{
@@ -3706,7 +3706,7 @@ body .layui-table-tips .layui-layer-content {
 
 .layui-nav .layui-nav-item a {
 	display: block;
-	padding: 0 15px;
+	padding: 0 25px;
 	color: #fff;
 	color: rgba(255, 255, 255, .7);
 	transition: all .3s;
@@ -3765,9 +3765,11 @@ body .layui-table-tips .layui-layer-content {
 	top: 50%;
 	right: 3px;
 	margin-top: -3px;
+	margin-right: 5px;
 	border-width: 6px;
 	border-top-color: rgba(255, 255, 255, .7)
 }
+
 
 .layui-nav .layui-nav-mored,
 .layui-nav-itemed>a .layui-nav-more {
@@ -3780,7 +3782,7 @@ body .layui-table-tips .layui-layer-content {
 	display: none;
 	position: absolute;
 	left: 0;
-	top: 80px;
+	top: 76px;
 	min-width: 100%;
 	line-height: 36px;
 	padding: 5px 0;
@@ -3789,7 +3791,7 @@ body .layui-table-tips .layui-layer-content {
 	background-color: #fff;
 	z-index: 100;
 	border-radius: 2px;
-	white-space: nowrap
+	white-space: nowrap;
 }
 
 .layui-nav .layui-nav-child a {
@@ -3807,8 +3809,8 @@ body .layui-table-tips .layui-layer-content {
 
 .layui-nav .layui-nav-child dd.layui-this a,
 .layui-nav-child dd.layui-this {
-	background-color: #5FB878;
-	color: #fff
+	background-color: white;
+	color: #444
 }
 
 .layui-nav-child dd.layui-this:after {
@@ -3970,7 +3972,8 @@ body .layui-table-tips .layui-layer-content {
 	border-bottom-style: solid;
 	transition: all .2s;
 	-webkit-transition: all .2s;
-	padding: 0 100px;
+	width: 80%;
+	margin: 0 auto;
 }
 
 .layui-tab-title li {
@@ -4016,6 +4019,8 @@ body .layui-table-tips .layui-layer-content {
 
 
 }
+
+
 
 .layui-tab-bar {
 	position: absolute;

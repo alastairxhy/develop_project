@@ -26,6 +26,7 @@
     overflow: hidden;
     margin: 20px 0;
     box-shadow: rgba(0,0,0,0.5) 0px 3px 5px;
+    border: 1px solid #d2d2d2;
 }
 #menus{
     padding: 0 50px;
@@ -44,4 +45,35 @@
 
 .footer{
     padding: 24px;
+}
+
+.layui-nav .layui-nav-item .layui-nav-child a{
+    color: #444;
+    font-size: 14px;
+}
+
+.threeNav{
+    position: absolute;
+    top:-5px;
+    left: 100%;
+    text-align: center;
+    background: white;
+    padding: 5px 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .12);
+    border-radius: 2px;
+}
+.threeNav a{
+    padding: 0 20px;
+
+}
+
+#menus .layui-icon-triangle-r,#menus .layui-icon-triangle-d{
+    position: absolute;
+    top: 0;
+    right: 5px
+}
+
+.layui-nav .layui-this a {
+    color: #fff;
+    background: none;
 }
