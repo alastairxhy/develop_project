@@ -23,6 +23,19 @@
 			.layui-tab-item{
 				height: 100%;
 			}
+			.layui-tab-title li{
+				line-height: 24px;
+			}
+			.layui-tab-title{
+				height: 30px;
+			}
+            .layui-tab-title li:nth-child(1){
+                padding-right: 25px!important;
+            }
+            .layui-tab-title li:nth-child(1) i{
+                display: none;
+
+            }
 		</style>
 	</head>
 	<body>
@@ -32,19 +45,22 @@
 				<a href="contingency.html"  target="content_iframe" title="点击进入首页"><img src="websource/img/monitor_platform/logo/logo.png" class="logo" id="logo"/></a>
 			</div>
 			<div class="" style="width: 950px">
-				<ul class="layui-nav "  id="menus" lay-filter="menus">
-					<li v-for="(menus,index) in menus" class="layui-nav-item"  @mouseleave="hideC">
-						<a href="javascript:;" :id="menus.id"  v-text="menus.text" class="setChild" @mouseenter="showC(index)" ></a>
-						<dl :class="'layui-nav-child layui-anim layui-anim-upbit '+(isIndex == index?'layui-show':'')" v-if="menus.children.length != 0" > <!-- 二级菜单 -->
-							<dd v-for="(child,indexs) in menus.children" @mouseenter="childItem(indexs)">
-								<a href="javascript:;" :id="child.id"><span v-text="child.text"></span> <i  v-if="child.children.length != 0" :class="'layui-icon '+ (indexs == childIndex?'layui-icon-triangle-r':'layui-icon-triangle-d')"></i></a>
-								<ul class="threeNav" v-if="child.children.length != 0" v-show="indexs == childIndex">
-									<li v-for="threeNavItem in child.children"><a href="javascript:;" :id="threeNavItem.id" v-text="threeNavItem.text"></a></li>
-								</ul>
-							</dd>
-						</dl>
-					</li>
-				</ul>
+                <ul class="layui-nav " id="menus" lay-filter="menus">
+                    <li v-for="(menus,index) in menus" class="layui-nav-item" @mouseleave="hideC">
+                        <a href="javascript:;" :id="menus.id" v-text="menus.text" class="setChild"
+                           @mouseenter="showC(index)" :url="menus.url"></a>
+                        <dl :class="'layui-nav-child layui-anim layui-anim-upbit '+(isIndex == index?'layui-show':'')"
+                            v-if="menus.children.length != 0"> <!-- 二级菜单 -->
+                            <dd v-for="(child,indexs) in menus.children" @mouseenter="childItem(indexs)">
+                                <a href="javascript:;" :id="child.id" url="child.url"><span v-text="child.text"></span>
+                                    <i v-if="child.children.length != 0" :class="'layui-icon '+ (indexs == childIndex?'layui-icon-triangle-r':'layui-icon-triangle-d')"></i></a>
+                                <ul class="threeNav" v-if="child.children.length != 0" v-show="indexs == childIndex">
+                                    <li v-for="threeNavItem in child.children"><a href="javascript:;" :id="threeNavItem.id" v-text="threeNavItem.text" :url="threeNavItem.url"></a></li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
 				<ul class="layui-nav layui-layout-right" id="login_info">
 					<li class="layui-nav-item" style="width: 150px" id="logined">
 						<a href="javascript:;">
@@ -139,21 +155,27 @@
 					}
 				});
 				element.on('nav(menus)',function (obj) {
-					console.log(obj);
-					var title = obj.context.innerText;
-					var id = obj.context.getAttribute("id");
-                    var tabs = $(".layui-tab-title li");
+					console.log(obj.context.getAttribute("id"));
+					var title = obj.context.innerText,
+						id = obj.context.getAttribute("id"),
+                    	tabs = $(".layui-tab-title li"),
+						url = obj.context.getAttribute("url");
                     for(var j=0;j<tabs.length;j++){
                         if(tabs[j].getAttribute("lay-id") == id){
                             element.tabChange("tab", id);
                             return;
 						};
                     }
-					element.tabAdd('tab', {
-                        title: title,
-						content: '<iframe src="contingency.html" width="" height="80" class="main" scrolling="auto"  name="content_iframe"></iframe>',
-						id: id
-                    });
+                    if(url != ''){
+                        element.tabAdd('tab', {
+                            title: title,
+                            content: '<iframe src="'+url+'" width="" height="80" class="main" scrolling="auto"  name="content_iframe"></iframe>',
+                            id: id
+                        });
+					}else{
+                        layer.alert("暂未开放此功能！")
+					}
+
                     element.tabChange("tab", id);
 
 

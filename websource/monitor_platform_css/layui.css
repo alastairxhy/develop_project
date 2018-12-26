@@ -1946,7 +1946,7 @@ hr {
 }
 
 .layui-btn-normal {
-	background-color: #07a4ff
+	background-color: #239fd7
 }
 
 .layui-btn-warm {
@@ -2046,7 +2046,7 @@ hr {
 .layui-input,
 .layui-select,
 .layui-textarea {
-	height: 38px;
+	height: 34px;
 	line-height: 1.3;
 	line-height: 38px\9;
 	border-width: 1px;
@@ -2831,7 +2831,7 @@ hr {
 	padding: 1px;
 	width: 100%;
 	height: 100%;
-	background-color: #07a4ff
+	background-color: #239fd7
 }
 
 .layui-laypage-em {
@@ -2970,7 +2970,7 @@ hr {
 .layui-table-total,
 .layui-table-total tr,
 .layui-table[lay-even] tr:nth-child(even) {
-	background-color: #f9f9f9
+	background-color: #f0fbff;
 }
 
 .layui-table-tool{background-color: white}
@@ -3988,7 +3988,7 @@ body .layui-table-tips .layui-layer-content {
 	line-height: 30px;
 	margin-top: 6px;
 	min-width: 65px;
-	padding: 0 20px 0 30px;
+	padding: 0 15px 0 25px;
 	text-align: center;
 	cursor: pointer
 }
@@ -4008,16 +4008,13 @@ body .layui-table-tips .layui-layer-content {
 	top: 0;
 	content: '';
 	width: 100%;
-	height: 30px;
+	height: 24px;
 	background: transparent;
 	box-sizing: border-box;
 	pointer-events: none;
-	border-bottom:30px solid transparent;
-	border-right:18px solid white;
-	border-left:18px solid white;
-
-
-
+	border-bottom:24px solid transparent;
+	border-right:12px solid white;
+	border-left:12px solid white;
 }
 
 
