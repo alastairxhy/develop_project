@@ -13,25 +13,54 @@
 			body{height: 100%;}
 			#logo{margin-top: 20px;}
 			.mask{position: fixed;top:0;left:0;width: 100%;height: 100%;background-color: white;z-index: 9999;}
-			.layui-nav .layui-nav-item a{color: white;font-size: 18px}
+			.layui-nav .layui-nav-item a{color: white;font-size: 16px}
 			.layui-main>div{float: left}
 			.layui-main::after{
 				content: '';
 				clear: both;
 			}
             .footer{display: flex;bottom: 0;left: 0;background-color: white;color: black;}
+			.layui-tab-item{
+				height: 100%;
+			}
+			.layui-tab-title li{
+				line-height: 24px;
+			}
+			.layui-tab-title{
+				height: 30px;
+			}
+            .layui-tab-title li:nth-child(1){
+                padding-right: 25px!important;
+            }
+            .layui-tab-title li:nth-child(1) i{
+                display: none;
+
+            }
 		</style>
 	</head>
 	<body>
 	<div class="layui-header ">
 		<div class="layui-main">
 			<div class="layui-col-md3  logo_box">
-				<a href="contingency.html"  target="content_iframe" title="点击进入首页"><img src="websource/img/logo.png" class="logo" id="logo"/></a>
+				<a href="contingency.html"  target="content_iframe" title="点击进入首页"><img src="websource/img/monitor_platform/logo/logo.png" class="logo" id="logo"/></a>
 			</div>
-			<div class="layui-col-md8 layui-col-md-offset1">
-				<ul class="layui-nav " lay-filter="" id="menus" >
-					<li v-for="(menus,index) in menus" :class="'layui-nav-item '+(current==index?'layui-this':'')" @click="set_current(index)"> <a :href="menus.url+'?pid='+menus.id" target="content_iframe" v-text="menus.text"></a>  </li>
-				</ul>
+			<div class="" style="width: 950px">
+                <ul class="layui-nav " id="menus" lay-filter="menus">
+                    <li v-for="(menus,index) in menus" class="layui-nav-item" @mouseleave="hideC">
+                        <a href="javascript:;" :id="menus.id" v-text="menus.text" class="setChild"
+                           @mouseenter="showC(index)" :url="menus.url"></a>
+                        <dl :class="'layui-nav-child layui-anim layui-anim-upbit '+(isIndex == index?'layui-show':'')"
+                            v-if="menus.children.length != 0"> <!-- 二级菜单 -->
+                            <dd v-for="(child,indexs) in menus.children" @mouseenter="childItem(indexs)">
+                                <a href="javascript:;" :id="child.id" url="child.url"><span v-text="child.text"></span>
+                                    <i v-if="child.children.length != 0" :class="'layui-icon '+ (indexs == childIndex?'layui-icon-triangle-r':'layui-icon-triangle-d')"></i></a>
+                                <ul class="threeNav" v-if="child.children.length != 0" v-show="indexs == childIndex">
+                                    <li v-for="threeNavItem in child.children"><a href="javascript:;" :id="threeNavItem.id" v-text="threeNavItem.text" :url="threeNavItem.url"></a></li>
+                                </ul>
+                            </dd>
+                        </dl>
+                    </li>
+                </ul>
 				<ul class="layui-nav layui-layout-right" id="login_info">
 					<li class="layui-nav-item" style="width: 150px" id="logined">
 						<a href="javascript:;">
@@ -49,22 +78,14 @@
 			</div>
 		</div>
 	</div>
-	<div class="layui-tab" style="margin: 0" lay-allowClose="true">
-		<ul class="layui-tab-title">
-			<li class="layui-this">网站设置</li>
-			<li>用户管理</li>
-			<li>权限分配</li>
-			<li>商品管理</li>
-			<li>订单管理</li>
+	<div class="layui-tab" style="margin: 0" lay-allowClose="true" lay-filter="tab">
+		<ul class="layui-tab-title" >
+			<li class="layui-this">首页</li>
 		</ul>
 		<div class="layui-tab-content" style="padding: 0">
-			<div class="layui-tab-item layui-show" id="content_iframe">
+			<div class="layui-tab-item layui-show">
 				<iframe src="contingency.html" width="" height="80" class="main" scrolling="auto"  name="content_iframe"></iframe>
 			</div>
-			<div class="layui-tab-item">内容2</div>
-			<div class="layui-tab-item">内容3</div>
-			<div class="layui-tab-item">内容4</div>
-			<div class="layui-tab-item">内容5</div>
 		</div>
 	</div>
 	<div class="footer" >
@@ -80,6 +101,7 @@
 		<!--</li>-->
 	<!--</div>-->
 		<script src="websource/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+		<script src="websource/js/monitor_platform_js/config.js"></script>
 		<script type="text/javascript" src="websource/js/mask.min.js"></script>
 		<script src="websource/js/vue.js"></script>
 		<script src="websource/js/layui/layui.all.js" type="text/javascript"  charset="utf-8"></script>
@@ -96,40 +118,79 @@
                     $("#login").show();
                     $("#logined").hide();
 				};
-
+                function siblings(elm) {
+                    var a = [];
+                    var p = elm.parentNode.children;
+                    for(var i = 0,pl = p.length; i < pl; i++) {
+                        if(p[i] !== elm) a.push(p[i]);
+                    }
+                    return a;
+                };
 				var menus = new Vue({
 					el:"#menus",
 					data:{
-					    menus:[],
+					    menus:menus_data,
                         current:null,
+						isIndex:null,
+						childIndex:null,
 					},
+					mounted:function () {
+
+                    },
 					updated:function () {
-					    form.render()
+					    form.render();
+					    layui.element.render()
+
                     },
 					methods:{
-                        set_current:function (e) {
-							this.$set(this.$data,"current",e)
-                        }
+						showC(index){
+							this.$set(this.$data,'isIndex',index)
+						},
+                        hideC(e){
+                            this.$set(this.$data,'isIndex',null)
+						},
+						childItem(index){
+                            this.$set(this.$data,'childIndex',index)
+						}
 					}
-				})
-
-                $.ajax({
-					method:"post",
-                    data:{
-                        methodName:"menus",
-                        pId:"0",
-                        menuType:"3"
-                    },
-                    success:function (res) {
-                        menus.$set(menus.$data,"menus",res.obj);
-                        menus.$forceUpdate()
+				});
+				element.on('nav(menus)',function (obj) {
+					console.log(obj.context.getAttribute("id"));
+					var title = obj.context.innerText,
+						id = obj.context.getAttribute("id"),
+                    	tabs = $(".layui-tab-title li"),
+						url = obj.context.getAttribute("url");
+                    for(var j=0;j<tabs.length;j++){
+                        if(tabs[j].getAttribute("lay-id") == id){
+                            element.tabChange("tab", id);
+                            return;
+						};
                     }
-                })
+                    if(url != ''){
+                        element.tabAdd('tab', {
+                            title: title,
+                            content: '<iframe src="'+url+'" width="" height="80" class="main" scrolling="auto"  name="content_iframe"></iframe>',
+                            id: id
+                        });
+					}else{
+                        layer.alert("暂未开放此功能！")
+					}
+
+                    element.tabChange("tab", id);
+
+
+					element.render()
+                });
+
+                element.on('tab(tab)',function (obj) {
+					console.log(obj)
+                });
 
 
             });
+
 			var window_height = $(window).height();
-			$(".layui-tab-item").css("height",window_height - 205);
+			$(".layui-tab-content").css("height",window_height - 205);
 
 
 			$("#logout").click(function () {
@@ -152,7 +213,15 @@
 				day = date.getDate(),
 				day_z = date.getDay();
 			$("#_date").text(year+"年"+month+"月"+day+"号  星期"+day_z);
+			$.ajax({
+				url:"http://admincs.yunandawulian.com/appServer/Statics/getRecentAlarm",
+				data:{
 
+				},
+				success:function (res) {
+					console.log(res)
+                }
+			})
 
 
 
