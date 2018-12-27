@@ -28,7 +28,10 @@
 	<!--信息容器-->
 	<div class="top_left_window1">
 		<!--左上第一容器，存放图标插件-->
-		<div class="top_left_window1_title">电梯密度分布图</div>
+		<div class="top_left_window1_title">
+			电梯密度分布图
+			<i class="layui-icon layui-icon-left" style="color: white;font-size: 20px;margin-left: 10px"></i>
+		</div>
 		<div id="echart_map"></div>
 	</div>
 	<div class="top_left_window2"  >
@@ -91,6 +94,17 @@
         var layer = layui.layer,
             element = layui.element,
             form = layui.form;
+
+        var vue = new Vue({
+			el:"",
+			data:{
+
+			},
+            methods:{
+
+			}
+
+		})
 
         //动态获取地图距离位置(暂定)
         var distance_map = function() {
@@ -181,7 +195,7 @@
         $.ajax({
             data:{
                 "methodName": "serviceData",
-                "distance":"3000"
+                "distance":"300000"
             },
             success:function (res) {
                 // console.log(res);
