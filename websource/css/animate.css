@@ -1,0 +1,12 @@
+.fadeOutLeft {
+    -webkit-transform: translate3d(-95%, 0, 0);
+    transform: translate3d(-95%, 0, 0);
+}
+.fadeinRight {
+    -webkit-transform: translate3d(0%, 0, 0);
+    transform: translate3d(0%, 0, 0);
+}
+/*.fadeOutLeft {*/
+    /*-webkit-animation-name: fadeOutLeft;*/
+    /*animation-name: fadeOutLeft;*/
+/*}*/
