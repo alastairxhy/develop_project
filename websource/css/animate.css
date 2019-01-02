@@ -1,18 +1,30 @@
 .fadeOutLeft {
     -webkit-transform: translate3d(-95%, 0, 0);
     transform: translate3d(-95%, 0, 0);
+    transition-duration: 0.6s;
+    -webkit-transition-duration: 0.6s; /* Safari 和 Chrome */
+    transition-timing-function:ease;
 }
 .fadeinRight {
     -webkit-transform: translate3d(0%, 0, 0);
     transform: translate3d(0%, 0, 0);
+    transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s; /* Safari 和 Chrome */
+    transition-timing-function:ease;
 }
 .fadeOutRight_right{
     -webkit-transform: translate3d(95%, 0, 0);
     transform: translate3d(95%, 0, 0);
+    transition-duration: 0.6s;
+    -webkit-transition-duration: 0.6s; /* Safari 和 Chrome */
+    transition-timing-function:ease;
 }
 .fadeinRight_right{
     -webkit-transform: translate3d(0%, 0, 0);
     transform: translate3d(0%, 0, 0);
+    transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s; /* Safari 和 Chrome */
+    transition-timing-function:ease;
 }
 /*.fadeOutLeft {*/
     /*-webkit-animation-name: fadeOutLeft;*/
