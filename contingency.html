@@ -20,7 +20,10 @@
 		.top_left_window2{z-index: 2;}
 		.top_right_window{z-index: 2;}
 		.layui-form-label{
-			width: 60px !important;
+			width: 70px !important;
+		}
+		.layui-input-block{
+
 		}
 		.i_icon{
 			color: white;
@@ -29,13 +32,19 @@
 			left: 60px;
 			z-index: 3;
 		}
-		.i_icon:hover{
-			cursor: pointer;
+		.i_icon_right{
+			color: white;
+			font-size: 20px;
+			position: absolute;
+			left: 5px;
+			z-index: 3;
 		}
+		.i_icon:hover{cursor: pointer;}
+		.i_icon_right:hover{cursor: pointer;}
 	</style>
 </head>
 <body>
-<div id="user_info">
+<div id="elevator_info">
 	<!--信息容器-->
 	<div class="top_left_window1" id="top_left_window1">
 		<!--左上第一容器，存放图标插件-->
@@ -56,30 +65,34 @@
 			<div class="layui-input-block " ></div>
 		</div>
 	</div>
-	<div class="top_right_window">
+	<div class="top_right_window" id="top_right_window" >
 		<!--右上第一容器-->
-		<div class="top_right_window_title">入网统计</div>
-		<div class="layui-form-item">
-			<label class="layui-form-label">物联电梯:</label>
-			<div class="layui-input-block " ></div>
+		<div class="top_right_window_title">
+			<i id="top_right_window_i" class="layui-icon layui-icon-right i_icon_right" onclick="fadeout_right()"></i>
+			入网统计
 		</div>
-		<div class="layui-form-item">
+		<div class="layui-form" id="top_right_window_content">
+			<div class="layui-form-item">
+				<label class="layui-form-label">物联电梯:</label>
+				<div class="layui-input-block"></div>
+			</div>
+			<div class="layui-form-item">
 			<label class="layui-form-label">在线电梯:</label>
 			<div class="layui-input-block " ></div>
 		</div>
-		<div class="layui-form-item">
+			<div class="layui-form-item">
 			<label class="layui-form-label">离线电梯:</label>
 			<div class="layui-input-block " ></div>
 		</div>
-		<div class="layui-form-item">
+			<div class="layui-form-item">
 			<label class="layui-form-label">维保单位:</label>
 			<div class="layui-input-block " ></div>
 		</div>
-		<div class="layui-form-item">
+			<div class="layui-form-item">
 			<label class="layui-form-label">使用单位:</label>
 			<div class="layui-input-block " ></div>
 		</div>
-
+		</div>
 	</div>
 </div>
 <div id="baiduMap">
@@ -93,7 +106,6 @@
 <script src="websource/js/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
 <script src="http://api.map.baidu.com/api?v=2.0&ak=3b55d902d2eb9763e7a76a40a2bfa0bf" type="text/javascript" ></script>
 <script src="websource/js/public.js" type="text/javascript" charset="utf-8"></script>
-
 <script src="websource/js/echarts.js" type="text/javascript" charset="utf-8"></script>
 <!--实现聚合点API-->
 <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
@@ -110,14 +122,20 @@
             form = layui.form;
 
         var vue = new Vue({
-			el:"",
+			el:"#elevator_info",
 			data:{
-
+			    msg:"100"
 			},
             methods:{
 
 			}
 
+		})
+		$.ajax({
+			url:"http://admincs.yunandawulian.com/appServer/Statics/getStaticsNew",
+			success:function (res) {
+				console.log(res);
+            }
 		})
 
         //动态获取地图距离位置(暂定)
@@ -388,6 +406,25 @@
         $('#top_left_window2_i').removeAttr('onclick');
         $('#top_left_window2_i').attr('onclick','fadeout_2()');
     }
+    var fadeout_right = function(){
+        $('#top_right_window').addClass("fadeOutRight_right");
+        $('#top_right_window').removeClass("fadeinRight_right");
+        $('#top_right_window_i').removeClass("layui-icon-right");
+        $('#top_right_window_i').addClass("layui-icon-left");
+        $('#top_right_window_i').removeAttr('onclick');
+        $('#top_right_window_i').attr('onclick','fadein_right()');
+        $('#top_right_window_content').css("opacity","0");
+    }
+    var fadein_right = function(){
+        $('#top_right_window').addClass("fadeinRight_right");
+        $('#top_right_window').removeClass("fadeOutRight_right");
+        $('#top_right_window_i').removeClass("layui-icon-left");
+        $('#top_right_window_i').addClass("layui-icon-right");
+        $('#top_right_window_i').removeAttr('onclick');
+        $('#top_right_window_i').attr('onclick','fadeout_right()');
+        $('#top_right_window_content').css("opacity","0.9");
+    }
+
 
 
 </script>
