@@ -6,18 +6,27 @@ var request_url, request_url_json;
 
 
 if (develop.debug) {
-    request_url = 'http://admincs.yunandawulian.com/appServer/webApi/rpv1';
-    request_url_json = 'http://admincs.yunandawulian.com/appServer/webApi/rbv1';
+    request_url = 'http://admincs.yunandawulian.com/appServer/';
+    request_url_json = 'http://admincs.yunandawulian.com/appServer/';
 } else {
-    request_url = 'http://admin.yunandawulian.com/webApi/rpv1';
-    request_url_json = 'http://admin.yunandawulian.com/webApi/rbv1';
+    request_url = 'http://admin.yunandawulian.com/';
+    request_url_json = 'http://admin.yunandawulian.com/';
 }
 ;
 
+PROJECT_PATH = {
+    index:{url:'index.html',ID:1},
+    Elevator_list:{url:"admission_management/Elevator_list.html",ID:10101},
+    add_elevator:{url:"admission_management/add_elevator.html",ID:10102}
+}
+
 $.ajaxSetup({
-    url: request_url,
+    url: request_url+'webApi/rpv1',
     type: "post",
     dataType: "json",
+    headers:{
+        fromType:'wlzd'
+    },
     xhrFields: {withCredentials: true},
     complete: function (XMLHttpRequest, textStatus, xhr) {
         var oauthstatus = XMLHttpRequest.getResponseHeader("oauthstatus");
@@ -38,6 +47,7 @@ function getMenus(id,recurrence) {
     recurrence--;
     var getData;
     $.ajax({
+        url:request_url+'webApi/rpv1',
         data:{
             methodName:'menus',
             pId:id,

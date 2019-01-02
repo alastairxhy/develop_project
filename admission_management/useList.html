@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>选择列表</title>
+    <link rel="stylesheet" type="text/css" href="../websource/monitor_platform_css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="../websource/css/style.css"/>
+    <link rel="stylesheet" href="../websource/monitor_platform_css/style.css">
+    <link rel="stylesheet" type="text/css" href="../websource/css/mask.css">
+</head>
+<body>
+<div class="layui-col-md10 layui-col-md-offset1">
+    <table id="useList" lay-filter="useList"></table>
+
+</div>
+<script type="text/html" id="list_table_tool">
+    <a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="use">选择</a>
+</script>
+<script src="../websource/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="../websource/js/monitor_platform_js/config.js"></script>
+<script type="text/javascript" src="../websource/js/mask.min.js"></script>
+<script src="../websource/js/vue.js"></script>
+<script src="../websource/js/layui/layui.all.js" type="text/javascript"  charset="utf-8"></script>
+<script src="../websource/js/public.js" type="text/javascript" charset="utf-8"></script>
+<script >
+    layui.use(['element','table','layer'],function () {
+        var element = layui.element,table = layui.table,layer = layui.layer;
+        table.render({
+            elem:"#useList",
+            skin: "line",
+            method:'post',
+            url:request_url+'tbCorp/dataGrid',
+            headers:{
+                fromType:'wlzd'
+            },
+            where: {
+                corpType: 2,
+            },
+            request: {
+                pageName: "pageNo",
+                limitName: "pageSize"
+            },
+            parseData: function (res) {
+                return {
+                    "code": res.status,
+                    "msg": res.msg,
+                    "count": res.length,
+                    "data": res.obj[0]
+                };
+            },
+            height: 475,
+            page: {limit: 10},
+            limit: 15,
+            loading: true,
+            cols: [[ //表头
+                {field: 'corpName', title: '名称',},
+                {field: '', title: '操作', toolbar: "#list_table_tool",width:80}
+            ]],
+        })
+
+        table.on('tool(useList)',function (obj) {
+           var aaa =  $("#serviceCorpName", parent.document) ;
+           aaa.val(obj.data.corpName);
+           parent.layer.closeAll()
+        })
+
+
+    })
+
+
+</script>
+</body>
+</html>

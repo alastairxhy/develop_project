@@ -143,13 +143,13 @@
 
                     },
 					methods:{
-						showC(index){
+						showC:function(index){
 							this.$set(this.$data,'isIndex',index)
 						},
-                        hideC(e){
+                        hideC:function(e){
                             this.$set(this.$data,'isIndex',null)
 						},
-						childItem(index){
+						childItem:function(index){
                             this.$set(this.$data,'childIndex',index)
 						}
 					}

@@ -1,25 +1,31 @@
-var request_url = 'http://admincs.yunandawulian.com/appServer/webApi/rpv1';
-var request_url_json = 'http://admincs.yunandawulian.com/appServer/webApi/rbv1',
-    xhrFields = {withCredentials: true},
-    project_path = window.document.location.host,
-    index_map;
-
-$.ajaxSetup({
-    url: "http://admincs.yunandawulian.com/appServer/webApi/rpv1",
-    type: "post",
-    dataType: "json",
-    xhrFields: xhrFields,
-    complete: function (XMLHttpRequest, textStatus, xhr) {
-        var oauthstatus = XMLHttpRequest.getResponseHeader("oauthstatus");
-        if (oauthstatus == '401') {
-            self.location.href = "../../../login2.html";
-        }
-
-    },
-    // error:function () {
-    //     alert_warning()
-    // }
-});
+// var request_url = 'http://admincs.yunandawulian.com/appServer/webApi/rpv1',request_url_v2 = 'http://admincs.yunandawulian.com/appServer/webApi/rpv2';
+// var request_url_json = 'http://admincs.yunandawulian.com/appServer/webApi/rbv1',request_url_json_v2 = 'http://admincs.yunandawulian.com/appServer/webApi/rbv2',
+//     xhrFields = {withCredentials: true},
+//     project_path = window.document.location.host,
+//     index_map;
+//
+// const debug = true;
+// $(".debug").hide();
+// if(debug){
+//     $(".debug").show();
+// }
+//
+// $.ajaxSetup({
+//     url: "http://admincs.yunandawulian.com/appServer/webApi/rpv1",
+//     type: "post",
+//     dataType: "json",
+//     xhrFields: xhrFields,
+//     complete: function (XMLHttpRequest, textStatus, xhr) {
+//         var oauthstatus = XMLHttpRequest.getResponseHeader("oauthstatus");
+//         if (oauthstatus == '401') {
+//             self.location.href = "../../login2.html";
+//         }
+//
+//     },
+//     // error:function () {
+//     //     alert_warning()
+//     // }
+// });
 
 
 //获取Object对象的长度-------------------------
@@ -92,7 +98,7 @@ function getQueryVariable_2(variable) {
     }
 
 
-    return array;
+    return array[variable];
 };
 
 
@@ -140,19 +146,32 @@ function set_city_select(elem, type, placeholder, code, default_code) {
                         var selected = (j + "0000") == default_code ? "selected='true'" : "";
                         $(elem).append("<option value='" + j + "0000" + "'" + selected + ">" + city_list[j + '0000'] + "</option>");
                     }
-                }
-                ;
+                };
                 break;
             case "city":
-                var province_code = code.substr(0, 2);
-                for (var j = 1; j < 99; j++) {
-                    j = j < 10 ? "0" + j : j;
-                    if (city_list[province_code + j + '00']) {
-                        var selected = (province_code + j + '00') == default_code ? "selected='true'" : "";
-                        $(elem).append("<option value='" + province_code + j + '00' + "'" + selected + ">" + city_list[province_code + j + '00'] + "</option>");
-                    }
+                if(code==='110000' || code ==='120000' || code ==='310000' || code === '500000'){
+
+                    var city_code = code.substr(0, 2)+'01';
+                    for (var j = 1; j < 99; j++) {
+                        j = j < 10 ? "0" + String(j) : j;
+                        if (city_list[city_code + j]) {
+                            var selected = (city_code + j) == default_code ? "selected='true'" : "";
+                            $(elem).append("<option value='" + city_code + j + "'" + selected + ">" + city_list[city_code + j] + "</option>");
+                        }
+                    };
+
+                }else{
+                    var province_code = code.substr(0, 2);
+                    for (var j = 1; j < 99; j++) {
+                        j = j < 10 ? "0" + j : j;
+                        if (city_list[province_code + j + '00']) {
+                            var selected = (province_code + j + '00') == default_code ? "selected='true'" : "";
+                            $(elem).append("<option value='" + province_code + j + '00' + "'" + selected + ">" + city_list[province_code + j + '00'] + "</option>");
+                        }
+                    };
                 }
-                ;
+
+
                 break;
             case "district":
                 var city_code = code.substr(0, 4);
@@ -162,8 +181,7 @@ function set_city_select(elem, type, placeholder, code, default_code) {
                         var selected = (city_code + j) == default_code ? "selected='true'" : "";
                         $(elem).append("<option value='" + city_code + j + "'" + selected + ">" + city_list[city_code + j] + "</option>");
                     }
-                }
-                ;
+                };
                 break;
             case "street":
                 $.ajax({
@@ -762,20 +780,41 @@ if (!Array.prototype.find) {
     });
 }
 
-
-
-$("#second").click(function () {
-    var second_path = window.parent.location.pathname;
-    var three_path = window.location.pathname;
-    console.log(second_path+"\n"+three_path);
-    switch (second_path) {
-        case "/yunanda_01/yunanda_develop/alarm/alarm_main.html":
-            window.top.frames["content_iframe"].window.location.replace("alarm_main.html?pid=2550");
-            break;
-    }
-});
-
 if(getQueryVariable("navName")){
-    $("cite").text(decodeURIComponent(getQueryVariable("navName")))
+    var second_PID = getQueryVariable_2("pid"),
+        secondElem = $("cite").parent().siblings("#second"),
+        index_MB = $("cite").parent().siblings("#index_MB"),
+        isMenus= menus_data.find(function (obj) {
+        return obj.id==second_PID;
+    });
+
+    $("cite").text(decodeURIComponent(getQueryVariable("navName")));
+    secondElem.text(isMenus.text);
+    secondElem.click(function () {
+        var HtmlURL = isMenus.url.split("/")[1];
+        window.top.frames["content_iframe"].window.location.replace(HtmlURL+"?pid="+isMenus.id);
+    });
+    index_MB.click(function () {
+       console.log(window.top.frames["content_iframe"].window.location.href = pathName+'contingency.html') ;
+    })
+
+};
+
+function  ParentAddTab(optoins) {
+    var tabs = $(".layui-tab-title li",parent.document);
+    for(var j=0;j<tabs.length;j++){
+        if(tabs[j].getAttribute("lay-id") == optoins.ID){
+            parent.layui.element.tabChange("tab", optoins.ID);
+            return;
+        };
+    }
+    parent.layui.element.tabAdd("tab",{
+        title: "添加电梯",
+        content: '<iframe src="'+optoins.url+'" width="" height="80" class="main" scrolling="auto"  name="content_iframe"></iframe>',
+        id: optoins.ID
+    });
+    parent.layui.element.tabChange("tab", optoins.ID);
 }
+
+
 

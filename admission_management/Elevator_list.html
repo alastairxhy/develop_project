@@ -70,13 +70,13 @@
     </form>
     <table id="list" lay-filter="list"></table>
 </div>
-<script type="text/html" id="alarm_account_table_toolbar">
+<script type="text/html" id="list_table_toolbar">
     <div class="layui-btn-container">
-        <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="getCheckData">添加电梯</button>
+        <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add_elevator">添加电梯</button>
         <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="getCheckData">调试入网</button>
     </div>
 </script>
-<script type="text/html" id="alarm_account_table_tool">
+<script type="text/html" id="list_table_tool">
     <div>
         <a class="" lay-event="edit">编辑</a>
         <a class="" lay-event="video">删除</a>
@@ -97,9 +97,7 @@
         <a class="" lay-event="message">详情</a>
     </div>
 </script>
-<script type="text/html" id="select">
-    <input type="checkbox" name="lock" value="{{d.id}}" title="锁定" lay-filter="lockDemo" {{ d.id == 10006 ? 'checked' : '' }}>
-</script>
+
 <script src="../websource/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
 <script src="../websource/js/monitor_platform_js/config.js"></script>
 <script type="text/javascript" src="../websource/js/mask.min.js"></script>
@@ -107,14 +105,17 @@
 <script src="../websource/js/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
 <script src="../websource/js/public.js" type="text/javascript" charset="utf-8"></script>
 <script>
-    layui.use(["table"], function () {
-        var table = layui.table;
+    layui.use(["table","element"], function () {
+        var table = layui.table,element = layui.element;
 
         table.render({
             elem: "#list",
             method: "post",
-            url: request_url,
+            url: request_url+'webApi/rpv1',
             skin: "line",
+            headers:{
+                fromType:'wlzd'
+            },
             where: {
                 methodName: "getAlarmList",
                 type: 1,
@@ -125,7 +126,6 @@
                 limitName: "pageSize"
             },
             parseData: function (res) {
-                console.log($(".test"))
                 return {
                     "code": res.status,
                     "msg": res.msg,
@@ -137,7 +137,7 @@
             page: {limit: 10},
             limit: 15,
             loading: true,
-            toolbar: "#alarm_account_table_toolbar",
+            toolbar: "#list_table_toolbar",
             id: "alarm_account_table",
             cols: [
                 [
@@ -198,7 +198,7 @@
                             return val == '0' ? '已接警' : val == '10' ? '救援已派遣' : val == '15' ? '已派遣120' : val == '20' ? '救援已抵达' : val == '25' ? '已抵达现场' : val == '30' ? '已完成救援' : val == '35' ? '已完成救护120' : val == '40' ? '已维修完成' : val == '50' ? '已救援回访' : val == '60' ? '已维修回访' : '已完成';
                         }
                     },
-                    {field: '', title: '操作', width: 200, toolbar: "#alarm_account_table_tool", fixed: "right"},
+                    {field: '', title: '操作', width: 200, toolbar: "#list_table_tool", fixed: "right"},
                 ]
             ]
         });
@@ -207,8 +207,15 @@
 
         table.on("tool(list)",function (obj) {
             console.log(obj)
-        })
+        });
 
+        table.on("toolbar(list)",function (obj) {
+            switch (obj.event) {
+                case "add_elevator":
+                    ParentAddTab(PROJECT_PATH.add_elevator)
+                    break;
+            }
+        });
     })
 </script>
 </body>
