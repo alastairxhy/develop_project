@@ -26,6 +26,7 @@
 <script >
     layui.use(['element','table','layer'],function () {
         var element = layui.element,table = layui.table,layer = layui.layer;
+        var listType = getQueryVariable("listType"),inpputID = getQueryVariable("inpputID");
         table.render({
             elem:"#useList",
             skin: "line",
@@ -35,7 +36,7 @@
                 fromType:'wlzd'
             },
             where: {
-                corpType: 2,
+                corpType: listType,
             },
             request: {
                 pageName: "pageNo",
@@ -60,14 +61,14 @@
         })
 
         table.on('tool(useList)',function (obj) {
-           var aaa =  $("#serviceCorpName", parent.document) ;
-           aaa.val(obj.data.corpName);
+           var input =  $("#"+inpputID, parent.document) ,input2 = $("#"+inpputID+'ID', parent.document);
+            input.val(obj.data.corpName);
+            input2.val(obj.data.id);
            parent.layer.closeAll()
         })
 
 
     })
-
 
 </script>
 </body>

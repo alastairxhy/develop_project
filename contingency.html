@@ -50,7 +50,7 @@
 		<!--左上第一容器，存放图标插件-->
 		<div class="top_left_window1_title">
 			电梯密度分布图
-			<i id="top_left_window1_i" class="layui-icon layui-icon-left i_icon" onclick="fadeout_1()"></i>
+			<i id="top_left_window1_i" direction="left" class="layui-icon layui-icon-left i_icon Slide"></i>
 		</div>
 		<div id="echart_map"></div>
 	</div>
@@ -58,7 +58,7 @@
 		<!--左上第二容器-->
 		<div class="top_left_window2_title">
 			电梯最近报警
-			<i id="top_left_window2_i" class="layui-icon layui-icon-left i_icon" onclick="fadeout_2()"></i>
+			<i id="top_left_window2_i" direction="left" class="layui-icon layui-icon-left i_icon Slide" ></i>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">物联电梯:</label>
@@ -68,7 +68,7 @@
 	<div class="top_right_window" id="top_right_window" >
 		<!--右上第一容器-->
 		<div class="top_right_window_title">
-			<i id="top_right_window_i" class="layui-icon layui-icon-right i_icon_right" onclick="fadeout_right()"></i>
+			<i id="top_right_window_i" direction="right" class="layui-icon layui-icon-right i_icon_right Slide" ></i>
 			入网统计
 		</div>
 		<div class="layui-form" id="top_right_window_content">
@@ -374,57 +374,94 @@
     })
 
     //窗口隐藏动画
-    var fadeout_1 = function(){
-        $('#top_left_window1').addClass("fadeOutLeft");
-        $('#top_left_window1').removeClass("fadeinRight");
-		$('#top_left_window1_i').removeClass("layui-icon-left");
-        $('#top_left_window1_i').addClass("layui-icon-right");
-        $('#top_left_window1_i').removeAttr('onclick');
-        $('#top_left_window1_i').attr('onclick','fadein_1()');
-    }
-    var fadein_1 = function(){
-        $('#top_left_window1').addClass("fadeinRight");
-        $('#top_left_window1').removeClass("fadeOutLeft");
-        $('#top_left_window1_i').removeClass("layui-icon-right");
-        $('#top_left_window1_i').addClass("layui-icon-left");
-        $('#top_left_window1_i').removeAttr('onclick');
-        $('#top_left_window1_i').attr('onclick','fadeout_1()');
-    }
-    var fadeout_2 = function(){
-        $('#top_left_window2').addClass("fadeOutLeft");
-        $('#top_left_window2').removeClass("fadeinRight");
-        $('#top_left_window2_i').removeClass("layui-icon-left");
-        $('#top_left_window2_i').addClass("layui-icon-right");
-        $('#top_left_window2_i').removeAttr('onclick');
-        $('#top_left_window2_i').attr('onclick','fadein_2()');
-    }
-    var fadein_2 = function(){
-        $('#top_left_window2').addClass("fadeinRight");
-        $('#top_left_window2').removeClass("fadeOutLeft");
-        $('#top_left_window2_i').removeClass("layui-icon-right");
-        $('#top_left_window2_i').addClass("layui-icon-left");
-        $('#top_left_window2_i').removeAttr('onclick');
-        $('#top_left_window2_i').attr('onclick','fadeout_2()');
-    }
-    var fadeout_right = function(){
-        $('#top_right_window').addClass("fadeOutRight_right");
-        $('#top_right_window').removeClass("fadeinRight_right");
-        $('#top_right_window_i').removeClass("layui-icon-right");
-        $('#top_right_window_i').addClass("layui-icon-left");
-        $('#top_right_window_i').removeAttr('onclick');
-        $('#top_right_window_i').attr('onclick','fadein_right()');
-        $('#top_right_window_content').css("opacity","0");
-    }
-    var fadein_right = function(){
-        $('#top_right_window').addClass("fadeinRight_right");
-        $('#top_right_window').removeClass("fadeOutRight_right");
-        $('#top_right_window_i').removeClass("layui-icon-left");
-        $('#top_right_window_i').addClass("layui-icon-right");
-        $('#top_right_window_i').removeAttr('onclick');
-        $('#top_right_window_i').attr('onclick','fadeout_right()');
-        $('#top_right_window_content').css("opacity","0.9");
-    }
+    // var fadeout_1 = function(){
+    //     $('#top_left_window1').addClass("fadeOutLeft");
+    //     $('#top_left_window1').removeClass("fadeinRight");
+	// 	$('#top_left_window1_i').removeClass("layui-icon-left");
+    //     $('#top_left_window1_i').addClass("layui-icon-right");
+    //     $('#top_left_window1_i').removeAttr('onclick');
+    //     $('#top_left_window1_i').attr('onclick','fadein_1()');
+    // }
+    // var fadein_1 = function(){
+    //     $('#top_left_window1').addClass("fadeinRight");
+    //     $('#top_left_window1').removeClass("fadeOutLeft");
+    //     $('#top_left_window1_i').removeClass("layui-icon-right");
+    //     $('#top_left_window1_i').addClass("layui-icon-left");
+    //     $('#top_left_window1_i').removeAttr('onclick');
+    //     $('#top_left_window1_i').attr('onclick','fadeout_1()');
+    // }
+    // var fadeout_2 = function(){
+    //     $('#top_left_window2').addClass("fadeOutLeft");
+    //     $('#top_left_window2').removeClass("fadeinRight");
+    //     $('#top_left_window2_i').removeClass("layui-icon-left");
+    //     $('#top_left_window2_i').addClass("layui-icon-right");
+    //     $('#top_left_window2_i').removeAttr('onclick');
+    //     $('#top_left_window2_i').attr('onclick','fadein_2()');
+    // }
+    // var fadein_2 = function(){
+    //     $('#top_left_window2').addClass("fadeinRight");
+    //     $('#top_left_window2').removeClass("fadeOutLeft");
+    //     $('#top_left_window2_i').removeClass("layui-icon-right");
+    //     $('#top_left_window2_i').addClass("layui-icon-left");
+    //     $('#top_left_window2_i').removeAttr('onclick');
+    //     $('#top_left_window2_i').attr('onclick','fadeout_2()');
+    // }
+    // var fadeout_right = function(){
+    //     $('#top_right_window').addClass("fadeOutRight_right");
+    //     $('#top_right_window').removeClass("fadeinRight_right");
+    //     $('#top_right_window_i').removeClass("layui-icon-right");
+    //     $('#top_right_window_i').addClass("layui-icon-left");
+    //     $('#top_right_window_i').removeAttr('onclick');
+    //     $('#top_right_window_i').attr('onclick','fadein_right()');
+    //     $('#top_right_window_content').css("opacity","0");
+    // }
+    // var fadein_right = function(){
+    //     $('#top_right_window').addClass("fadeinRight_right");
+    //     $('#top_right_window').removeClass("fadeOutRight_right");
+    //     $('#top_right_window_i').removeClass("layui-icon-left");
+    //     $('#top_right_window_i').addClass("layui-icon-right");
+    //     $('#top_right_window_i').removeAttr('onclick');
+    //     $('#top_right_window_i').attr('onclick','fadeout_right()');
+    //     $('#top_right_window_content').css("opacity","0.9");
+    // }
 
+    // var fadeout_1 = function() {
+    //     $("#top_left_window1").css("left", "-240px");
+    //     $('#top_left_window1_i').attr('class',"layui-icon layui-icon-right i_icon");
+    //     $('#top_left_window1_i').attr('onclick','fadein_1()');
+    // }
+	//
+    // var fadein_1 = function(){
+    //     $("#top_left_window1").css("left", "20px");
+    //     $('#top_left_window1_i').attr('onclick','fadeout_1()');
+    //     $('#top_left_window1_i').attr('class',"layui-icon layui-icon-left i_icon");
+	// }
+
+	$(".Slide").click(function () {
+
+		var direction = this.getAttribute("direction"),
+			ParentNode = $(this.parentNode.parentNode);
+        switch (direction) {
+            case 'left':
+                if(ParentNode.css('left')==="20px"){
+                    ParentNode.css('left',"-240px");
+                    $(this).attr("class", "layui-icon layui-icon-right i_icon Slide")
+                }else{
+                    ParentNode.css('left',"20px");
+                    $(this).attr("class","layui-icon layui-icon-left i_icon Slide")
+                }
+                break;
+            case 'right':
+                if(ParentNode.css('right') === "20px"){
+                    ParentNode.css('right',"-220px")
+                    $(this).attr("class", "layui-icon layui-icon-left i_icon_right Slide")
+                }else{
+                    ParentNode.css('right',"20px")
+                    $(this).attr("class", "layui-icon layui-icon-right i_icon_right Slide")
+                }
+                break;
+        }
+    })
 
 
 </script>

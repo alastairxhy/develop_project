@@ -488,6 +488,10 @@ body .layui-layer{
 	border-radius: 5px 5px 0px 0px;
 }
 
+.top_left_window1,.top_left_window2,.top_right_window{
+	transition: 1s;
+}
+
 .top_right_window{
 	background-color: #333333;
 	position: fixed;

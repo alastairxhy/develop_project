@@ -66,3 +66,36 @@ function getMenus(id,recurrence) {
     return getData;
 }
 var menus_data = JSON.parse(sessionStorage.getItem("menus_data"));
+
+
+function debugForm(e) {
+    var elems = document.forms[0].elements;
+    for(var j=0;j<elems.length;j++){
+        switch (elems[j].getAttribute("lay-verify")) {
+            case 'number':
+                elems[j].value = 10;
+                break;
+            case 'phone':
+                elems[j].value = '17855893004';
+                break;
+            case 'email':
+                elems[j].value = '1234567890@qq.com';
+                break;
+            default:
+                elems[j].value = 'debugData';
+                break;
+        }
+
+    };
+    var select = document.forms[0].getElementsByTagName("select");
+    for(var j=0;j<select.length;j++){
+        if(select[j].getElementsByTagName("option")[1]){
+            select[j].getElementsByTagName("option")[1].setAttribute("selected","selected");
+        }
+
+    };
+    layui.use("form",function () {
+        layui.form.render("select")
+    })
+
+}

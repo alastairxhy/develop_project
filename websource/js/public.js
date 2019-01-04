@@ -404,7 +404,6 @@ var set_map = function (parameter) {
                 var addComp = rs.addressComponents;
                 //          var site = addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
                 //将对应的HTML元素设置值
-                console.log(pt);
                 map.centerAndZoom(pt, 17);
                 var all_overlay = map.getOverlays();
                 for (var j = 0; j < all_overlay.length; j++) {
