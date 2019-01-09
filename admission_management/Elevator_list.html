@@ -16,9 +16,6 @@
             margin-top: 15px;
             position: relative;
         }
-        .layui-table-cell{
-            height: auto!important;
-        }
         .layui-table-grid-down{
             display: none;
         }
@@ -33,22 +30,22 @@
 <body>
 <div class="layui-col-md10 layui-col-md-offset1">
 
-    <form action="" class="layui-form" style="margin-bottom: 20px">
+    <form action="" class="layui-form" style="margin:40px 0">
         <div class="search_row">
             <span class="search_key">电梯识别码</span>
             <div class="layui-inline" style="width: 230px;">
-                <input type="text" class="layui-input" name="serviceCorp" id="serviceCorpName" placeholder="请输入电梯识别码">
+                <input type="text" class="layui-input" name="quickCode" id="quickCode" placeholder="请输入电梯识别码">
             </div>
             <span class="search_key" id="">注册代码</span>
             <div class="layui-inline" >
                 <div class="layui-inline" style="width: 230px;">
-                    <input type="text" class="layui-input" name="serviceCorp" id="serviceCorpName" placeholder="请输入注册代码">
+                    <input type="text" class="layui-input" name="elevCode" id="elevCode" placeholder="请输入注册代码">
                 </div>
             </div>
             <span class="search_key">安装地址：</span>
             <div class="layui-inline">
                 <div class="layui-inline" style="width: 230px;">
-                    <input type="text" class="layui-input" name="serviceCorp" id="serviceCorpName" placeholder="请输入安装地址">
+                    <input type="text" class="layui-input" name="location" id="serviceCorpName" placeholder="请输入安装地址">
                 </div>
             </div>
 
@@ -56,11 +53,11 @@
         <div class="search_row">
             <span class="search_key">使用单位:</span>
             <div class="layui-inline" style="width: 230px;">
-                <input type="text" class="layui-input" name="serviceCorp" id="serviceCorpName" placeholder="请输入使用单位">
+                <input type="text" class="layui-input" name="useCorpName" placeholder="请输入使用单位">
             </div>
             <span class="search_key">维保单位:</span>
             <div class="layui-inline" style="width: 230px;">
-                <input type="text" class="layui-input" name="serviceCorp" id="serviceCorpName" placeholder="请输入维保单位">
+                <input type="text" class="layui-input" name="serviceCorpName" placeholder="请输入维保单位">
             </div>
             <button class="layui-btn layui-btn-normal layui-btn-sm" data-type="reload" lay-submit lay-filter="reload"
                     style="padding: 0 10px ;font-size: 16px;width: 80px;margin-left: 290px"><i
@@ -73,29 +70,12 @@
 <script type="text/html" id="list_table_toolbar">
     <div class="layui-btn-container">
         <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="add_elevator">添加电梯</button>
-        <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="getCheckData">调试入网</button>
+        <button class="layui-btn layui-btn-normal layui-btn-sm" lay-event="access_network">调试入网</button>
     </div>
 </script>
 <script type="text/html" id="list_table_tool">
-    <div>
-        <a class="" lay-event="edit">编辑</a>
-        <a class="" lay-event="video">删除</a>
-        <a class="" lay-event="message">单位变更</a>
-    </div>
-    <div>
-        <a class="" lay-event="edit">监控</a>
-        <a class="" lay-event="video">注册下线</a>
-        <a class="" lay-event="message">设备编辑</a>
-    </div>
-    <div>
-        <a class="" lay-event="edit">基本网管设置</a>
-        <a class="" lay-event="video">基本视频设置</a>
-    </div>
-    <div>
-        <a class="" lay-event="message">网管设置</a>
-        <a class="" lay-event="video">视频设置</a>
-        <a class="" lay-event="message">详情</a>
-    </div>
+        <a class="" lay-event="edit" title="编辑"><i class="layui-icon layui-icon-edit" style="font-size: 22px"></i></a>
+        <a class=" " lay-event="detail" title="详情"><i class="layui-icon layui-icon-form" style="font-size: 22px"></i></a>
 </script>
 
 <script src="../websource/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
@@ -105,21 +85,19 @@
 <script src="../websource/js/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
 <script src="../websource/js/public.js" type="text/javascript" charset="utf-8"></script>
 <script>
-    layui.use(["table","element"], function () {
-        var table = layui.table,element = layui.element;
+    layui.use(["table","element",'form'], function () {
+        var table = layui.table,element = layui.element,form = layui.form;
 
         table.render({
             elem: "#list",
             method: "post",
-            url: request_url+'webApi/rpv1',
+            url: request_url+'tbElev/dataGrid',
             skin: "line",
             headers:{
                 fromType:'wlzd'
             },
             where: {
-                methodName: "getAlarmList",
-                type: 1,
-                state: 0
+                onlineState:3
             },
             request: {
                 pageName: "pageNo",
@@ -130,15 +108,15 @@
                     "code": res.status,
                     "msg": res.msg,
                     "count": res.length,
-                    "data": res.obj.alarmLists
+                    "data": res.obj[0]
                 };
             },
-            height: 550,
+            height: 540,
             page: {limit: 10},
             limit: 15,
             loading: true,
             toolbar: "#list_table_toolbar",
-            id: "alarm_account_table",
+            id: "list",
             cols: [
                 [
                     {
@@ -146,59 +124,28 @@
                             return data.LAY_INDEX;
                         }
                     },
-                    {field: 'elevCode', title: '注册代码', width: '10%'},
-                    {field: 'quickCode', title: '电梯识别码', width: '120'},
-                    {field: 'alarmTime', title: '接警时间', width: '160'},
-                    {field: 'rescueReceiveTime', title: '救援人接到电话时间', width: '160'},
-                    {field: 'rescueArriveTime', title: '到达现场时间', width: '160'},
-                    {field: 'rescueCompleteTIme', title: '完成救援时间', width: '160'},
-                    {field: 'name', title: '接警人', width: '100'},
-                    {
-                        field: 'operationMode', title: '接警方式', width: '150', templet: function (d) {
-                            return d.operationMode == 0 ? '自动' : '人工'
-                        }
-                    },
-                    {
-                        field: 'alarmMode', title: '报警方式', width: '150', templet: function (d) {
-                            return d.operationMode == 1 ? '电话' : d.operationMode == 2 ? '按钮' : '系统'
-                        }
-                    },
-                    {field: 'useCorpName', title: '使用单位', width: '10%'},
-                    {field: 'safetyAdmin', title: '使用单位安管员', width: '10%'},
-                    {field: 'safetyAdminPhone', title: '安管员电话号码', width: '10%'},
-                    {field: 'serviceCorpName', title: '维保单位', width: '10%'},
-                    {field: 'servicePerson', title: '维保人员', width: '10%'},
-                    {field: 'servicePersonPhone', title: '维保人员电话号码', width: '10%'},
-                    {field: 'rescueOndutyPhone', title: '救援单位电话', width: '10%'},
-                    {field: 'produceCorpName', title: '电梯制造单位', width: '10%'},
-                    {field: 'area', title: '行政区域', width: '10%'},
-                    {field: 'location', title: '电梯安装地址', width: '10%'},
-                    {
-                        field: 'faultCode', title: '电梯故障模式', width: '10%', templet: function (d) {
-                            var val = d.faultCode;
-                            return val == '6000' ? '开锁区外停梯' : val == '6100' ? '运行中开门' : val == '6200' ? '冲顶' : val == '6300' ? '蹲底' : val == '6400' ? '超速' : val == '6500' ? '轿厢意外移动' : val == '6600' ? '断电' : val == '6900' ? '安全回路断路' : val == '6901' ? '运行超时' : val == '6902' ? '反复开关门' : val == '6903' ? '阻挡关门' : val == '6904' ? '轿厢报警按钮动作' : val == '9000' ? '平层困人 ' : '按钮报警';
-                        }
-                    },
-                    {
-                        field: 'faultReason', title: '电梯故障原因', width: '10%', templet: function (d) {
-                            var val = d.faultReason;
-                            return val == '6000' ? '开锁区外停梯' : val == '6100' ? '运行中开门' : val == '1' ? '设计制造缺陷' : val == '2' ? '安装缺陷' : val == '3' ? '维保缺陷' : val == '4' ? '使用管理不当' : val == '5' ? '安装保护装置失灵' : val == '6' ? '操作不当' : val == '7' ? '违法行为' : '其他';
-                        }
-                    },
-                    {field: 'accidentResult', title: '事故损失', width: '10%'},
-                    {
-                        field: 'specialAccident', title: '报警类型', width: '10%', templet: function (d) {
-                            var val = d.specialAccident;
-                            return val == -1 ? "有效报警" : val == 0 ? "无效报警" : val == 1 ? "维保作业" : val == 2 ? "保洁工作" : "未知";
-                        }
-                    },
-                    {
-                        field: 'procUnitID', title: '状态', width: '10%', templet: function (d) {
-                            var val = d.procUnitID;
-                            return val == '0' ? '已接警' : val == '10' ? '救援已派遣' : val == '15' ? '已派遣120' : val == '20' ? '救援已抵达' : val == '25' ? '已抵达现场' : val == '30' ? '已完成救援' : val == '35' ? '已完成救护120' : val == '40' ? '已维修完成' : val == '50' ? '已救援回访' : val == '60' ? '已维修回访' : '已完成';
-                        }
-                    },
-                    {field: '', title: '操作', width: 200, toolbar: "#list_table_tool", fixed: "right"},
+                    {field: 'quickCode', title: '电梯识别码', width: '10%'},
+                    {field: 'elevCode', title: '注册代码', width: '120'},
+                    {field: 'location', title: '电梯安装地址', width: '160'},
+                    {field: 'useCorpName', title: '使用单位', width: '160'},
+                    {field: 'serviceCorpName', title: '维保单位', width: '160'},
+                    {field: 'elevController', title: '物联设备监控', width: '160',templet:function (data) {
+                            return data.elevController == ''?'未安装':'已安装';
+                        }},
+                    {field: '', title: '终端类别', width: '100',templet:function (data) {
+                            if(data.elevController !== '' && data.elevController !== ''){
+                               return '控制器和传感器'
+                            }else if(data.elevController !== ''){
+                                return '控制器';
+                            }else{
+                                return '传感器';
+                            }
+                        }},
+                    {field: 'stateTime', title: '上线起始时间', width: '150'},
+                    {field: 'elevController', title: '控制器厂商', width: '150'},
+                    {field: 'elevSource', title: '来源', width: '10%'},
+                    {field: 'createTime', title: '添加时间', width: '10%'},
+                    {field: '', title: '操作', width: 80, toolbar: "#list_table_tool", fixed: "right"},
                 ]
             ]
         });
@@ -206,7 +153,13 @@
 
 
         table.on("tool(list)",function (obj) {
-            console.log(obj)
+            switch (obj.event) {
+                case "edit":
+                    ParentAddTab(PROJECT_PATH.add_elevator,"?elevatorID="+obj.data.id+"&pageType=editPage")
+                    break;
+                case "detail":
+                    break;
+            }
         });
 
         table.on("toolbar(list)",function (obj) {
@@ -214,8 +167,16 @@
                 case "add_elevator":
                     ParentAddTab(PROJECT_PATH.add_elevator)
                     break;
+                case "access_network":
+                    ParentAddTab(PROJECT_PATH.access_network)
+                    break;
             }
         });
+
+        form.on("submit(reload)",function (obj) {
+            table_search('list',obj.field,request_url+'tbElev/dataGrid')
+            return false;
+        })
     })
 </script>
 </body>

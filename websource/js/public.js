@@ -103,7 +103,7 @@ function getQueryVariable_2(variable) {
 
 
 //表格搜索公共函数------------------------------
-function table_search(container, parameter) {
+function table_search(container, parameter,url) {
     /**
      *
      * @param {string} container   查询的table表
@@ -113,7 +113,7 @@ function table_search(container, parameter) {
     layui.use("table", function () {
         var table = layui.table;
         table.reload(container, {
-            url: request_url,
+            url: url?url:request_url,
             where: parameter,
             page: {
                 curr: 1
@@ -799,21 +799,98 @@ if(getQueryVariable("navName")){
 
 };
 
-function  ParentAddTab(optoins) {
+
+
+
+
+
+function  ParentAddTab(optoins,param) {
     var tabs = $(".layui-tab-title li",parent.document);
     for(var j=0;j<tabs.length;j++){
         if(tabs[j].getAttribute("lay-id") == optoins.ID){
             parent.layui.element.tabChange("tab", optoins.ID);
             return;
         };
-    }
+    };
+    var url = param?optoins.url+param:optoins.url;
+
+
     parent.layui.element.tabAdd("tab",{
-        title: "添加电梯",
-        content: '<iframe src="'+optoins.url+'" width="" height="80" class="main" scrolling="auto"  name="content_iframe"></iframe>',
+        title: optoins.title,
+        content: '<iframe src="'+url+'" width="" height="80" class="main" scrolling="auto"  name="content_iframe"></iframe>',
         id: optoins.ID
     });
     parent.layui.element.tabChange("tab", optoins.ID);
 }
+
+
+
+
+
+
+
+
+class FormItem{
+    constructor(type){
+        var formItem = document.createElement("div"),
+            label = document.createElement('lebel'),
+            layuiInputInline = document.createElement("div");
+            formItem.setAttribute("class","layui-form-item");
+            label.setAttribute("class","layui-form-label");
+            switch (type) {
+                case 'inline':
+                    layuiInputInline.setAttribute('class',"layui-input-inline");
+                    break;
+                case 'block':
+                    layuiInputInline.setAttribute('class',"layui-input-block");
+                    break;
+            }
+
+        this.FormItem = formItem;
+        this.Label = label;
+        this.LayuiInputBox = layuiInputInline;
+
+    };
+
+    addInput(param,label){
+        /*
+        *@param {object} param 属性和属性值
+        *@param {String} label lebel的文本
+        *
+        * */
+        var _this = this;
+        var button = document.createElement("button"),
+            div2 = document.createElement("div");
+        this.Label.innerText = label;
+        div2.setAttribute("class","layui-form-mid layui-word-aux");
+        button.setAttribute("class","layui-btn layui-btn-danger");
+        button.setAttribute("type","button");
+        button.innerText = "取消";
+        button.addEventListener("click",function () {
+            _this.deleteBnt()
+        });
+        this.LayuiInputBox.style.width = "565px";
+        var input = document.createElement("input");
+        for(var i in param){
+            input.setAttribute(i,param[i]);
+        }
+        div2.appendChild(button);
+        this.FormItem.appendChild(this.Label);
+        this.FormItem.appendChild(this.LayuiInputBox);
+        this.FormItem.appendChild(div2)
+        this.LayuiInputBox.appendChild(input);
+        return this.FormItem;
+    };
+
+    deleteBnt(){
+        var index = $("#extPhoneGroup").children().length;
+        $("#extPhoneGroup").children()[index-1].remove();
+    }
+
+};
+
+
+var test = new FormItem("block");
 
 
 

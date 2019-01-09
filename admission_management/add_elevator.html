@@ -27,14 +27,14 @@
                     <label class="layui-form-label">电梯识别码</label>
                     <div class="layui-input-block" style="width: 245px">
                         <input type="text" name="elevCode" required lay-verify="required" placeholder="请输电梯识别码"
-                               autocomplete="off" class="layui-input">
+                               autocomplete="off" class="layui-input" :value="elevatorData.elevCode">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">注册码</label>
                     <div class="layui-input-block" style="width: 245px">
                         <input type="text" name="quickCode" required lay-verify="required" placeholder="请输注册码"
-                               autocomplete="off" class="layui-input">
+                               autocomplete="off" class="layui-input" :value="elevatorData.quickCode">
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@
                     <select name="" id="district" lay-filter="district"></select>
                 </div>
                 <div class="layui-input-inline" style="width: 190px">
-                    <input type="text" name="location" required lay-verify="required" placeholder="请输入详细地址"
+                    <input type="text" name="location" :value="elevatorData.location" required lay-verify="required" placeholder="请输入详细地址"
                            autocomplete="off" class="layui-input">
                 </div>
             </div>
@@ -58,8 +58,8 @@
                 <label class="layui-form-label">地图标注</label>
                 <div class="layui-input-block" style="width: 245px">
                     <div style="width: 500px;height: 450px;background: grey" id="map"></div>
-                    <input type="text" name="longitude" id="lng" placeholder="请输入经度" lay-verify="number" class="layui-input" style="display: none">
-                    <input type="text" name="latitude" id="lat" placeholder="请输入纬度" lay-verify="number" class="layui-input" style="display: none">
+                    <input type="text" name="longitude" :value="elevatorData.longitude" id="lng" placeholder="请输入经度" class="layui-input" style="display: none">
+                    <input type="text" name="latitude" :value="elevatorData.latitude" id="lat" placeholder="请输入纬度" class="layui-input" style="display: none">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -67,19 +67,19 @@
                 <div class="layui-input-block">
                     <select name="serviceType" lay-filter="province" id="serviceType">
                         <option>请选择维保类型</option>
-                        <option value="1">原厂维保</option>
-                        <option value="2">授权委托</option>
-                        <option value="3">第三方维保</option>
-                        <option value="4">使用单位维保</option>
+                        <option value="1" :selected="elevatorData.serviceType == 1">原厂维保</option>
+                        <option value="2" :selected="elevatorData.serviceType == 2">授权委托</option>
+                        <option value="3" :selected="elevatorData.serviceType == 3">第三方维保</option>
+                        <option value="4" :selected="elevatorData.serviceType == 4">使用单位维保</option>
                     </select>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">维保单位</label>
                 <div class="layui-input-inline" style="width: 565px">
-                    <input type="text" name="serviceCorpName" id="serviceCorpName" lay-verify="required" placeholder="请输维保单位名称"
+                    <input type="text" name="serviceCorpName" :value="elevatorData.serviceCorpName" id="serviceCorpName" lay-verify="required" placeholder="请输维保单位名称"
                            autocomplete="off" class="layui-input">
-                    <input type="text" name="serviceCorpID" id="serviceCorpNameID" lay-verify="number" placeholder="请输维保单位名称"
+                    <input type="text" name="serviceCorpID" :value="elevatorData.serviceCorpID" id="serviceCorpNameID" lay-verify="required"
                            autocomplete="off" class="layui-input" style="display: none">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
@@ -92,22 +92,22 @@
                     <div class="layui-input-block" style="width: 245px">
                         <select name="usePlace">
                             <option >请选择使用场所分类</option>
-                            <option >住宅</option>
-                            <option >办公区域</option>
-                            <option >商场超市</option>
-                            <option >宾馆饭店</option>
-                            <option >医院</option>
-                            <option>学校</option>
-                            <option >交通场所</option>
-                            <option >文体娱场馆</option>
-                            <option>其他场所</option>
+                            <option :selected="elevatorData.usePlace == '住宅'">住宅</option>
+                            <option :selected="elevatorData.usePlace == '办公区域'">办公区域</option>
+                            <option :selected="elevatorData.usePlace == '商场超市'">商场超市</option>
+                            <option :selected="elevatorData.usePlace == '宾馆饭店'">宾馆饭店</option>
+                            <option :selected="elevatorData.usePlace == '医院'">医院</option>
+                            <option :selected="elevatorData.usePlace == '学校'">学校</option>
+                            <option :selected="elevatorData.usePlace == '交通场所'">交通场所</option>
+                            <option :selected="elevatorData.usePlace == '文体娱场馆'">文体娱场馆</option>
+                            <option :selected="elevatorData.usePlace == '其他场所'">其他场所</option>
                         </select>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">维保有效期</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="serviceExpiryTime" id="validity_period" lay-verify="required"
+                        <input type="text" name="serviceExpiryTime" :value="elevatorData.serviceExpiryTime" id="validity_period" lay-verify="required"
                                placeholder="请选择维保有效期"
                                autocomplete="off" class="layui-input">
                     </div>
@@ -117,14 +117,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">维保负责人</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="servicePerson" required lay-verify="required" placeholder="请输维保负责人"
+                        <input type="text" name="servicePerson" :value="elevatorData.servicePerson" required lay-verify="required" placeholder="请输维保负责人"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">负责人电话</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="servicePersonPhone" required lay-verify="phone"
+                        <input type="text" name="servicePersonPhone" :value="elevatorData.servicePersonPhone" required lay-verify="phone"
                                placeholder="请输负责人电话"
                                autocomplete="off" class="layui-input">
                     </div>
@@ -134,37 +134,38 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">电梯安全管理员</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="safetyAdmin" required lay-verify="required" placeholder="请输入电梯安全管理员"
+                        <input type="text" name="safetyAdmin" :value="elevatorData.safetyAdmin" required lay-verify="required" placeholder="请输入电梯安全管理员"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">安全管理员电话</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="safetyAdminPhone" required lay-verify="phone"
+                        <input type="text" name="safetyAdminPhone" :value="elevatorData.safetyAdminPhone" required lay-verify="phone"
                                placeholder="请输入安全管理员电话"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
             </div>
             <div id="extPhoneGroup">
-                <div class="layui-form-item">
+                <div class="layui-form-item" v-for="(phone,index) in extPhone">
                     <label class="layui-form-label">额外推送号码</label>
                     <div class="layui-input-inline" style="width: 565px">
-                        <input type="text" required lay-verify="phone" placeholder="请输入额外推送号码"
-                               autocomplete="off" class="layui-input">
+                        <input type="text" required lay-verify="phone"   placeholder="请输入额外推送号码"
+                               autocomplete="off" class="layui-input" :value="phone">
                     </div>
                     <div class="layui-form-mid layui-word-aux">
-                        <button type="button" class="layui-btn layui-btn-normal" id="add_extPhone">添加</button>
+                        <button v-if="index == 0" type="button" class="layui-btn layui-btn-normal" id="add_extPhone">添加</button>
+                        <button v-else type="button" class="layui-btn layui-btn-danger" @click="deleteBnt">取消</button>
                     </div>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">使用单位</label>
                 <div class="layui-input-inline" style="width: 565px">
-                    <input type="text" name="useCorpName" id="useCorpName" required lay-verify="required" placeholder="请输入使用单位名称"
+                    <input type="text" name="useCorpName" id="useCorpName" :value="elevatorData.useCorpName" required lay-verify="required" placeholder="请输入使用单位名称"
                            autocomplete="off" class="layui-input">
-                    <input type="text" name="useCorpID" id="useCorpNameID" required lay-verify="number" placeholder="请输入使用单位名称"
+                    <input type="text" name="useCorpID" id="useCorpNameID" :value="elevatorData.useCorpNameID"  placeholder="请输入使用单位名称"
                            autocomplete="off" class="layui-input" style="display: none">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
@@ -174,7 +175,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">制造单位</label>
                 <div class="layui-input-inline" style="width: 565px">
-                    <input type="text" name="produceCorpName" id="produceCorpName" required lay-verify="required" placeholder="请输入制造单位"
+                    <input type="text" name="produceCorpName" id="produceCorpName" :value="elevatorData.produceCorpName"  required lay-verify="required" placeholder="请输入制造单位"
                            autocomplete="off" class="layui-input">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
@@ -185,14 +186,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">使用单位内部编码</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="internalCode" required lay-verify="required" placeholder="请输入使用单位内部编码"
+                        <input type="text" name="internalCode" :value="elevatorData.internalCode" required lay-verify="required" placeholder="请输入使用单位内部编码"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">制造许可证编号</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="produceCertNo" required lay-verify="required" placeholder="请输入制造许可证编号"
+                        <input type="text" name="produceCertNo" :value="elevatorData.produceCertNo" required lay-verify="required" placeholder="请输入制造许可证编号"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -201,14 +202,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">电梯品牌</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="elevBrand" required lay-verify="required" placeholder="请输入电梯品牌"
+                        <input type="text" name="elevBrand" :value="elevatorData.elevBrand" required lay-verify="required" placeholder="请输入电梯品牌"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">出厂编号</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="produceSerialNo" required lay-verify="required" placeholder="请输入出厂编号"
+                        <input type="text" name="produceSerialNo" :value="elevatorData.produceSerialNo" required lay-verify="required" placeholder="请输入出厂编号"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -216,10 +217,9 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">电梯安装单位</label>
                 <div class="layui-input-inline" style="width: 565px">
-                    <input type="text" name="installCorpName" id="installCorpName" required lay-verify="required" placeholder="请输入电梯安装单位"
+                    <input type="text" name="installCorpName" :value="elevatorData.installCorpName" id="installCorpName" required lay-verify="required" placeholder="请输入电梯安装单位"
                            autocomplete="off" class="layui-input">
-                    <input type="text" name="installCorpID" id="installCorpNameID" required lay-verify="number" placeholder="请输入电梯安装单位"
-                           autocomplete="off" class="layui-input" style="display: none">
+                    <input type="text" name="installCorpID" id="installCorpNameID" :value="elevatorData.installCorpNameID" autocomplete="off" class="layui-input" style="display: none">
                 </div>
                 <div class="layui-form-mid layui-word-aux">
                     <button type="button" class="layui-btn layui-btn-normal" dataType="8" onclick="useList(this)">选择</button>
@@ -229,7 +229,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">大修或改造日期</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="reformTime" id="reformTime" lay-verify="required"
+                        <input type="text" name="reformTime" :value="elevatorData.reformTime" id="reformTime" lay-verify="required"
                                placeholder="请输入大修或改造日期"
                                autocomplete="off" class="layui-input">
                     </div>
@@ -237,7 +237,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">年检日期</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="inspectTime" id="inspectTime" required lay-verify="required"
+                        <input type="text" name="inspectTime" :value="elevatorData.inspectTime" id="inspectTime" required lay-verify="required"
                                placeholder="请输入年检日期"
                                autocomplete="off" class="layui-input">
                     </div>
@@ -247,7 +247,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">维保日期</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="serviceTime" id="serviceTime" lay-verify="required"
+                        <input type="text" name="serviceTime" :value="elevatorData.serviceTime" id="serviceTime" lay-verify="required"
                                placeholder="请输入安全管理员电话"
                                autocomplete="off" class="layui-input">
                     </div>
@@ -257,13 +257,13 @@
                     <div class="layui-input-block" style="width: 245px">
                         <select name="elevType" lay-filter="province">
                             <option value="">请选择电梯类型</option>
-                            <option>乘客电梯</option>
-                            <option>自动扶梯</option>
-                            <option>自动人行道</option>
-                            <option>病床电梯</option>
-                            <option>客货电梯</option>
-                            <option>载货电梯</option>
-                            <option>杂物电梯</option>
+                            <option :selected="elevatorData.elevType == '乘客电梯'">乘客电梯</option>
+                            <option :selected="elevatorData.elevType == '自动扶梯'">自动扶梯</option>
+                            <option :selected="elevatorData.elevType == '自动人行道'">自动人行道</option>
+                            <option :selected="elevatorData.elevType == '病床电梯'">病床电梯</option>
+                            <option :selected="elevatorData.elevType == '客货电梯'">客货电梯</option>
+                            <option :selected="elevatorData.elevType == '载货电梯'">载货电梯</option>
+                            <option :selected="elevatorData.elevType == '杂物电梯'">杂物电梯</option>
 
                         </select>
                     </div>
@@ -273,14 +273,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">电梯型号</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="elevModel" required lay-verify="required" placeholder="请输入电梯层数"
+                        <input type="text" name="elevModel" :value="elevatorData.elevModel" required lay-verify="required" placeholder="请输入电梯层数"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">电梯层数</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="floors" required lay-verify="number" placeholder="请输入安全管理员电话"
+                        <input type="text" name="floors" :value="elevatorData.floors" required lay-verify="number" placeholder="请输入安全管理员电话"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -289,14 +289,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">电梯站数</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="station" required lay-verify="number" placeholder="请输入电梯门数"
+                        <input type="text" name="station" :value="elevatorData.station" required lay-verify="number" placeholder="请输入电梯门数"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">电梯层站编号</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="floorsStationSn" required lay-verify="required" placeholder="请输入电梯层站编号"
+                        <input type="text" name="floorsStationSn" :value="elevatorData.floorsStationSn" required lay-verify="required" placeholder="请输入电梯层站编号"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -305,14 +305,14 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">电梯门数</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="door" required lay-verify="number" placeholder="请输入额定速度"
+                        <input type="text" name="door" :value="elevatorData.door" required lay-verify="required" placeholder="请输入额定速度"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">额定速度</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="speed" required lay-verify="required" placeholder="请输入载重量"
+                        <input type="text" name="speed" :value="elevatorData.speed" required lay-verify="required" placeholder="请输入载重量"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -321,7 +321,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label">载重量</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="weight" required lay-verify="required" placeholder="请输入电梯检验机构"
+                        <input type="text" name="weight" :value="elevatorData.weight" required lay-verify="required" placeholder="请输入电梯检验机构"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -329,11 +329,11 @@
                     <label class="layui-form-label">拖动方式</label>
                     <div class="layui-input-block" style="width: 245px">
                         <select name="dragType">
-                            <option value="">请选择拖动方式</option>
-                            <option >交流双速</option>
-                            <option >调压调速</option>
-                            <option >变频</option>
-                            <option >其他</option>
+                            <option >请选择拖动方式</option>
+                            <option :selected="elevatorData.dragType == '交流双速'">交流双速</option>
+                            <option :selected="elevatorData.dragType == '调压调速'">调压调速</option>
+                            <option :selected="elevatorData.dragType == '变频'">变频</option>
+                            <option :selected="elevatorData.dragType == '其他'">其他</option>
                         </select>
                     </div>
                 </div>
@@ -343,16 +343,16 @@
                     <label class="layui-form-label">电梯状态</label>
                     <div class="layui-input-block" style="width: 245px">
                         <select name="status">
-                            <option value="1">正常</option>
-                            <option value="2">停用</option>
-                            <option value="3">调试</option>
+                            <option value="1" :selected="elevatorData.status == '1'">正常</option>
+                            <option value="2" :selected="elevatorData.status == '2'">停用</option>
+                            <option value="3" :selected="elevatorData.status == '3'">调试</option>
                         </select>
                     </div>
                 </div>
                 <div class="layui-inline">
                     <label class="layui-form-label">电梯检验机构</label>
                     <div class="layui-input-block" style="width: 245px">
-                        <input type="text" name="inspectUnitName" required lay-verify="required" placeholder="请输入电梯检验机构"
+                        <input type="text" name="inspectUnitName" :value="elevatorData.inspectUnitName" required lay-verify="required" placeholder="请输入电梯检验机构"
                                autocomplete="off" class="layui-input">
                     </div>
                 </div>
@@ -361,7 +361,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">备注</label>
                 <div class="layui-input-block">
-                    <textarea name="mark" placeholder="请输入内容" class="layui-textarea"></textarea>
+                    <textarea name="mark" :value="elevatorData.mark"  inspectUnitName placeholder="请输入内容" class="layui-textarea"></textarea>
                 </div>
             </div>
             <div class="layui-form-item">
@@ -389,16 +389,19 @@
 <script>
     layui.use(["form", "layer", "laydate"], function () {
         var form = layui.form, layer = layui.layer, laydate = layui.laydate;
-        var map = document.getElementById("map");
-
+        var  map;
+        var pageType = getQueryVariable("pageType"),elevatorID = getQueryVariable("elevatorID");
         var elevator_form = new Vue({
             el: "#elevator_form",
-            data: {},
+            data: {
+                elevatorData:[],
+                extPhone:[]
+            },
             mounted() {
                 this.$nextTick(function () {
 
                 });
-                set_map({
+                 map = set_map({
                     elem: "map",
                     position: true,
                     size: 17,
@@ -412,8 +415,61 @@
                 form.render();
 
             },
+            updated:function () {
+                this.$nextTick(function () {
+                    $("#add_extPhone").click(function () {
+                        var addInput = new FormItem('inline');
+                        var input = addInput.addInput({
+                            'class':'layui-input',
+                            'placeholder':'请输入额外推送号码',
+                            'lay-verify':'phone',
+                        },'')
 
+                        $("#extPhoneGroup").append(input)
+                    });
+
+
+                })
+
+
+                form.render()
+            },
+            methods:{
+                deleteBnt:function () {
+                    var index = $("#extPhoneGroup").children().length;
+                    $("#extPhoneGroup").children()[index-1].remove();
+                }
+            }
         });
+
+        if(pageType === 'editPage'){
+            $.ajax({
+                url:request_url+"tbElev/editPageDetail",
+                data:{
+                    pageType:"elevDetailPage",
+                    id:elevatorID
+                },
+                success:function (res) {
+                    if(res.success){
+                        var data = res.obj.elev;
+                        elevator_form.$set(elevator_form.$data,"elevatorData",data);
+                        if(data.pushPhone.length>0){
+                            elevator_form.$set(elevator_form.$data,"extPhone",data.pushPhone.split(","));
+                        }else{
+                            elevator_form.$set(elevator_form.$data,"extPhone",[""]);
+                        }
+
+                        set_city_select("#province", "province", "请选择省",'',data.areaCode.substring(0,2)+"0000");
+                        set_city_select("#city", "city", "请选择市", data.areaCode.substring(0,2)+"0000",data.areaCode.substring(0,4)+"00");
+                        set_city_select("#district", "district", "请选择区", data.areaCode.substring(0,4)+"00",data.areaCode.substring(0,6));
+                        set_map_core(data.longitude,data.latitude,map,17)
+                    }else{
+                        layer.alert(res.msg)
+                    }
+                }
+            })
+        }
+
 
         set_city_select("#province", "province", "请选择省");
         form.on("select(province)", function (obj) {
@@ -451,16 +507,21 @@
             for(var j=0;j<extPhoneGroup.length;j++){
                 extPhone.push(extPhoneGroup[j].value)
             };
-            $.extend(obj.field,{'extPhone':extPhone});
+            $.extend(obj.field,{'extPhone':extPhone.join(",")});
             $.extend(obj.field,{'areaCode':areaCode});
-            $.extend(obj.field,{'pageType':'addPage'});
-            console.log(obj.field);
+            if(pageType == "editPage"){
+                $.extend(obj.field,{'pageType':'editPage',"id":elevatorID});
+            }else{
+                $.extend(obj.field,{'pageType':'addPage'});
+            }
+
+            console.table(obj.field);
             $.ajax({
                 url:request_url_json+'tbElev/edit',
                 data:obj.field,
                 success:function (res) {
                     if(res.success){
-                        layer.alert('添加成功')
+                        layer.alert(pageType == 'editPage'?'编辑成功':'添加成功');
                     }else{
                         layer.alert(res.msg)
                     }
@@ -472,72 +533,18 @@
         
         
         $("#add_extPhone").click(function () {
-            var extPhone = document.createElement("div"),
-                label = document.createElement("label"),
-                div = document.createElement("div"),
-                input = document.createElement("input"),
-                div2 = document.createElement("div"),
-                button = document.createElement("button");
-            extPhone.setAttribute("class","layui-form-item");
-            label.setAttribute("class","layui-form-label");
-            div.setAttribute("class","layui-input-inline");
-            div.style.width = "565px";
-            input.setAttribute("class","layui-input");
-            input.setAttribute("type","text");
-            input.setAttribute("lay-verify","phone");
-            input.setAttribute("placeholder","请输入额外推送号码");
-            div2.setAttribute("class","layui-form-mid layui-word-aux");
-            button.setAttribute("class","layui-btn layui-btn-danger");
-            button.setAttribute("type","button");
-            button.innerText = "取消";
-            button.addEventListener("click",function () {
-                var index = $("#extPhoneGroup").children().length;
-                $("#extPhoneGroup").children()[index-1].remove();
-            })
-            div.appendChild(input);
-            div2.appendChild(button);
-            extPhone.appendChild(label);
-            extPhone.appendChild(div);
-            extPhone.appendChild(div2);
-            $("#extPhoneGroup").append(extPhone)
+            var addInput = new FormItem('inline');
+            var input = addInput.addInput({
+                'class':'layui-input',
+                'placeholder':'请输入额外推送号码',
+                'lay-verify':'phone',
+            },'')
 
+            $("#extPhoneGroup").append(input)
         });
 
-        class FormItem{
-            constructor(index){
-                this.formItem = document.createElement("div");
-                this.formItem.setAttribute("class","layui-form-item");
-                this.label = document.createElement('leble');
-                this.layuiInputInline = document.createElement("div");
-                this.layuiInputInline.setAttribute('class',"layui-input-inline");
-                this.formItem.appendChild(this.label);
-                this.formItem.appendChild(label2);
-                this.formItem.appendChild(this.layuiInputInline);
-                var  label2 = document.createElement('leble');
 
-            }
 
-            addInput(type,placeholder,name,id){
-                /*
-                *@param {String} type input类型
-                *@param {String} placeholder 提示文字
-                *@param {String} name name属性
-                *@param {String} id id属性
-                *
-                * */
-                var input = document.createElement("input");
-                input.setAttribute("class","layui-input");
-                input.setAttribute("placeholder",placeholder);
-                input.setAttribute("name",name);
-                input.setAttribute("id",id);
-                input.setAttribute("type",'text');
-                input.setAttribute("lay-verify",type);
-                this.layuiInputInline.appendChild(input)
-                return this.formItem;
-            }
-        };
-        var test = new FormItem();
-        console.log(test)
     });
 
 

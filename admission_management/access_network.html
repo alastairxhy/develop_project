@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>入网管理列表</title>
+    <link rel="stylesheet" type="text/css" href="../websource/monitor_platform_css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="../websource/css/style.css"/>
+    <link rel="stylesheet" href="../websource/monitor_platform_css/style.css">
+    <link rel="stylesheet" type="text/css" href="../websource/css/mask.css">
+</head>
+<body>
+<div class="layui-main">
+    <div class="content">
+        <form action="" class="layui-form" style="width: 800px;margin: 0 150px" id="access_network">
+            <div class="layui-form-item">
+                <label class="layui-form-label">电梯:</label>
+                <div class="layui-input-inline" style="width: 245px">
+                    <input type="text" name="elevCode" id="elevator" required lay-verify="required"
+                       autocomplete="off" class="layui-input" disabled>
+                    <input type="text" name="id" id="elevId" required lay-verify="required"
+                           autocomplete="off" class="layui-input" disabled style="display: none">
+                </div>
+                <div class="layui-input-inline">
+                    <button type="button" class="layui-btn layui-btn-normal" id="useElevator">选择电梯</button>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">地址:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="location" id="location" required lay-verify="required"
+                           autocomplete="off" class="layui-input" disabled>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">设备安装日期:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="installTime" id="installTime" required lay-verify="required"
+                           placeholder="请选择设备安装日期"
+                           autocomplete="off" class="layui-input">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">设备安装人员:</label>
+                <div class="layui-input-inline" style="width: 245px">
+                    <input type="text" name="installPerson" placeholder="请输入设备安装人员" autocomplete="off" class="layui-input">
+                </div>
+                <div class="layui-input-inline" style="width: 400px">
+                    <input type="text" name="installPersonPhone" placeholder="请输入设备安装人员电话" autocomplete="off"
+                           class="layui-input" lay-verify="phone">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">设备来源:</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="elevSource" value="海康" title="海康" lay-filter="source" >
+                    <input type="radio" name="elevSource" value="汇川" title="汇川" lay-filter="source">
+                    <input type="radio" name="elevSource" value="自研" title="自研" lay-filter="source">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">设备类型:</label>
+                <div class="layui-input-block" id="sourceItem">
+                    <input type="radio" name="deviceType" value="1" title="视频版" >
+                    <input type="radio" name="deviceType" value="2" title="语音版">
+                    <input type="radio" name="deviceType" value="3" title="多媒体版">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">接入方式:</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="netType" value="1" title="有线">
+                    <input type="radio" name="netType" value="2" title="3G">
+                    <input type="radio" name="netType" value="3" title="4G">
+                    <input type="radio" name="netType" value="4" title="其他">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">接入网络:</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="SIMCardCompany" value="1" title="电信">
+                    <input type="radio" name="SIMCardCompany" value="3" title="移动">
+                    <input type="radio" name="SIMCardCompany" value="2" title="联通">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">SIM卡号:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="SIMCardID" placeholder="请输入SIM卡号" autocomplete="off" class="layui-input"
+                           lay-verify="number">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">是否已接入控制器:</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="onShowManufacturer" value="1" title="是" lay-filter="onShowManufacturer">
+                    <input type="radio" name="onShowManufacturer" value="0" title="否" lay-filter="onShowManufacturer">
+                </div>
+            </div>
+            <div class="layui-form-item" id="Manufacturer">
+                <label class="layui-form-label">控制器厂商:</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="elevController" value="新时达" title="新时达">
+                    <input type="radio" name="elevController" value="默纳克" title="默纳克">
+                    <input type="radio" name="elevController" value="海浦蒙特" title="海浦蒙特">
+                    <input type="radio" name="elevController" value="汇川" title="汇川">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">楼层设置:</label>
+                    <div class="layui-form-mid">楼层数:</div>
+                    <div class="layui-input-inline" style="width: 210px">
+                        <input type="text" name="MaxFloor" placeholder="请输入楼层数" autocomplete="off"
+                               class="layui-input" lay-verify="number" id="floorNum">
+                    </div>
+                    <div class="layui-form-mid">最底楼层:</div>
+                    <div class="layui-input-inline" style="width: 210px">
+                        <input type="text" name="BottomFloor" placeholder="请输入最底楼层" autocomplete="off"
+                               class="layui-input" lay-verify="number" id="floorMin">
+                    </div>
+                    <div class="layui-input-inline" style="width: 64px">
+                        <button type="button" class="layui-btn layui-btn-normal" id="generateFloor">生成</button>
+                    </div>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label"></label>
+                <div class="layui-input-block" style="width: 550px">
+                    <table id="floor_data" lay-filter="floor_data"></table>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">网关制造单位:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="NetCorp" placeholder="请输入网关制造单位" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">网关制造日期:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="netCreateDate" placeholder="请输入网关制造日期" autocomplete="off"
+                           class="layui-input" id="netCreateDate">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">网关产品型号:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="netGateType" placeholder="请输入网关产品型号" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">网关产品编号:</label>
+                <div class="layui-input-block">
+                    <input type="text" name="NetSn" placeholder="请输入网关产品编号" autocomplete="off"
+                           class="layui-input" lay-verify="number">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <div class="layui-input-block">
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="access_network"
+                            style="margin: 0 40%">
+                        立即提交
+                    </button>
+                    <button type="button" onclick="debugForm()">
+                        debug
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+<script src="../websource/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="../websource/js/monitor_platform_js/config.js"></script>
+<script type="text/javascript" src="../websource/js/mask.min.js"></script>
+<script src="../websource/js/vue.js"></script>
+<script src="../websource/js/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="../websource/js/public.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    layui.use(['form', 'table','laydate'], function () {
+        var form = layui.form, table = layui.table, laydate = layui.laydate;
+        var pageType = getQueryVariable("pageType");
+        $("#Manufacturer").hide();
+        table.render({
+            elem: "#floor_data",
+            loading: true,
+            data: [
+
+            ],
+            text: {
+                none: "点击<span style='color: #FF5722'>上方的生成按钮</span>生成数据"
+            },
+            cols: [
+                [
+                    {field: 'report', title: '上报楼层',},
+                    {field: 'corresponding', title: '对应楼层', edit: "text"},
+                ]
+            ]
+        });
+
+        table.on("edit(floor_data)",function (obj) {
+            console.log(obj.tr.attr("data-index"));
+            floor_data[obj.tr.attr("data-index")]["corresponding"] = obj.value
+
+
+        })
+
+        $("#useElevator").click(function(){
+            layer.open({
+                type: 2,
+                title: "test",
+                area: ['80%', '80%'],
+                shade: [0.8, '#393D49'],
+                content: "useElevator.html",
+            });
+        });
+
+        laydate.render({
+            elem: "#installTime"
+        });
+
+        laydate.render({
+            elem:'#netCreateDate'
+        });
+
+        form.on("radio(source)",function (obj) {
+            switch (obj.value) {
+                case '海康':
+                    addRadio({"视频版":1,"语音版":2,"多媒体版":3},"deviceType")
+                    break;
+                case "汇川":
+                    addRadio({"一键呼救版":4,"多媒体版":5},"deviceType")
+                    break;
+                case "自研":
+                    addRadio({"自研":6},"deviceType")
+                    break;
+            };
+
+            function addRadio(aaa,name) {
+                $("#sourceItem").empty();
+                for(var j in aaa){
+                    var radio = document.createElement("input");
+                    radio.setAttribute("type","radio");
+                    radio.setAttribute("name",name);
+                    radio.setAttribute("title",j);
+                    radio.setAttribute("value",aaa[j]);
+                    document.getElementById("sourceItem").appendChild(radio)
+                }
+            }
+            form.render()
+
+        });
+        
+        form.on("radio(onShowManufacturer)",function (obj) {
+            if(obj.value === "1"){
+                $("#Manufacturer").show();
+            }else{
+                $("#Manufacturer").hide();
+            }
+        });
+
+
+        var floor_data = [];
+        $("#generateFloor").click(function () {
+            var floorNum = $("#floorNum").val(),floorMin = $("#floorMin").val();
+            if(floorNum == '' || floorMin == ''){
+                layer.alert("请输入楼层和最底楼层");
+            }
+            for(var j=0;j<floorNum;j++){
+                if(floorMin == 0){
+                    floorMin ++;
+                };
+                floor_data.push({"report":j+1,"corresponding":floorMin});
+                floorMin++;
+            }
+            table.reload('floor_data',{
+                data:floor_data
+            })
+
+
+        });
+
+
+        
+        form.on("submit(access_network)",function (obj) {
+            var floor = {};
+            for(var j=0; j<floor_data.length; j++){
+                floor["floor"+(j+1)] = floor_data[j].corresponding;
+            }
+            $.extend(obj.field,floor);
+            $.extend(obj.field,{'pageType':"deviceAddPage"});
+            console.log(obj.field);
+            $.ajax({
+                url:request_url+"tbElev/edit",
+                data:obj.field,
+                success:function (res) {
+                    if(res.success){
+                        layer.alert("添加成功")
+                    }else{
+                        layer.alert(res.msg)
+                    }
+                }
+            })
+
+            return false;
+        })
+
+
+
+
+    })
+
+
+</script>
+</body>
+</html>

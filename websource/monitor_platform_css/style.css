@@ -89,3 +89,15 @@
 .layui-form-label{
     width: 150px;
 }
+
+.layui-form-radio>i{
+    font-size: 20px;
+}
+
+.layui-form-radio>i:hover, .layui-form-radioed>i{
+    color:#239fd7;
+}
+
+input:disabled{
+    cursor: not-allowed;
+}

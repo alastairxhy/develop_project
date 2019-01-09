@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>选择列表</title>
+    <link rel="stylesheet" type="text/css" href="../websource/monitor_platform_css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="../websource/css/style.css"/>
+    <link rel="stylesheet" href="../websource/monitor_platform_css/style.css">
+    <link rel="stylesheet" type="text/css" href="../websource/css/mask.css">
+</head>
+<body>
+<div class="layui-col-md10 layui-col-md-offset1">
+    <form action="" class="layui-form" style="width: 500px;margin: 20px auto 0">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">注册代码:</label>
+                <div class="layui-input-inline" style="width: 210px">
+                    <input type="text" name="elevCode" placeholder="请输入注册代码" autocomplete="off"
+                           class="layui-input" >
+                </div>
+                <div class="layui-input-inline" style="width: 64px">
+                    <button class="layui-btn layui-btn-normal" id="reload" lay-submit lay-filter="reload">查询</button>
+                </div>
+            </div>
+        </div>
+
+    </form>
+    <table id="useElevator" lay-filter="useElevator"></table>
+</div>
+<script type="text/html" id="list_table_tool">
+    <a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-xs" lay-event="use">选择</a>
+</script>
+<script src="../websource/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="../websource/js/monitor_platform_js/config.js"></script>
+<script type="text/javascript" src="../websource/js/mask.min.js"></script>
+<script src="../websource/js/vue.js"></script>
+<script src="../websource/js/layui/layui.all.js" type="text/javascript"  charset="utf-8"></script>
+<script src="../websource/js/public.js" type="text/javascript" charset="utf-8"></script>
+<script >
+    layui.use(['element','table','layer','form'],function () {
+        var element = layui.element,table = layui.table,layer = layui.layer,form = layui.form;
+        var listType = getQueryVariable("listType"),inpputID = getQueryVariable("inpputID");
+        table.render({
+            elem:"#useElevator",
+            skin: "line",
+            method:'post',
+            url:request_url+'/tbElev/dataGrid?select=forRegiest',
+            headers:{
+                fromType:'wlzd'
+            },
+            where: {
+                corpType: listType,
+            },
+            request: {
+                pageName: "pageNo",
+                limitName: "pageSize"
+            },
+            parseData: function (res) {
+                return {
+                    "code": res.status,
+                    "msg": res.msg,
+                    "count": res.length,
+                    "data": res.obj[0]
+                };
+            },
+            height: 475,
+            page: {limit: 10},
+            limit: 15,
+            loading: true,
+            cols: [[ //表头
+                {field: 'quickCode', title: '救援码',},
+                {field: 'elevCode', title: '注册代码',},
+                {field: 'serviceCorpName', title: '维保单位',},
+                {field: 'location', title: '电梯安装地址',},
+                {field: '', title: '操作', toolbar: "#list_table_tool",width:80}
+            ]],
+        })
+
+        table.on('tool(useElevator)',function (obj) {
+           var input =  $("#elevator", parent.document) ,input2 = $("#location", parent.document),elevId = $("#elevId", parent.document);
+            input.val(obj.data.elevCode);
+            input2.val(obj.data.location);
+            elevId.val(obj.data.id);
+            parent.layer.closeAll()
+        })
+
+        form.on("submit(reload)",function (obj) {
+            table_search("useElevator",obj.field,request_url+'/tbElev/dataGrid?select=forRegiest')
+            return false;
+        })
+
+
+    })
+
+</script>
+</body>
+</html>
