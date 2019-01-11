@@ -18,7 +18,8 @@ PROJECT_PATH = {
     index:{url:'index.html',ID:1},
     Elevator_list:{url:"admission_management/Elevator_list.html",ID:10101,title:'入网管理'},
     add_elevator:{url:"admission_management/add_elevator.html",ID:10102,title:'添加电梯'},
-    access_network:{url:"admission_management/access_network.html",ID:10103,title:'调试入网'}
+    access_network:{url:"admission_management/access_network.html",ID:10103,title:'调试入网'},
+    elevator_detail:{url:"admission_management/elevator_detail.html",ID:10104,title:'电梯详情'}
 }
 
 $.ajaxSetup({

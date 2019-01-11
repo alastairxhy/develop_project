@@ -16,10 +16,9 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">电梯:</label>
                 <div class="layui-input-inline" style="width: 245px">
-                    <input type="text" name="elevCode" id="elevator" required lay-verify="required"
-                       autocomplete="off" class="layui-input" disabled>
-                    <input type="text" name="id" id="elevId" required lay-verify="required"
-                           autocomplete="off" class="layui-input" disabled style="display: none">
+                    <input type="text" name="elevCode" :value="networkData.deviceID" id="elevator" required lay-verify="required"
+                           autocomplete="off" class="layui-input" disabled>
+                    <input type="text" name="id" id="elevId" :value="networkData.elevID" autocomplete="off" class="layui-input" disabled style="display: none">
                 </div>
                 <div class="layui-input-inline">
                     <button type="button" class="layui-btn layui-btn-normal" id="useElevator">选择电梯</button>
@@ -28,14 +27,14 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">地址:</label>
                 <div class="layui-input-block">
-                    <input type="text" name="location" id="location" required lay-verify="required"
+                    <input type="text" name="location" :value="elevData.location"  id="location" required lay-verify="required"
                            autocomplete="off" class="layui-input" disabled>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">设备安装日期:</label>
                 <div class="layui-input-block">
-                    <input type="text" name="installTime" id="installTime" required lay-verify="required"
+                    <input type="text" name="installTime" :value="elevData.installTime" id="installTime" required lay-verify="required"
                            placeholder="请选择设备安装日期"
                            autocomplete="off" class="layui-input">
                 </div>
@@ -43,25 +42,26 @@
             <div class="layui-inline">
                 <label class="layui-form-label">设备安装人员:</label>
                 <div class="layui-input-inline" style="width: 245px">
-                    <input type="text" name="installPerson" placeholder="请输入设备安装人员" autocomplete="off" class="layui-input">
+                    <input type="text" name="installPerson" :value="elevData.installPerson" placeholder="请输入设备安装人员" autocomplete="off"
+                           class="layui-input">
                 </div>
                 <div class="layui-input-inline" style="width: 400px">
-                    <input type="text" name="installPersonPhone" placeholder="请输入设备安装人员电话" autocomplete="off"
+                    <input type="text" name="installPersonPhone" :value="elevData.installPersonPhone" placeholder="请输入设备安装人员电话" autocomplete="off"
                            class="layui-input" lay-verify="phone">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">设备来源:</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="elevSource" value="海康" title="海康" lay-filter="source" >
-                    <input type="radio" name="elevSource" value="汇川" title="汇川" lay-filter="source">
-                    <input type="radio" name="elevSource" value="自研" title="自研" lay-filter="source">
+                    <input type="radio" name="elevSource" value="海康" title="海康" lay-filter="source" :checked="elevData.elevSource === '海康'">
+                    <input type="radio" name="elevSource" value="汇川" title="汇川" lay-filter="source" :checked="elevData.elevSource === '汇川'">
+                    <input type="radio" name="elevSource" value="自研" title="自研" lay-filter="source" :checked="elevData.elevSource === '自研'">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">设备类型:</label>
                 <div class="layui-input-block" id="sourceItem">
-                    <input type="radio" name="deviceType" value="1" title="视频版" >
+                    <input type="radio" name="deviceType" value="1" title="视频版">
                     <input type="radio" name="deviceType" value="2" title="语音版">
                     <input type="radio" name="deviceType" value="3" title="多媒体版">
                 </div>
@@ -69,41 +69,42 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">接入方式:</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="netType" value="1" title="有线">
-                    <input type="radio" name="netType" value="2" title="3G">
-                    <input type="radio" name="netType" value="3" title="4G">
-                    <input type="radio" name="netType" value="4" title="其他">
+                    <input type="radio" name="netType" value="0" title="无线" :checked="elevData.netType === 0">
+                    <input type="radio" name="netType" value="1" title="有线" :checked="elevData.netType === 1">
+                    <input type="radio" name="netType" value="2" title="3G" :checked="elevData.netType === 2">
+                    <input type="radio" name="netType" value="3" title="4G" :checked="elevData.netType === 3">
+                    <input type="radio" name="netType" value="4" title="其他" :checked="elevData.netType === 4">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">接入网络:</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="SIMCardCompany" value="1" title="电信">
-                    <input type="radio" name="SIMCardCompany" value="3" title="移动">
-                    <input type="radio" name="SIMCardCompany" value="2" title="联通">
+                    <input type="radio" name="SIMCardCompany" value="1" title="电信" :checked="networkData.SIMCardCompany === 1">
+                    <input type="radio" name="SIMCardCompany" value="3" title="移动" :checked="networkData.SIMCardCompany === 2">
+                    <input type="radio" name="SIMCardCompany" value="2" title="联通" :checked="networkData.SIMCardCompany === 3">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">SIM卡号:</label>
                 <div class="layui-input-block">
-                    <input type="text" name="SIMCardID" placeholder="请输入SIM卡号" autocomplete="off" class="layui-input"
+                    <input type="text" name="SIMCardID" :value="networkData.SIMCardID" placeholder="请输入SIM卡号" autocomplete="off" class="layui-input"
                            lay-verify="number">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">是否已接入控制器:</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="onShowManufacturer" value="1" title="是" lay-filter="onShowManufacturer">
-                    <input type="radio" name="onShowManufacturer" value="0" title="否" lay-filter="onShowManufacturer">
+                    <input type="radio" name="onShowManufacturer" value="1" title="是" lay-filter="onShowManufacturer" :checked="elevData.SIMCardCompany">
+                    <input type="radio" name="onShowManufacturer" value="0" title="否" lay-filter="onShowManufacturer" :checked="!elevData.SIMCardCompany">
                 </div>
             </div>
             <div class="layui-form-item" id="Manufacturer">
                 <label class="layui-form-label">控制器厂商:</label>
                 <div class="layui-input-block">
-                    <input type="radio" name="elevController" value="新时达" title="新时达">
-                    <input type="radio" name="elevController" value="默纳克" title="默纳克">
-                    <input type="radio" name="elevController" value="海浦蒙特" title="海浦蒙特">
-                    <input type="radio" name="elevController" value="汇川" title="汇川">
+                    <input type="radio" name="elevController" value="新时达" title="新时达" :checked="elevData.SIMCardCompany === '新时达'">
+                    <input type="radio" name="elevController" value="默纳克" title="默纳克" :checked="elevData.SIMCardCompany === '默纳克'">
+                    <input type="radio" name="elevController" value="海浦蒙特" title="海浦蒙特" :checked="elevData.SIMCardCompany === '海浦蒙特'">
+                    <input type="radio" name="elevController" value="汇川" title="汇川" :checked="elevData.SIMCardCompany === '汇川'">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -111,12 +112,12 @@
                     <label class="layui-form-label">楼层设置:</label>
                     <div class="layui-form-mid">楼层数:</div>
                     <div class="layui-input-inline" style="width: 210px">
-                        <input type="text" name="MaxFloor" placeholder="请输入楼层数" autocomplete="off"
+                        <input type="text" name="MaxFloor" :value="networkData.maxFloor" placeholder="请输入楼层数" autocomplete="off"
                                class="layui-input" lay-verify="number" id="floorNum">
                     </div>
                     <div class="layui-form-mid">最底楼层:</div>
                     <div class="layui-input-inline" style="width: 210px">
-                        <input type="text" name="BottomFloor" placeholder="请输入最底楼层" autocomplete="off"
+                        <input type="text" name="BottomFloor" :value="networkData.bottomFloor" placeholder="请输入最底楼层" autocomplete="off"
                                class="layui-input" lay-verify="number" id="floorMin">
                     </div>
                     <div class="layui-input-inline" style="width: 64px">
@@ -133,28 +134,28 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">网关制造单位:</label>
                 <div class="layui-input-block">
-                    <input type="text" name="NetCorp" placeholder="请输入网关制造单位" autocomplete="off"
+                    <input type="text" name="NetCorp" :value="networkData.NetCorp"  placeholder="请输入网关制造单位" autocomplete="off"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">网关制造日期:</label>
                 <div class="layui-input-block">
-                    <input type="text" name="netCreateDate" placeholder="请输入网关制造日期" autocomplete="off"
+                    <input type="text" name="netCreateDate" :value="networkData.netCreateDate" placeholder="请输入网关制造日期" autocomplete="off"
                            class="layui-input" id="netCreateDate">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">网关产品型号:</label>
                 <div class="layui-input-block">
-                    <input type="text" name="netGateType" placeholder="请输入网关产品型号" autocomplete="off"
+                    <input type="text" name="netGateType" :value="networkData.netGateType" placeholder="请输入网关产品型号" autocomplete="off"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">网关产品编号:</label>
                 <div class="layui-input-block">
-                    <input type="text" name="NetSn" placeholder="请输入网关产品编号" autocomplete="off"
+                    <input type="text" name="NetSn" :value="networkData.NetSn" placeholder="请输入网关产品编号" autocomplete="off"
                            class="layui-input" lay-verify="number">
                 </div>
             </div>
@@ -182,16 +183,68 @@
 <script src="../websource/js/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
 <script src="../websource/js/public.js" type="text/javascript" charset="utf-8"></script>
 <script>
-    layui.use(['form', 'table','laydate'], function () {
+    layui.use(['form', 'table', 'laydate'], function () {
         var form = layui.form, table = layui.table, laydate = layui.laydate;
-        var pageType = getQueryVariable("pageType");
+        var pageType = getQueryVariable("pageType"), elevatorID = getQueryVariable("elevatorID");
+        console.info(pageType + "\n" + elevatorID);
         $("#Manufacturer").hide();
+        var access_network = new Vue({
+            el: "#access_network",
+            data: {
+                networkData:{},
+                elevData:{}
+            },
+            mounted: function () {
+
+
+                form.render()
+            },
+            updated:function () {
+                form.render()
+            }
+            
+        });
+
+        if(pageType == "editPage"){
+            $.ajax({
+                url:request_url+"tbElev/editPageDetail",
+                data:{
+                    pageType:"regDetailPage",
+                    id:elevatorID
+                },
+                success:function (res) {
+                    if(res.success){
+                        var networkData = res.obj.reg,elevData = res.obj.elev;
+                        console.table(res.obj.reg);
+                        access_network.$set(access_network.$data,"networkData",networkData);
+                        access_network.$set(access_network.$data,"elevData",elevData);
+                        switch (elevData.elevSource) {
+                            case '海康':
+                                addRadio({"视频版": 1, "语音版": 2, "多媒体版": 3}, "deviceType",elevData.deviceType)
+                                break;
+                            case "汇川":
+                                addRadio({"一键呼救版": 4, "多媒体版": 5}, "deviceType",elevData.deviceType)
+                                break;
+                            case "自研":
+                                addRadio({"自研": 6}, "deviceType",elevData.deviceType)
+                                break;
+                        };
+                        if(elevData.SIMCardCompany){
+                            $("#Manufacturer").show();
+                        }
+                    }else{
+                        layer.alert(res.msg)
+                    }
+
+                }
+            })
+        };
+
+
         table.render({
             elem: "#floor_data",
             loading: true,
-            data: [
-
-            ],
+            data: [],
             text: {
                 none: "点击<span style='color: #FF5722'>上方的生成按钮</span>生成数据"
             },
@@ -203,14 +256,14 @@
             ]
         });
 
-        table.on("edit(floor_data)",function (obj) {
+        table.on("edit(floor_data)", function (obj) {
             console.log(obj.tr.attr("data-index"));
             floor_data[obj.tr.attr("data-index")]["corresponding"] = obj.value
 
 
         })
 
-        $("#useElevator").click(function(){
+        $("#useElevator").click(function () {
             layer.open({
                 type: 2,
                 title: "test",
@@ -225,41 +278,44 @@
         });
 
         laydate.render({
-            elem:'#netCreateDate'
+            elem: '#netCreateDate'
         });
 
-        form.on("radio(source)",function (obj) {
+        form.on("radio(source)", function (obj) {
             switch (obj.value) {
                 case '海康':
-                    addRadio({"视频版":1,"语音版":2,"多媒体版":3},"deviceType")
+                    addRadio({"视频版": 1, "语音版": 2, "多媒体版": 3}, "deviceType")
                     break;
                 case "汇川":
-                    addRadio({"一键呼救版":4,"多媒体版":5},"deviceType")
+                    addRadio({"一键呼救版": 4, "多媒体版": 5}, "deviceType")
                     break;
                 case "自研":
-                    addRadio({"自研":6},"deviceType")
+                    addRadio({"自研": 6}, "deviceType")
                     break;
             };
-
-            function addRadio(aaa,name) {
-                $("#sourceItem").empty();
-                for(var j in aaa){
-                    var radio = document.createElement("input");
-                    radio.setAttribute("type","radio");
-                    radio.setAttribute("name",name);
-                    radio.setAttribute("title",j);
-                    radio.setAttribute("value",aaa[j]);
-                    document.getElementById("sourceItem").appendChild(radio)
-                }
-            }
             form.render()
 
         });
-        
-        form.on("radio(onShowManufacturer)",function (obj) {
-            if(obj.value === "1"){
+
+        function addRadio(aaa, name,checkedValue) {
+            $("#sourceItem").empty();
+            for (var j in aaa) {
+                var radio = document.createElement("input");
+                radio.setAttribute("type", "radio");
+                radio.setAttribute("name", name);
+                radio.setAttribute("title", j);
+                radio.setAttribute("value", aaa[j]);
+                if( checkedValue && aaa[j] == checkedValue){
+                    radio.setAttribute("checked", "checked");
+                }
+                document.getElementById("sourceItem").appendChild(radio);
+            }
+        };
+
+        form.on("radio(onShowManufacturer)", function (obj) {
+            if (obj.value === "1") {
                 $("#Manufacturer").show();
-            }else{
+            } else {
                 $("#Manufacturer").hide();
             }
         });
@@ -267,41 +323,41 @@
 
         var floor_data = [];
         $("#generateFloor").click(function () {
-            var floorNum = $("#floorNum").val(),floorMin = $("#floorMin").val();
-            if(floorNum == '' || floorMin == ''){
+            var floorNum = $("#floorNum").val(), floorMin = $("#floorMin").val();
+            if (floorNum == '' || floorMin == '') {
                 layer.alert("请输入楼层和最底楼层");
             }
-            for(var j=0;j<floorNum;j++){
-                if(floorMin == 0){
-                    floorMin ++;
-                };
-                floor_data.push({"report":j+1,"corresponding":floorMin});
+            for (var j = 0; j < floorNum; j++) {
+                if (floorMin == 0) {
+                    floorMin++;
+                }
+                ;
+                floor_data.push({"report": j + 1, "corresponding": floorMin});
                 floorMin++;
             }
-            table.reload('floor_data',{
-                data:floor_data
+            table.reload('floor_data', {
+                data: floor_data
             })
 
 
         });
 
 
-        
-        form.on("submit(access_network)",function (obj) {
+        form.on("submit(access_network)", function (obj) {
             var floor = {};
-            for(var j=0; j<floor_data.length; j++){
-                floor["floor"+(j+1)] = floor_data[j].corresponding;
+            for (var j = 0; j < floor_data.length; j++) {
+                floor["floor" + (j + 1)] = floor_data[j].corresponding;
             }
-            $.extend(obj.field,floor);
-            $.extend(obj.field,{'pageType':"deviceAddPage"});
+            $.extend(obj.field, floor);
+            $.extend(obj.field, {'pageType': "deviceAddPage"});
             console.log(obj.field);
             $.ajax({
-                url:request_url+"tbElev/edit",
-                data:obj.field,
-                success:function (res) {
-                    if(res.success){
-                        layer.alert("添加成功")
-                    }else{
+                url: request_url + "tbElev/edit",
+                data: obj.field,
+                success: function (res) {
+                    if (res.success) {
+                        layer.alert(pageType == 'editPage'?"保存成功":"添加成功")
+                    } else {
                         layer.alert(res.msg)
                     }
                 }
@@ -309,8 +365,6 @@
 
             return false;
         })
-
-
 
 
     })

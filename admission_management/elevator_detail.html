@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>电梯详情</title>
+    <link rel="stylesheet" type="text/css" href="../websource/monitor_platform_css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="../websource/css/style.css"/>
+    <link rel="stylesheet" href="../websource/monitor_platform_css/style.css">
+    <link rel="stylesheet" type="text/css" href="../websource/css/mask.css">
+    <style>
+        layui-form-item{margin: 0;}
+        .layui-form-label{padding-left:0;padding-right: 0}
+        .template:after,.layui-form-item:after{content: '';display: block;clear: both}
+        .layui-form-item>div{float: left}
+    </style>
+</head>
+<body>
+<div class="layui-main">
+    <div class="content" id="elevatorDetail">
+        <blockquote class="layui-elem-quote">电梯基本信息</blockquote>
+        <div class="layui-form">
+            <div class="layui-form-item" >
+                <div v-for="detail in DetailData" class="template">
+                    <label class="layui-form-label" v-text="detail.label" ></label>
+                    <div class="layui-input-inline" style="width: 260px;">
+                       <div class="layui-form-mid" v-html="detail.value" style="margin-left: 10px;width: 100%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <blockquote class="layui-elem-quote">物联设备信息</blockquote>
+        <div class="layui-form">
+            <div class="layui-form-item">
+                <div v-for="detail in DeviceData" class="template">
+                    <label class="layui-form-label" v-text="detail.label"></label>
+                    <div class="layui-input-inline" style="width: 260px;">
+                        <div class="layui-form-mid" v-html="detail.value" style="margin-left: 10px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="../websource/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="../websource/js/monitor_platform_js/config.js"></script>
+<script type="text/javascript" src="../websource/js/mask.min.js"></script>
+<script src="../websource/js/vue.js"></script>
+<script src="../websource/js/layui/layui.all.js" type="text/javascript"  charset="utf-8"></script>
+<script src="../websource/js/public.js" type="text/javascript" charset="utf-8"></script>
+<script>
+
+    layui.use("form",function () {
+        var form = layui.form;
+        var elevatorID = getQueryVariable("elevatorID");
+        console.log(elevatorID)
+        var elevatorDetail = new Vue({
+            el:"#elevatorDetail",
+            data:{
+                DetailData:[
+                    {label:"电梯识别码:",field:'quickCode'},
+                    {label:"注册码:",field:'elevCode'},
+                    {label:"电梯安装地址:",field:'location'},
+                    {label:"维保类型:",field:'serviceType',templet:function (obj) {
+                        return obj == 1?'原厂维保':obj == 2?'授权委托':obj == 3?'第三方维保 ':'使用单位维保';
+                    }},
+                    {label:"电梯维保单位:",field:'serviceCorpName'},
+                    {label:"维保负责人:",field:'servicePerson'},
+                    {label:"维保负责人电话:",field:'servicePersonPhone'},
+                    {label:"使用单位:",field:'useCorpName'},
+                    {label:"使用单位内部编码:",field:'internalCode'},
+                    {label:"所属区域:",field:''},
+                    {label:"安管员:",field:'safetyAdmin'},
+                    {label:"安管人员电话:",field:'safetyAdminPhone'},
+                    {label:"额外推送号码:",field:'pushPhone',templet:function (obj) {
+                            var phone = obj.split(",");
+                            var text = '';
+                            for (var j=0;j<phone.length;j++){
+                                text += "【"+(j+1)+"】"+phone[j]+"<br>";
+                            };
+                            return text;
+                        }},
+                    {label:"电梯产权单位:",field:'propertyCorpName'},
+                    {label:"制造单位:",field:'produceCorpName'},
+                    {label:"制造许可证编号:",field:'produceCertNo'},
+                    {label:"电梯品牌:",field:'elevBrand'},
+                    {label:"出厂编号:",field:'produceSerialNo'},
+                    {label:"电梯安装单位:",field:'installCorpName'},
+                    {label:"电梯安装日期:",field:'installTime'},
+                    {label:"电梯大修/改造日期:",field:'reformTime'},
+                    {label:"电梯类型:",field:'elevType'},
+                    {label:"电梯型号:",field:'elevModel'},
+                    {label:"电梯所在省市县(区):",field:''},
+                    {label:"层数:",field:'floors'},
+                    {label:"站数:",field:'station'},
+                    {label:"门数:",field:'door'},
+                    {label:"额定速度:",field:'speed'},
+                    {label:"载重量:",field:'weight'},
+                    {label:"拖动方式:",field:'dragType'},
+                    {label:"电梯使用状态:",field:'status',templet:function (obj) {
+                            return obj== 1?"正常":obj== 2?"使用":'调试';
+                        }},
+                    {label:"电梯检验机构:",field:'inspectUnitName'},
+                    {label:"使用场所分类:",field:'usePlace'},
+                    {label:"备注:",field:'mark'},
+                ],
+                DeviceData:[
+                    {label:"设备提供商:",field:'elevController'},
+                    {label:"设备类型:",field:'deviceType',templet:function (obj) {
+                            return obj== 1?"语音版":obj== 2?"视频版":'多媒体版';
+                        }},
+                    {label:"安装人员:",field:'installPerson'},
+                    {label:"安装日期:",field:'installTime'},
+                    {label:"是否安装多媒体屏:",field:'isMultiScreen',templet:function (obj) {
+                            return obj== 0?"否":'是';
+                        }},
+                    {label:"网络接入方式:",field:'netType',templet:function (obj) {
+                            return obj== 0?"无线":obj== 1?"有线":obj== 2?"3G":obj== 3?"4G":'其他';
+                        }},
+                    {label:"设定楼层:",field:'',templet:function (obj) {
+                            console.log(obj)
+                        }},
+                    {label:"是否已接入电梯控制器:",field:'elevController'},
+                ]
+            },
+            mounted:function () {
+                form.render()
+                form.render()
+            }
+        });
+
+        $.ajax({
+            url:request_url+"tbElev/editPageDetail",
+            data:{
+                pageType:"regDetailPage",
+                id:elevatorID
+            },
+            success:function (res) {
+                for(var j=0;j<elevatorDetail.$data.DetailData.length;j++){
+                    var currentObj = elevatorDetail.$data.DetailData[j];
+                        elevatorDetail.$set(currentObj,"value",res.obj.elev[currentObj.field])
+
+                    if(currentObj.templet){
+                        elevatorDetail.$set(currentObj,"value",currentObj.templet(currentObj.value))
+                    };
+
+                };
+                for(var j=0;j<elevatorDetail.$data.DeviceData.length;j++){
+                    var currentObj = elevatorDetail.$data.DeviceData[j];
+                    for(i in res.obj){
+                        if(res.obj[i][currentObj.field] != undefined){
+                            elevatorDetail.$set(currentObj,"value",res.obj[i][currentObj.field]);
+                            if(currentObj.templet){
+                                elevatorDetail.$set(currentObj,"value",currentObj.templet(currentObj.value))
+                            };
+                        }
+                    }
+                };
+                var floorText = '';
+                for(j in res.obj.floor){
+                    floorText += res.obj.floor[j]+"层"+"【"+j+"】"+"<br>";
+                }
+                elevatorDetail.$set(elevatorDetail.$data.DeviceData.find(function (obj) {
+                    return obj.label == "设定楼层:";
+                }),"value",floorText);
+
+                elevatorDetail.$set(elevatorDetail.$data.DetailData.find(function (obj) {
+                    return obj.label == "所属区域:";
+                }),"value",res.obj.elev.areaProvince+res.obj.elev.areaCity+res.obj.elev.areaDistrict);
+                elevatorDetail.$set(elevatorDetail.$data.DetailData.find(function (obj) {
+                    return obj.label == "电梯所在省市县(区):";
+                }),"value",res.obj.elev.areaDistrict)
+
+
+
+            }
+        })
+
+
+
+    })
+
+</script>
+</body>
+</html>
