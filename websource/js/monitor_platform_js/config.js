@@ -3,7 +3,11 @@ var develop = {
     menus_level:3
 };
 var request_url, request_url_json;
-
+var HK_CONFIG = {
+    "szSvrIP":"192.168.151.8",
+    "nSvrPort":9000,
+    "configServerType":1
+}
 
 if (develop.debug) {
     request_url = 'http://admincs.yunandawulian.com/appServer/';
@@ -16,10 +20,12 @@ if (develop.debug) {
 
 PROJECT_PATH = {
     index:{url:'index.html',ID:1},
-    Elevator_list:{url:"admission_management/Elevator_list.html",ID:10101,title:'入网管理'},
+    Elevator_list:{url:"admission_management/elevator_management.html",ID:10101,title:'入网管理'},
     add_elevator:{url:"admission_management/add_elevator.html",ID:10102,title:'添加电梯'},
     access_network:{url:"admission_management/access_network.html",ID:10103,title:'调试入网'},
-    elevator_detail:{url:"admission_management/elevator_detail.html",ID:10104,title:'电梯详情'}
+    elevator_detail:{url:"admission_management/elevator_detail.html",ID:10104,title:'电梯详情'},
+    elevator_management:{url:"couplet_elevator/elevator_management.html",ID:10201,title:'电梯管理'},
+    monitor:{url:"http://admincs.yunandawulian.com/appServer/tbElev/tbElevMonitorHk",ID:10202,title:'监控'},
 }
 
 $.ajaxSetup({
@@ -39,9 +45,42 @@ $.ajaxSetup({
     },
 });
 
+//解决IE浏览器不支持find()方法的问题
+if (!Array.prototype.find) {
+    Object.defineProperty(Array.prototype, 'find', {
+        value: function(predicate) {
+            if (this == null) {
+                throw new TypeError('"this" is null or not defined');
+            }
+
+            var o = Object(this);
+
+            var len = o.length >>> 0;
+
+            if (typeof predicate !== 'function') {
+                throw new TypeError('predicate must be a function');
+            }
+
+            var thisArg = arguments[1];
+
+            var k = 0;
+
+            while (k < len) {
+                var kValue = o[k];
+                if (predicate.call(thisArg, kValue, k, o)) {
+                    return kValue;
+                }
+                k++;
+            }
+
+            return undefined;
+        }
+    });
+}
 
 
-if(!sessionStorage.getItem("menus_data")){
+console.log(!sessionStorage.getItem("menus_data"))
+if(!sessionStorage.getItem("menus_data") || sessionStorage.getItem("menus_data")=='undefined' ){
     sessionStorage.setItem("menus_data",JSON.stringify(getMenus("0",develop.menus_level)));
 };
 

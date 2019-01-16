@@ -1,6 +1,6 @@
 /** layui-v2.4.2 MIT License By https://www.layui.com */ ;
 ! function(e) {
-	"use strict";
+
 	var t = document,
 		o = {
 			modules: {},
@@ -235,7 +235,7 @@ layui.define(function(a) {
 	}), a("layui.all", layui.v)
 });
 layui.define(function(e) {
-	"use strict";
+	
 	var r = {
 			open: "{{",
 			close: "}}"
@@ -274,7 +274,7 @@ layui.define(function(e) {
 		}).replace(c.query(1), function(e) {
 			var c = '"+(';
 			return e.replace(/\s/g, "") === r.open + r.close ? "" : (e = e.replace(n(r.open + "|" + r.close), ""), /^=/.test(e) && (e = e.replace(/^=/, ""), c = '"+_escape_('), c + e.replace(/\\/g, "") + ')+"')
-		}), e = '"use strict";var view = "' + e + '";return view;';
+		}), e = 'var view = "' + e + '";return view;';
 		try {
 			return o.cache = e = new Function("d, _escape_", e), e(t, c.escape)
 		} catch(u) {
@@ -293,7 +293,7 @@ layui.define(function(e) {
 	}, o.v = "1.2.0", e("laytpl", o)
 });
 layui.define(function(e) {
-	"use strict";
+	
 	var a = document,
 		t = "getElementById",
 		n = "getElementsByTagName",
@@ -407,8 +407,9 @@ layui.define(function(e) {
 	};
 	e(i, s)
 });
+
 ! function() {
-	"use strict";
+	
 	var e = window.layui && layui.define,
 		t = {
 			getPath: function() {
@@ -4570,7 +4571,7 @@ layui.define(function(e) {
 	}), pe
 });
 ! function(e, t) {
-	"use strict";
+	
 	var i, n, a = e.layui && layui.define,
 		o = {
 			getPath: function() {
@@ -5221,7 +5222,7 @@ layui.define(function(e) {
 	}()
 }(window);
 layui.define("jquery", function(t) {
-	"use strict";
+	
 	var a = layui.$,
 		i = (layui.hint(), layui.device()),
 		e = "element",
@@ -5468,7 +5469,7 @@ layui.define("jquery", function(t) {
 	b.on("click", v, f.tabClick), b.on("click", f.hideTabMore), a(window).on("resize", f.tabAuto), t(e, p)
 });
 layui.define("layer", function(e) {
-	"use strict";
+	
 	var i = layui.$,
 		t = layui.layer,
 		n = layui.hint(),
@@ -5733,7 +5734,7 @@ layui.define("layer", function(e) {
 	}, e(r, o)
 });
 layui.define("jquery", function(e) {
-	"use strict";
+	
 	var i = layui.jquery,
 		t = {
 			config: {},
@@ -5942,7 +5943,7 @@ layui.define("jquery", function(e) {
 	}, e(n, t)
 });
 layui.define("jquery", function(e) {
-	"use strict";
+	
 	var i = layui.jquery,
 		o = {
 			config: {},
@@ -6289,7 +6290,7 @@ layui.define("jquery", function(e) {
 	}, e(t, o)
 });
 layui.define("layer", function(e) {
-	"use strict";
+	
 	var i = layui.$,
 		t = layui.layer,
 		a = layui.hint(),
@@ -6599,7 +6600,7 @@ layui.define("layer", function(e) {
 	}), v.on("submit", r, d).on("click", "*[lay-submit]", d), e(l, f)
 });
 layui.define("jquery", function(e) {
-	"use strict";
+	
 	var o = layui.$,
 		a = layui.hint(),
 		i = "layui-tree-enter",
@@ -6697,7 +6698,7 @@ layui.define("jquery", function(e) {
 	})
 });
 layui.define(["laytpl", "laypage", "layer", "form", "util"], function(e) {
-	"use strict";
+	
 	var t = layui.$,
 		i = layui.laytpl,
 		a = layui.laypage,
@@ -7535,7 +7536,7 @@ layui.define(["laytpl", "laypage", "layer", "form", "util"], function(e) {
 	}, d.init(), e(s, d)
 });
 layui.define("jquery", function(e) {
-	"use strict";
+	
 	var i = layui.$,
 		n = (layui.hint(), layui.device(), {
 			config: {},
@@ -7664,7 +7665,7 @@ layui.define("jquery", function(e) {
 	}, e(t, n)
 });
 layui.define("jquery", function(e) {
-	"use strict";
+	
 	var a = layui.jquery,
 		i = {
 			config: {},
@@ -7763,7 +7764,7 @@ layui.define("jquery", function(e) {
 	}, e(n, i)
 });
 layui.define("jquery", function(t) {
-	"use strict";
+	
 	var e = layui.$,
 		i = {
 			fixbar: function(t) {
@@ -7881,7 +7882,7 @@ layui.define("jquery", function(t) {
 	}(e, window), t("util", i)
 });
 layui.define("jquery", function(e) {
-	"use strict";
+	
 	var l = layui.$,
 		o = function(e) {},
 		t = '<i class="layui-anim layui-anim-rotate layui-anim-loop layui-icon ">&#xe63e;</i>';
@@ -7970,7 +7971,7 @@ layui.define("jquery", function(e) {
 	}, e("flow", new o)
 });
 layui.define(["layer", "form"], function(t) {
-	"use strict";
+	
 	var e = layui.$,
 		i = layui.layer,
 		a = layui.form,
@@ -8322,7 +8323,7 @@ layui.define(["layer", "form"], function(t) {
 	t(n, w)
 });
 layui.define("jquery", function(e) {
-	"use strict";
+	
 	var a = layui.$,
 		l = "http://www.layui.com/doc/modules/code.html";
 	e("code", function(e) {

@@ -1,6 +1,6 @@
 /** layui-v2.4.2 MIT License By https://www.layui.com */ ;
 layui.define(["laytpl", "laypage", "layer", "form", "util"], function(e) {
-	"use strict";
+	
 	var xhrFields = {withCredentials:true};
 	var t = layui.$,
 		i = layui.laytpl,

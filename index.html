@@ -52,7 +52,7 @@
                         <dl :class="'layui-nav-child layui-anim layui-anim-upbit '+(isIndex == index?'layui-show':'')"
                             v-if="menus.children.length != 0"> <!-- 二级菜单 -->
                             <dd v-for="(child,indexs) in menus.children" @mouseenter="childItem(indexs)">
-                                <a href="javascript:;" :id="child.id" url="child.url"><span v-text="child.text"></span>
+                                <a href="javascript:;" :id="child.id" :url="child.url"><span v-text="child.text"></span>
                                     <i v-if="child.children.length != 0" :class="'layui-icon '+ (indexs == childIndex?'layui-icon-triangle-r':'layui-icon-triangle-d')"></i></a>
                                 <ul class="threeNav" v-if="child.children.length != 0" v-show="indexs == childIndex">
                                     <li v-for="threeNavItem in child.children"><a href="javascript:;" :id="threeNavItem.id" v-text="threeNavItem.text" :url="threeNavItem.url"></a></li>
