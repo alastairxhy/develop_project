@@ -44,7 +44,18 @@
 	</style>
 </head>
 <body>
-<div id="elevator_info">
+<!--动画层-->
+<div id="loading">
+	<div class="spinner">
+		<div class="rect1"></div>
+		<div class="rect2"></div>
+		<div class="rect3"></div>
+		<div class="rect4"></div>
+		<div class="rect5"></div>
+	</div>
+</div>
+<!--非动画层-->
+	<div id="elevator_info" style="display:none;">
 	<!--信息容器-->
 	<div class="top_left_window1" id="top_left_window1">
 		<!--左上第一容器，存放图标插件-->
@@ -95,9 +106,10 @@
 		</div>
 	</div>
 </div>
-<div id="baiduMap">
-	<!--地图容器-->
-</div>
+	<div id="baiduMap" style="opacity: 0">
+		<!--地图容器-->
+	</div>
+
 
 
 
@@ -105,6 +117,7 @@
 <script src="websource/js/vue.js" type="text/javascript" charset="utf-8"></script>
 <script src="websource/js/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
 <script src="http://api.map.baidu.com/api?v=2.0&ak=3b55d902d2eb9763e7a76a40a2bfa0bf" type="text/javascript" ></script>
+<script src="websource/js/monitor_platform_js/config.js" type="text/javascript" charset="utf-8"></script>
 <script src="websource/js/public.js" type="text/javascript" charset="utf-8"></script>
 <script src="websource/js/echarts.js" type="text/javascript" charset="utf-8"></script>
 <!--实现聚合点API-->
@@ -222,19 +235,22 @@
 
         //地图说明
         var map = new BMap.Map("baiduMap", {enableMapClick: false}); //实例化地图
+        map.setMapStyle({style:'dark'});//暗黑风格地图
         map.enableScrollWheelZoom(true);//开启鼠标滚轮缩
 
         $.ajax({
-            data:{
-                "methodName": "serviceData",
-                "distance":"30000"
-            },
+            url:"http://admincs.yunandawulian.com/appServer/Statics/getServiceData",
+            // data:{
+            //     "methodName": "serviceData",
+            //     "distance":"30000"
+            // },
             success:function (res) {
-                // console.log(res);
-                var obj=res.obj;
+				$("#loading").css("display","none");
+                $("#baiduMap").css("opacity","1");
+				$("#elevator_info").css("display","");
                 //定位初始点
-                var long = res.obj.userInfo.longitude,
-                    lati = res.obj.userInfo.latitude; // 经纬度变量
+                var long = res.userList[0].longitude,
+                    lati = res.userList[0].latitude; // 经纬度变量
                 //设置初始点位置
                 var initiationpoint = new BMap.Point(long, lati);//设置初始中心点
                 var initiationmarker = new BMap.Marker(initiationpoint);// 创建标注
@@ -261,9 +277,9 @@
                     size: new BMap.Size(53,52),
                     gridSize:80
                 }]; //聚合点样式
-                for (var i = 0; i < obj.list.length; i++) {
-                    var point = new BMap.Point(obj.list[i].longitude, obj.list[i].latitude);
-                    markers.push(new BMap.Marker(point,{icon: myicon(obj.list[i].status)})
+                for (var i = 0; i < 392; i++) {
+                    var point = new BMap.Point(res.list[i].longitude, res.list[i].latitude);
+                    markers.push(new BMap.Marker(point,{icon: myicon(res.list[i].status)})
                     // markers.push(new BMap.Marker(point,{icon: myicon(3)})//测试语句
                     );
                 }
@@ -373,70 +389,7 @@
 
     })
 
-    //窗口隐藏动画
-    // var fadeout_1 = function(){
-    //     $('#top_left_window1').addClass("fadeOutLeft");
-    //     $('#top_left_window1').removeClass("fadeinRight");
-	// 	$('#top_left_window1_i').removeClass("layui-icon-left");
-    //     $('#top_left_window1_i').addClass("layui-icon-right");
-    //     $('#top_left_window1_i').removeAttr('onclick');
-    //     $('#top_left_window1_i').attr('onclick','fadein_1()');
-    // }
-    // var fadein_1 = function(){
-    //     $('#top_left_window1').addClass("fadeinRight");
-    //     $('#top_left_window1').removeClass("fadeOutLeft");
-    //     $('#top_left_window1_i').removeClass("layui-icon-right");
-    //     $('#top_left_window1_i').addClass("layui-icon-left");
-    //     $('#top_left_window1_i').removeAttr('onclick');
-    //     $('#top_left_window1_i').attr('onclick','fadeout_1()');
-    // }
-    // var fadeout_2 = function(){
-    //     $('#top_left_window2').addClass("fadeOutLeft");
-    //     $('#top_left_window2').removeClass("fadeinRight");
-    //     $('#top_left_window2_i').removeClass("layui-icon-left");
-    //     $('#top_left_window2_i').addClass("layui-icon-right");
-    //     $('#top_left_window2_i').removeAttr('onclick');
-    //     $('#top_left_window2_i').attr('onclick','fadein_2()');
-    // }
-    // var fadein_2 = function(){
-    //     $('#top_left_window2').addClass("fadeinRight");
-    //     $('#top_left_window2').removeClass("fadeOutLeft");
-    //     $('#top_left_window2_i').removeClass("layui-icon-right");
-    //     $('#top_left_window2_i').addClass("layui-icon-left");
-    //     $('#top_left_window2_i').removeAttr('onclick');
-    //     $('#top_left_window2_i').attr('onclick','fadeout_2()');
-    // }
-    // var fadeout_right = function(){
-    //     $('#top_right_window').addClass("fadeOutRight_right");
-    //     $('#top_right_window').removeClass("fadeinRight_right");
-    //     $('#top_right_window_i').removeClass("layui-icon-right");
-    //     $('#top_right_window_i').addClass("layui-icon-left");
-    //     $('#top_right_window_i').removeAttr('onclick');
-    //     $('#top_right_window_i').attr('onclick','fadein_right()');
-    //     $('#top_right_window_content').css("opacity","0");
-    // }
-    // var fadein_right = function(){
-    //     $('#top_right_window').addClass("fadeinRight_right");
-    //     $('#top_right_window').removeClass("fadeOutRight_right");
-    //     $('#top_right_window_i').removeClass("layui-icon-left");
-    //     $('#top_right_window_i').addClass("layui-icon-right");
-    //     $('#top_right_window_i').removeAttr('onclick');
-    //     $('#top_right_window_i').attr('onclick','fadeout_right()');
-    //     $('#top_right_window_content').css("opacity","0.9");
-    // }
-
-    // var fadeout_1 = function() {
-    //     $("#top_left_window1").css("left", "-240px");
-    //     $('#top_left_window1_i').attr('class',"layui-icon layui-icon-right i_icon");
-    //     $('#top_left_window1_i').attr('onclick','fadein_1()');
-    // }
-	//
-    // var fadein_1 = function(){
-    //     $("#top_left_window1").css("left", "20px");
-    //     $('#top_left_window1_i').attr('onclick','fadeout_1()');
-    //     $('#top_left_window1_i').attr('class',"layui-icon layui-icon-left i_icon");
-	// }
-
+	//窗口隐藏动画
 	$(".Slide").click(function () {
 
 		var direction = this.getAttribute("direction"),
