@@ -29,7 +29,7 @@
 			color: white;
 			font-size: 20px;
 			position: relative;
-			left: 60px;
+			left: 55px;
 			z-index: 3;
 		}
 		.i_icon_right{
@@ -44,8 +44,8 @@
 	</style>
 </head>
 <body>
-<!--动画层-->
-<div id="loading">
+	<!--动画层-->
+	<div id="loading">
 	<div class="spinner">
 		<div class="rect1"></div>
 		<div class="rect2"></div>
@@ -54,13 +54,14 @@
 		<div class="rect5"></div>
 	</div>
 </div>
-<!--非动画层-->
+	<!--非动画层-->
 	<div id="elevator_info" style="display:none;">
 	<!--信息容器-->
 	<div class="top_left_window1" id="top_left_window1">
 		<!--左上第一容器，存放图标插件-->
 		<div class="top_left_window1_title">
-			电梯密度分布图
+			<embed src="websource/img/icon/contingency/map.svg" type="image/svg+xml" units="" pixels height="20" width="20"  />
+			电梯密度分布
 			<i id="top_left_window1_i" direction="left" class="layui-icon layui-icon-left i_icon Slide"></i>
 		</div>
 		<div id="echart_map"></div>
@@ -68,6 +69,7 @@
 	<div class="top_left_window2" id="top_left_window2" >
 		<!--左上第二容器-->
 		<div class="top_left_window2_title">
+			<embed src="websource/img/icon/contingency/alarm_icon.svg" type="image/svg+xml" units="" pixels height="20" width="20" />
 			电梯最近报警
 			<i id="top_left_window2_i" direction="left" class="layui-icon layui-icon-left i_icon Slide" ></i>
 		</div>
@@ -80,32 +82,39 @@
 		<!--右上第一容器-->
 		<div class="top_right_window_title">
 			<i id="top_right_window_i" direction="right" class="layui-icon layui-icon-right i_icon_right Slide" ></i>
+			<embed src="websource/img/icon/contingency/statistics.svg" type="image/svg+xml" units="" pixels height="20" width="20" />
 			入网统计
 		</div>
 		<div class="layui-form" id="top_right_window_content">
 			<div class="layui-form-item">
 				<label class="layui-form-label">物联电梯:</label>
-				<div class="layui-input-block"></div>
+				<label class="layui-form-label" style="position: absolute;left: 30px;" >{{elevNum}}</label>
+				<div class="layui-input-block" ></div>
 			</div>
 			<div class="layui-form-item">
-			<label class="layui-form-label">在线电梯:</label>
-			<div class="layui-input-block " ></div>
-		</div>
+				<label class="layui-form-label">在线电梯:</label>
+				<label class="layui-form-label" style="position: absolute;left: 30px;" >{{onlineNum}}</label>
+				<div class="layui-input-block " ></div>
+			</div>
 			<div class="layui-form-item">
-			<label class="layui-form-label">离线电梯:</label>
-			<div class="layui-input-block " ></div>
-		</div>
+				<label class="layui-form-label">离线电梯:</label>
+				<label class="layui-form-label" style="position: absolute;left: 22px;" >{{elevNum-onlineNum}}</label>
+				<div class="layui-input-block " ></div>
+			</div>
 			<div class="layui-form-item">
-			<label class="layui-form-label">维保单位:</label>
-			<div class="layui-input-block " ></div>
-		</div>
+				<label class="layui-form-label">维保单位:</label>
+				<label class="layui-form-label" style="position: absolute;left: 22px;" >{{serviceCorpNum}}</label>
+				<div class="layui-input-block " ></div>
+			</div>
 			<div class="layui-form-item">
-			<label class="layui-form-label">使用单位:</label>
-			<div class="layui-input-block " ></div>
-		</div>
+				<label class="layui-form-label">使用单位:</label>
+				<label class="layui-form-label" style="position: absolute;left: 30px;" >{{useCorpNum}}</label>
+				<div class="layui-input-block " ></div>
+			</div>
 		</div>
 	</div>
 </div>
+
 	<div id="baiduMap" style="opacity: 0">
 		<!--地图容器-->
 	</div>
@@ -137,21 +146,44 @@
         var vue = new Vue({
 			el:"#elevator_info",
 			data:{
-			    msg:"100"
+                elevNum:[],        //设备数量
+                serviceCorpNum:[], //维保单位数量
+                onlineNum:[],      //在线设备数量
+                useCorpNum:[],     //使用单位数量
+                offlineNum:[]      //离线设备数量
 			},
+            mounted: function () {
+                element.render();
+            },
+            updated: function () {
+                element.render()
+            },
             methods:{
 
-			}
-
+            }
 		})
+
+		//最近报警
 		$.ajax({
-			url:"http://admincs.yunandawulian.com/appServer/Statics/getStaticsNew",
+            url:"http://admincs.yunandawulian.com/appServer/Statics/getRecentAlarm",
 			success:function (res) {
 				console.log(res);
             }
 		})
 
-        //动态获取地图距离位置(暂定)
+		//入网统计
+		$.ajax({
+			url:"http://admincs.yunandawulian.com/appServer/Statics/getStaticsNew",
+			success:function (res) {
+				console.log(res);
+                vue.$set(vue.$data,"elevNum",res.elevNum);
+                vue.$set(vue.$data,"serviceCorpNum",res.serviceCorpNum);
+                vue.$set(vue.$data,"onlineNum",res.onlineNum);
+                vue.$set(vue.$data,"useCorpNum",res.useCorpNum);
+            }
+		})
+
+        //动态获取地图距离位置
         var distance_map = function() {
             var southwest = map.getBounds().getSouthWest();   //获取可视区域
             var northeast = map.getBounds().getNorthEast();   //可视区域左下角
@@ -238,8 +270,10 @@
         map.setMapStyle({style:'dark'});//暗黑风格地图
         map.enableScrollWheelZoom(true);//开启鼠标滚轮缩
 
+		//获取数据，聚合点使用
         $.ajax({
             url:"http://admincs.yunandawulian.com/appServer/Statics/getServiceData",
+            // url:"http://admincs.yunandawulian.com/appServer/Statics/getStaticsNew",
             // data:{
             //     "methodName": "serviceData",
             //     "distance":"30000"
@@ -248,6 +282,7 @@
 				$("#loading").css("display","none");
                 $("#baiduMap").css("opacity","1");
 				$("#elevator_info").css("display","");
+
                 //定位初始点
                 var long = res.userList[0].longitude,
                     lati = res.userList[0].latitude; // 经纬度变量
@@ -255,20 +290,6 @@
                 var initiationpoint = new BMap.Point(long, lati);//设置初始中心点
                 var initiationmarker = new BMap.Marker(initiationpoint);// 创建标注
                 map.centerAndZoom(initiationpoint, 18);		   //初始化地图,设置中心点坐标和地图级别
-
-                //替换标记点，换成电梯图标(暂定)
-                var replace_icon = function (point) {
-                    switch (obj.list[i].status) {
-                        case 1: {
-                            var marker = new BMap.Marker(point,{
-                                icon:new BMap.Icon("websource/img/icon/green_marker.png", new BMap.Size(40,40))
-                            });
-                            // map.addOverlay(marker);
-                            break;}
-                        case 2:{break;}
-                        case 3:{break;}
-                    }
-                }
 
                 //电梯分布
                 var markers = []; //聚合点数组
@@ -288,11 +309,8 @@
                 //最简单的用法，生成一个marker数组，然后调用markerClusterer类即可。
                 function markerClusterer() {
                     var markerClusterer = new BMapLib.MarkerClusterer(map, {markers:markers,styles: myStyle});
-
                 }
                 markerClusterer();
-
-                // addMarker(initiationpoint);//添加初始位置
                 map.addOverlay(initiationmarker);//添加初始位置
             }
         })
