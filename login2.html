@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>云安达</title>
+    <link rel="stylesheet" type="text/css" href="websource/wlzd/js/layui/css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="websource/wlzd/css/style.css"/>
+    <style type="text/css">
+        #logo{margin-top: 10px;}
+        #login_img{margin:0 auto;}
+        #login_box{margin-top: 150px ;background-color: white;}
+        .layui-form-label{width: 40px!important;}
+        .layui-input-block{margin-left: 40px!important;}
+        .item{width: 70%;margin: 40px auto 0;padding-left: 20px}
+        .layui-form-label{padding: 0!important;}
+        .layui-input, .layui-form-label{border-color: #999!important;background-color: white!important;}
+        .layui-form-pane .layui-input{border-top-right-radius: 5px}
+        .layui-form-pane .layui-input{border-bottom-right-radius: 5px}
+        .layui-form-pane .layui-form-label{border-top-left-radius: 5px}
+        .layui-form-pane .layui-form-label{border-bottom-left-radius: 5px}
+        .icon{width: 24px;height: 24px;margin: 7px auto;}
+        .icon_1{background: url("websource/wlzd/img/login/4.png");}
+        .icon_2{background: url("websource/wlzd/img/login/5.png") no-repeat;}
+        .icon_3{background: url("websource/wlzd/img/login/7.png");}
+        .layui-form-item:hover .layui-input,.layui-form-item:hover .layui-form-label{border-color: #07a4ff!important;}
+        .layui-form-item .layui-input:focus{border-color: #07a4ff!important;}
+        .test{border-color: #07a4ff!important;}
+        #login_submit{width: 100%;margin: 10px 0;height: 45px;line-height: 45px;border-radius: 5px;font-size: 18px}
+    </style>
+</head>
+<body>
+<div class="layui-header layui-row" style="height: 53px">
+    <div class="layui-col-md2 layui-col-md-offset2 logo_box">
+        <a href="#"  target="content_iframe" title="点击进入首页"><img src="websource/wlzd/img/monitor_platform/logo/logo.png" class="logo" id="logo"/></a>
+    </div>
+    <div class="layui-col-md2 layui-col-md-offset4">
+        <div style="float: left;padding: 15px 0 0">
+            <img src="websource/wlzd/img/login/phone.png" alt="">
+        </div>
+        <div style="clear:both"></div>
+    </div>
+</div>
+<form action="" id="login" class="layui-form layui-row layui-form-pane" style="background-color: #f0f0f0;">
+    <div class="layui-col-md6 layui-col-md-offset3 layui-row" id="login_box" style="width: 960px">
+        <div class="layui-col-md7" style="padding: 20px">
+            <img src="websource/wlzd/img/login.png" alt="" id="login_img">
+        </div>
+        <div class="layui-col-md5">
+            <div class="item">
+                <div style="font-size: 20px;margin: 10px 0 20px">会员登录&nbsp;/ <span style="font-size: 15px">LOGIN</span> </div>
+                <div class="layui-form-item" >
+                    <label class="layui-form-label"><div class="icon icon_1"></div></label>
+                    <div class="layui-input-block">
+                        <input type="text" name="outUserName" required  lay-verify="required" placeholder="请输入账号" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item" >
+                    <label class="layui-form-label"><div class="icon icon_2"></div></label>
+                    <div class="layui-input-block">
+                        <input type="password" name="outPwd" required  lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div style="margin-bottom: 15px">
+                    <div class="layui-form-item" style="float: left">
+                        <label class="layui-form-label"><div class="icon icon_3"></div></label>
+                        <div class="layui-input-block">
+                            <input type="text" name="captcha" required  lay-verify="required" placeholder="请输入验证码" autocomplete="off" class="layui-input" style="width: 128px">
+                        </div>
+                    </div>
+                    <div style="float: right;">
+                        <img src="http://admincs.yunandawulian.com/appServer/captcha.jpg" class="test_img" id="test_img" style="height: 38px"/>
+                    </div>
+                    <div style="clear: both"></div>
+                </div>
+                <input type="checkbox" name="rememberMe" title="自动登录" lay-skin="primary" value="1">
+                <div>
+                    <button class="layui-btn layui-btn-normal" lay-submit lay-filter="login_submit" id="login_submit" style="">登录</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+<div class="footer" style="padding: 45px 0;font-size: 14px;line-height: 24px">
+    Copyright © 2014 - 2016 , All Rights Reserved.<br>
+    浙ICP备15044039号-1 浙江云安达物联信息技术有限公司©版权所有
+</div>
+<script src="websource/wlzd/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="websource/wlzd/js/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="websource/wlzd/js/public.js"></script>
+<script type="text/javascript">
+    layui.use(['element',"form"], function(){
+        var element = layui.element,form = layui.form;
+        $(".layui-input").focus(function () {
+            $(this).parent().siblings().addClass("test");
+        })
+        $(".layui-input").blur(function () {
+            $(this).parent().siblings().removeClass("test");
+        })
+        $("#test_img").click(function () {
+            $(this).attr("src","http://admincs.yunandawulian.com/appServer/captcha.jpg?t="+Math.random())
+        })
+        form.on("submit(login_submit)",function (obj) {
+            $.ajax({
+                type:"post",
+                url:"http://admincs.yunandawulian.com/appServer/loginWeb",
+                data:obj.field,
+                dataType:"json",
+                success:function(res){
+                    layer.closeAll("loading");
+                    if(res.success){
+                        window.location.replace("index.html");
+                        setCookie("name",res.obj.name,168);
+                    }else{
+                        layer.alert(res.msg);
+                        $("#test_img").attr("src","http://admincs.yunandawulian.com/appServer/captcha.jpg?t="+Math.random())
+                    }
+                },
+                error:function(){
+                    alert_warning()
+                }
+            });
+            return false;
+        })
+        
+    });
+    var window_height = $(window).height();
+    $("#login").css("height",window_height - 202);
+</script>
+</body>
+</html>

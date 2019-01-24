@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>入网管理列表</title>
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/monitor_platform_css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/css/style.css"/>
+    <link rel="stylesheet" href="../websource/wlzd/monitor_platform_css/style.css">
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/css/mask.css">
+</head>
+<body>
+<div class="layui-col-md10">
+    <form action="" class="layui-form" id="editVideo">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">码流类型</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <select name="StreamType" lay-filter="province" id="StreamType">
+                        <option value="">请选择码流类型</option>
+                        <option value="1">主码流</option>
+                        <option value="0">子码流</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">分辨率</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <select name="Resolution" lay-filter="province" id="Resolution">
+                        <option value="">请选择分辨率</option>
+                        <option  value="0">DCIF（528*384）</option>
+                        <option  value="1">CIF（352*288）</option>
+                        <option  value="2">QCIF（176*144）</option>
+                        <option  value="3">4CIF（704*576）</option>
+                        <option  value="4">2CIF（704*288）</option>
+                        <option  value="5">VGA(640*480)</option>
+                        <option  value="6">UXGA(1600*1200)</option>
+                        <option  value="7">SVGA(800*600)</option>
+                        <option  value="8">HD720p(1280*720)</option>
+                        <option  value="9">HD900(1600*900)</option>
+                        <option  value="10">XVGA(1280*960)</option>
+                        <option  value="11">QVGA(320*240)</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">图像质量</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <select name="Quality" lay-filter="province" id="Quality">
+                        <option value="">请选择图像质量</option>
+                        <option  value="0">最高</option>
+                        <option  value="1">较高</option>
+                        <option  value="2">中等</option>
+                        <option  value="3">低</option>
+                        <option  value="4">较低</option>
+                        <option  value="5">最低</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">码率类型</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <select name="RateType" lay-filter="province" id="RateType">
+                        <option value="">请选择码率类型</option>
+                        <option  value="0">变码率</option>
+                        <option  value="1">定码率</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">码率上限</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <select name="RateLimit" lay-filter="province" id="RateLimit">
+                        <option value="">请选择码率上限</option>
+                        <option  value="32">32Kbps</option>
+                        <option  value="48">48Kbps</option>
+                        <option  value="64">64Kbps</option>
+                        <option  value="80">80Kbps</option>
+                        <option  value="96">96Kbps</option>
+                        <option  value="128">128Kbps</option>
+                        <option  value="160">160Kbps</option>
+                        <option  value="192">192Kbps</option>
+                        <option  value="224">224Kbps</option>
+                        <option  value="256">256Kbps</option>
+                        <option  value="320">320Kbps</option>
+                        <option  value="384">384Kbps</option>
+                        <option  value="448">448Kbps</option>
+                        <option  value="512">512Kbps</option>
+                        <option  value="640">640Kbps</option>
+                        <option  value="768">768Kbps</option>
+                        <option  value="896">896Kbps</option>
+                        <option  value="1024">1024Kbps</option>
+                        <option  value="1280">1280Kbps</option>
+                        <option  value="1536">1536Kbps</option>
+                        <option  value="1792">1792Kbps</option>
+                        <option  value="2048">2048Kbps</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">视频帧率</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <select name="FrameRate" lay-filter="province" id="FrameRate">
+                        <option value="">请选择视频帧率</option>
+                        <option  value="0">全帧率</option>
+                        <option  value="1">1/16</option>
+                        <option  value="2">1/8</option>
+                        <option  value="3">1/4</option>
+                        <option  value="4">1/2</option>
+                        <option  value="5">1</option>
+                        <option  value="6">2</option>
+                        <option  value="7">4</option>
+                        <option  value="8">6</option>
+                        <option  value="9">8</option>
+                        <option  value="10">10</option>
+                        <option  value="11">12</option>
+                        <option  value="12">14</option>
+                        <option  value="13">16</option>
+                        <option  value="14">18</option>
+                        <option  value="15">20</option>
+                        <option  value="16">22</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">帧类型</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <select name="FrameType" lay-filter="province" id="FrameType">
+                        <option value="">请选择帧类型</option>
+                        <option  value="0">BBP</option>
+                        <option  value="1">P</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">I帧间隔</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <input type="text" name="IFrameInterval"  required lay-verify="required" placeholder="请输入设备IP地址"
+                           autocomplete="off" class="layui-input" id="IFrameInterval">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">音频编码方式</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <select class="select" size="1" id="AudioType" name="AudioType">
+                        <option value="">请选择音频编码方式</option>
+                        <option  value="0">AAC</option>
+                        <option  value="1">G711</option>
+                        <option  value="2">G723</option>
+                        <option  value="3">G726</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="editVideo"
+                        style="margin: 0 40%">
+                    立即提交
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<object classid="clsid:AA4D0640-D331-431A-9213-5D24F6DC4464" id="hikOCX" name="hikOCX" width="0" height="0"></object>
+<script src="../websource/wlzd/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="../websource/wlzd/js/monitor_platform_js/config.js"></script>
+<script type="text/javascript" src="../websource/wlzd/js/mask.min.js"></script>
+<script src="../websource/wlzd/js/vue.js"></script>
+<script src="../websource/wlzd/js/layui/layui.all.js" type="text/javascript"  charset="utf-8"></script>
+<script src="../websource/wlzd/js/public.js" type="text/javascript" charset="utf-8"></script>
+<script >
+    function GetVideoParam() {
+        var IP = getQueryVariable("IP"),
+            Port=getQueryVariable("Port"),
+            elevCode = getQueryVariable("elevCode");
+        layer.alert("正在获取信息");
+        var GetVideoParamState = hikOCX.GetVideoParam(elevCode,IP,Port);
+        console.log(GetVideoParamState)
+
+        if (GetVideoParamState == 200) {
+
+        } else {
+            layer.closeAll()
+            layer.alert("获取设备信息失败!");
+            return false;
+        }
+    };
+    GetVideoParam();
+</script>
+<script type="text/javascript" for="hikOCX" event="MsgCome(content,size)">
+    layer.closeAll();
+    layui.use("form",function () {
+        var form = layui.form;
+        var IP = getQueryVariable("IP"),
+            Port=getQueryVariable("Port"),
+            elevCode = getQueryVariable("elevCode");
+        var xmlDOM = new XmlDOM(content);
+
+        var dataNum = xmlDOM.DOM.getElementsByTagName("Message")[0].childNodes;
+        for(var j=0; j<dataNum.length;j++){
+            var key = dataNum[j].tagName,val = xmlDOM.getDomValue(key),tlp = $("#"+ key).attr("tlp");
+            if($("#"+ key)[0] != undefined){
+                switch ($("#"+ key)[0].tagName) {
+                    case 'INPUT':
+                        switch ($("#"+ key)[0].getAttribute("type")) {
+                            case "text":
+                                $("#"+ key).val(val);
+                                break;
+                            case "checkbox":
+                                if(val == '1'){
+                                    $("#"+ key)[0].setAttribute("checked","checked");
+                                };
+                                break;
+                        };
+                        break;
+                    case "SELECT":
+                        for(var x=0;x<$("#"+ key)[0].childNodes.length;x++){
+                            if($("#"+ key)[0].childNodes[x].value == xmlDOM.getDomValue(key)){
+                                $("#"+ key)[0].childNodes[x].setAttribute("selected","selected");
+                            }
+                        };
+                        break;
+                };
+                form.render()
+            };
+
+            if(tlp != undefined){
+                var json = (new Function("return " + tlp))();
+                for(var i in json){
+                    if(i = val ){
+                        $("#"+ key).val(json[i]);
+                    }
+                }
+            };
+
+        };
+
+
+
+        form.on("submit(editVideo)",function (obj) {
+            debugger
+            var StrXml = xmlDOM.setXmlStr(obj.field,"SET_VIDEOPARA_REQ");
+            var SetVideoParamState = hikOCX.SetVideoParam(StrXml,IP,Port);
+            if(SetVideoParamState == 200){
+                layer.alert("保存成功");
+            }else{
+                layer.alert("保存失败");
+            }
+            return false;
+        })
+
+        form.render();
+    })
+</script>
+</body>
+</html>

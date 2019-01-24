@@ -318,7 +318,7 @@ layui.use(["layer", "laydate", "form"], function () {
                 var start_sta = startvideo(elevCode);
                 if (start_sta == 1) {
                     video_statu = 1;
-                    $("#startvideo").css("background", "url('../websource/img/video/stop.png')")
+                    $("#startvideo").css("background", "url('../websource/wlzd/img/video/stop.png')")
                 } else {
                     layer.alert("开启失败");
                 }
@@ -326,7 +326,7 @@ layui.use(["layer", "laydate", "form"], function () {
                 var stop_sta = stopvideo();
                 if (stop_sta == 1) {
                     video_statu = 0;
-                    $("#startvideo").css("background", "url('../websource/img/video/play.png')")
+                    $("#startvideo").css("background", "url('../websource/wlzd/img/video/play.png')")
                 } else {
                     layer.alert("关闭失败");
                 }
@@ -344,7 +344,7 @@ layui.use(["layer", "laydate", "form"], function () {
                 var start_sta = starttalk(elevCode);
                 if (start_sta == 1) {
                     talk_statu = 1;
-                    $("#Microphone").css("background", "url('../websource/img/video/talk_1.png')")
+                    $("#Microphone").css("background", "url('../websource/wlzd/img/video/talk_1.png')")
                 } else {
                     layer.alert("开启失败");
                 }
@@ -352,7 +352,7 @@ layui.use(["layer", "laydate", "form"], function () {
                 var stop_sta = stoptalk();
                 if (stop_sta == 1) {
                     talk_statu = 0;
-                    $("#Microphone").css("background", "url('../websource/img/video/talk.png')")
+                    $("#Microphone").css("background", "url('../websource/wlzd/img/video/talk.png')")
                 } else {
                     layer.alert("关闭失败");
                 }
@@ -369,7 +369,7 @@ layui.use(["layer", "laydate", "form"], function () {
                 var rec_sta = startRec();
                 if (rec_sta == 1) {
                     rec_statu = 1;
-                    $("#Rec").css("background", "url('../websource/img/video/rec_1.png')")
+                    $("#Rec").css("background", "url('../websource/wlzd/img/video/rec_1.png')")
                 } else {
                     layer.alert("开启失败");
                 }
@@ -377,7 +377,7 @@ layui.use(["layer", "laydate", "form"], function () {
                 var rec_sta = stopRec();
                 if (rec_sta == 0) {
                     rec_statu = 0;
-                    $("#Rec").css("background", "url('../websource/img/video/rec.png')")
+                    $("#Rec").css("background", "url('../websource/wlzd/img/video/rec.png')")
                 } else {
                     layer.alert("关闭失败");
                 }

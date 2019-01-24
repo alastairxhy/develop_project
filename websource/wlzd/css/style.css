@@ -63,9 +63,8 @@ body {
 	color: #444;
 }
 
-.layui-header,
-.footer {
-	background: #333333;
+.layui-header{
+	background: #239fd7;
 	color: rgba(255, 255, 255, .7);
 }
 
@@ -93,10 +92,11 @@ body {
 	width: 100%;
 	text-align: center;
 	padding: 10px 0;
-	color: white;
+	color: #333;
 	/*position: absolute;
 	left: 0;
 	bottom: 0;*/
+	background: rgba(240,240,240,1);
 }
 
 .breadcrumb {

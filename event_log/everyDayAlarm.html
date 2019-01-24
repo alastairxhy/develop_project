@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>每日报警统计</title>
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/monitor_platform_css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/css/style.css"/>
+    <link rel="stylesheet" href="../websource/wlzd/monitor_platform_css/style.css">
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/css/mask.css">
+    <style>
+        .tishi{
+            background: #FF5722;
+        }
+    </style>
+</head>
+<body>
+<div class="layui-col-md10 layui-col-md-offset1">
+    <form action="" class="layui-form" style="margin:40px 0">
+        <div class="search_row">
+            <span class="search_key">开始时间:</span>
+            <div class="layui-inline" style="width: 230px;">
+                <input type="text" class="layui-input" name="startTime" id="startTime" placeholder="请输入开始时间">
+            </div>
+            <span class="search_key" style="margin-left: 20px">结束时间:</span>
+            <div class="layui-inline" style="width: 230px;">
+                <input type="text" class="layui-input" name="endTime" id="endTime" placeholder="请输入结束时间">
+            </div>
+            <button class="layui-btn layui-btn-normal layui-btn-sm" data-type="reload" lay-submit lay-filter="reload"
+                    style="padding: 0 10px ;font-size: 16px;width: 80px;margin-left: 20px"><i
+                    class="layui-icon layui-icon-search " style="color:white"></i>查询
+            </button>
+        </div>
+    </form>
+    <table id="alarm_list" lay-filter="alarm_list"></table>
+</div>
+
+<script src="../websource/wlzd/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="../websource/wlzd/js/monitor_platform_js/config.js"></script>
+<script type="text/javascript" src="../websource/wlzd/js/mask.min.js"></script>
+<script src="../websource/wlzd/js/vue.js"></script>
+<script src="../websource/wlzd/js/layui/layui.all.js" type="text/javascript"  charset="utf-8"></script>
+<script src="../websource/wlzd/js/public.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    var table = layui.table,laydate = layui.laydate;
+    var date = new Date(),
+        day = date.getDate(),
+        month = date.getMonth()+1,
+        year = date.getFullYear();
+    table.render({
+        elem: "#alarm_list",
+        method: "post",
+        url: request_url+'rptApi/rpv1',
+        // skin: "line",
+        headers:{
+            fromType:'wlzd'
+        },
+        where: {
+            methodName:"accidentDailyRpt",
+            startDate:"2018-12-01",
+            endDate:year+"-"+month+"-"+day,
+        },
+        request: {
+            pageName: "pageNo",
+            limitName: "pageSize"
+        },
+        parseData: function (res) {
+            return {
+                "code": res.status,
+                "msg": res.msg,
+                "count": res.length,
+                "data": res.obj.riskReasonList
+            };
+        },
+        height: 620,
+        page: {limit: 10},
+        limit: 15,
+        loading: true,
+        toolbar: "#toolbar",
+        cols: [
+            [
+                {field: 'address', title: '序号',rowspan:'3',width:80,templet:function (obj) {
+                        return obj.LAY_INDEX
+                    }},
+                {field: 'date', title: '日期',rowspan:'3',width:120},
+                {field: 'yujinTimes', title: '预警总数',rowspan:'3',width:120},
+                {field: 'alarmTimes', title: '报警总数',rowspan:'3',width:120},
+                { title: '有效报警',colspan:"16"},
+                { title: '无效报警',colspan:"17"},
+            ],
+            [
+                {title: '困人故障',colspan:"2"},
+                { title: '故障模式',colspan:"14"},
+                {field:'ft_total', title: '非困人故障',rowspan:'2',width:120},
+                { title: '困人故障',colspan:"2"},
+                { title: '故障模式',colspan:"14"},
+            ],
+            [
+                {field:'fpckr',title: '非平层困人',width:100},
+                {field:'pckr',title: '平层困人',width:100},
+                {field:'mquwtt',title: '开锁区外停梯',width:150},
+                {field:'yxzkm', title: '运行中开门',width:100},
+                {field:'cd', title: '冲顶',width:80},
+                {field:'dd', title: '蹲底',width:80},
+                {field:'csyx', title: '超速（溜车）',width:120},
+                {field:'', title: '轿厢意外移动',width:150},
+                {field:'', title: '断电',width:80},
+                {field:'', title: '安全回路断路',width:150},
+                {field:'', title: '运行超时',width:100},
+                {field:'', title: '反复开关门',width:150},
+                {field:'', title: '阻挡关门',width:100},
+                {field:'', title: '轿厢报警按钮动作',width:150},
+                {field:'', title: '平层困人',width:100},
+                {field:'anbj', title: '按钮报警',width:100},
+
+                {field:'fpckrVain',title: '非平层困人',width:100},
+                {field:'pckrVain',title: '平层困人',width:100},
+                {field:'mquwttVain',title: '开锁区外停梯',width:150},
+                {field:'yxzkmVain', title: '运行中开门',width:100},
+                {field:'cdVain', title: '冲顶',width:80},
+                {field:'ddVain', title: '蹲底',width:80},
+                {field:'csyxVain', title: '超速（溜车）',width:120},
+                {field:'', title: '轿厢意外移动',width:150},
+                {field:'', title: '断电',width:80},
+                {field:'', title: '安全回路断路',width:150},
+                {field:'', title: '运行超时',width:100},
+                {field:'', title: '反复开关门',width:150},
+                {field:'', title: '阻挡关门',width:100},
+                {field:'', title: '轿厢报警按钮动作',width:150},
+                {field:'', title: '平层困人',width:100},
+                {field:'anbjVain', title: '按钮报警',width:100},
+            ],
+        ]
+    });
+
+    laydate.render({
+        elem: "#startTime",
+        value:year+"-"+(month-1)+"-"+day
+    });
+
+    laydate.render({
+        elem: "#endTime",
+        value:year+"-"+month+"-"+day
+    });
+
+
+
+</script>
+</body>
+</html>

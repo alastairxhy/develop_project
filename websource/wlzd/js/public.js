@@ -103,7 +103,7 @@ function getQueryVariable_2(variable) {
 
 
 //表格搜索公共函数------------------------------
-function table_search(container, parameter,url) {
+function table_search(container, parameter, url) {
     /**
      *
      * @param {string} container   查询的table表
@@ -113,7 +113,7 @@ function table_search(container, parameter,url) {
     layui.use("table", function () {
         var table = layui.table;
         table.reload(container, {
-            url: url?url:request_url,
+            url: url ? url : request_url,
             where: parameter,
             page: {
                 curr: 1
@@ -146,21 +146,23 @@ function set_city_select(elem, type, placeholder, code, default_code) {
                         var selected = (j + "0000") == default_code ? "selected='true'" : "";
                         $(elem).append("<option value='" + j + "0000" + "'" + selected + ">" + city_list[j + '0000'] + "</option>");
                     }
-                };
+                }
+                ;
                 break;
             case "city":
-                if(code==='110000' || code ==='120000' || code ==='310000' || code === '500000'){
+                if (code === '110000' || code === '120000' || code === '310000' || code === '500000') {
 
-                    var city_code = code.substr(0, 2)+'01';
+                    var city_code = code.substr(0, 2) + '01';
                     for (var j = 1; j < 99; j++) {
                         j = j < 10 ? "0" + String(j) : j;
                         if (city_list[city_code + j]) {
                             var selected = (city_code + j) == default_code ? "selected='true'" : "";
                             $(elem).append("<option value='" + city_code + j + "'" + selected + ">" + city_list[city_code + j] + "</option>");
                         }
-                    };
+                    }
+                    ;
 
-                }else{
+                } else {
                     var province_code = code.substr(0, 2);
                     for (var j = 1; j < 99; j++) {
                         j = j < 10 ? "0" + j : j;
@@ -168,7 +170,8 @@ function set_city_select(elem, type, placeholder, code, default_code) {
                             var selected = (province_code + j + '00') == default_code ? "selected='true'" : "";
                             $(elem).append("<option value='" + province_code + j + '00' + "'" + selected + ">" + city_list[province_code + j + '00'] + "</option>");
                         }
-                    };
+                    }
+                    ;
                 }
 
 
@@ -181,7 +184,8 @@ function set_city_select(elem, type, placeholder, code, default_code) {
                         var selected = (city_code + j) == default_code ? "selected='true'" : "";
                         $(elem).append("<option value='" + city_code + j + "'" + selected + ">" + city_list[city_code + j] + "</option>");
                     }
-                };
+                }
+                ;
                 break;
             case "street":
                 $.ajax({
@@ -264,7 +268,7 @@ function ser_fault_marker(lng, lat, map, color) {
      * @param {string} color   marker颜色    红，绿，灰
      *
      * **/
-    var myIcon = new BMap.Icon("websource/img/icon/" + color + "_marker.png", new BMap.Size(50, 50));
+    var myIcon = new BMap.Icon("websource/wlzd/img/icon/" + color + "_marker.png", new BMap.Size(50, 50));
     var pt = new BMap.Point(lng, lat);
     var marker2 = new BMap.Marker(pt, {icon: myIcon});  // 创建标注
     marker2.setZIndex(999999);
@@ -457,7 +461,7 @@ function marker_dateil(mp, opint, field, callback) {
         var corner_marker = this._corner_marker = document.createElement("div");//创建角标
         corner_marker.style.width = "100px";
         corner_marker.style.height = "50px";
-        corner_marker.style.background = "url(websource/img/dateil.png) no-repeat";
+        corner_marker.style.background = "url(websource/wlzd/img/dateil.png) no-repeat";
         corner_marker.style.position = "absolute";
         corner_marker.style.bottom = "-50px";
         corner_marker.style.left = "50px";
@@ -480,7 +484,8 @@ function marker_dateil(mp, opint, field, callback) {
 
         for (var j = 0; j < this._field.length; j++) {
             cententBox.appendChild(new centent(this._field[j].label, this._field[j].value))
-        };
+        }
+        ;
 
 
         close.onclick = function () {
@@ -569,24 +574,25 @@ function alarm_tips() {
     $.ajax({
         data: {methodName: "queryAlarm"},
         success: function (res) {
-            if(res.success){
+            if (res.success) {
                 if (res.obj.list.length > 0) {
                     alarm_alter(res, 0);
-                };
-                if (window.location.pathname == "/yunanda_01/yunanda_develop/contingency.html" ) {
+                }
+                ;
+                if (window.location.pathname == "/yunanda_01/yunanda_develop/contingency.html") {
                     var all_overlay = index_map.getOverlays();
                     for (var j = 1; j < all_overlay.length; j++) {//在范围内添加报警
                         for (var i = 0; i < res.obj.list.length; i++) {
                             if (all_overlay[j].point.lat == res.obj.list[i].latitude && all_overlay[j].point.lng == res.obj.list[i].longitude) {
                                 index_map.removeOverlay(all_overlay[j]);
                                 ser_fault_marker(res.obj.list[i].longitude, res.obj.list[i].latitude, index_map, "red");
-                                set_map_core(res.obj.list[i].longitude,res.obj.list[i].latitude, index_map);
+                                set_map_core(res.obj.list[i].longitude, res.obj.list[i].latitude, index_map);
                             }
                         }
                     }
                 }
-            }else{
-                layui.use("layer",function () {
+            } else {
+                layui.use("layer", function () {
                     layui.layer.alert(res.msg)
                 })
             }
@@ -602,7 +608,7 @@ var alarm_alter = function (obj, _index) {
      * **/
     var data = obj.obj.list;
     layui.use(["layer"], function () {
-            layer.closeAll();
+        layer.closeAll();
 //         layer.confirm("", {
 //             btn: ["上一个", "点击查看", "下一个"],
 //             offset: "rb",
@@ -636,13 +642,13 @@ var alarm_alter = function (obj, _index) {
 //             },
 //         })
         layer.open({
-            type:2,
-            title:"报警  <span class='layui-badge layui-bg-badge'>" + data.length + "</span>  <span style='color:white;font-size:12px'>(点击查看消除警报)</span>",
+            type: 2,
+            title: "报警  <span class='layui-badge layui-bg-badge'>" + data.length + "</span>  <span style='color:white;font-size:12px'>(点击查看消除警报)</span>",
             shade: false,
             offset: "rb",
             area: ["400px", "250px"],
             skin: "confirm_style",
-            content:["alarmAlert.html?faultCode="+data[_index].faultCode+"&alarmTime="+data[_index].alarmTime+"&addrDesc="+encodeURIComponent(data[_index].addrDesc),'no'],
+            content: ["alarmAlert.html?faultCode=" + data[_index].faultCode + "&alarmTime=" + data[_index].alarmTime + "&addrDesc=" + encodeURIComponent(data[_index].addrDesc), 'no'],
             btn: ["上一个", "查看", "下一个"],
             yes: function () {
                 if (_index - 1 >= 0) {
@@ -651,7 +657,7 @@ var alarm_alter = function (obj, _index) {
                 return false;
             },
             btn2: function () {
-                console.log(window.frames['content_iframe'].window.location.replace("contingency.html?into_type=true&accidentId="+data[_index].id));
+                console.log(window.frames['content_iframe'].window.location.replace("contingency.html?into_type=true&accidentId=" + data[_index].id));
 
 
             },
@@ -749,7 +755,7 @@ function Snap_Shot() {
 //解决IE浏览器不支持find()方法的问题
 if (!Array.prototype.find) {
     Object.defineProperty(Array.prototype, 'find', {
-        value: function(predicate) {
+        value: function (predicate) {
             if (this == null) {
                 throw new TypeError('"this" is null or not defined');
             }
@@ -779,123 +785,181 @@ if (!Array.prototype.find) {
     });
 }
 
-if(getQueryVariable("navName")){
+if (getQueryVariable("navName")) {
     var second_PID = getQueryVariable_2("pid"),
         secondElem = $("cite").parent().siblings("#second"),
         index_MB = $("cite").parent().siblings("#index_MB"),
-        isMenus= menus_data.find(function (obj) {
-        return obj.id==second_PID;
-    });
+        isMenus = menus_data.find(function (obj) {
+            return obj.id == second_PID;
+        });
 
     $("cite").text(decodeURIComponent(getQueryVariable("navName")));
     secondElem.text(isMenus.text);
     secondElem.click(function () {
         var HtmlURL = isMenus.url.split("/")[1];
-        window.top.frames["content_iframe"].window.location.replace(HtmlURL+"?pid="+isMenus.id);
+        window.top.frames["content_iframe"].window.location.replace(HtmlURL + "?pid=" + isMenus.id);
     });
     index_MB.click(function () {
-       console.log(window.top.frames["content_iframe"].window.location.href = pathName+'contingency.html') ;
+        console.log(window.top.frames["content_iframe"].window.location.href = pathName + 'contingency.html');
     })
 
-};
+}
+;
 
 
-
-
-
-
-function  ParentAddTab(optoins,param) {
-    var tabs = $(".layui-tab-title li",parent.document);
-    for(var j=0;j<tabs.length;j++){
-        if(tabs[j].getAttribute("lay-id") == optoins.ID){
+function ParentAddTab(optoins, param) {
+    var tabs = $(".layui-tab-title li", parent.document);
+    for (var j = 0; j < tabs.length; j++) {
+        if (tabs[j].getAttribute("lay-id") == optoins.ID) {
             parent.layui.element.tabChange("tab", optoins.ID);
             return;
-        };
-    };
-    var url = param?optoins.url+param:optoins.url;
+        }
+        ;
+    }
+    ;
+    var url = param ? optoins.url + param : optoins.url;
 
 
-    parent.layui.element.tabAdd("tab",{
+    parent.layui.element.tabAdd("tab", {
         title: optoins.title,
-        content: '<iframe src="'+url+'" width="" height="80" class="main" scrolling="auto"  name="content_iframe"></iframe>',
+        content: '<iframe src="' + url + '" width="" height="80" class="main" scrolling="auto"  name="content_iframe"></iframe>',
         id: optoins.ID
     });
     parent.layui.element.tabChange("tab", optoins.ID);
 }
 
 
+function FormItem(type) {
+    var formItem = document.createElement("div"),
+        label = document.createElement('lebel'),
+        layuiInputInline = document.createElement("div");
+    formItem.setAttribute("class", "layui-form-item");
+    label.setAttribute("class", "layui-form-label");
+    switch (type) {
+        case 'inline':
+            layuiInputInline.setAttribute('class', "layui-input-inline");
+            break;
+        case 'block':
+            layuiInputInline.setAttribute('class', "layui-input-block");
+            break;
+    }
+
+    this.FormItem = formItem;
+    this.Label = label;
+    this.LayuiInputBox = layuiInputInline;
+
+};
+
+FormItem.prototype.addInput = function (param, label) {
+    /*
+    *@param {object} param 属性和属性值
+    *@param {String} label lebel的文本
+    *
+    * */
+    var _this = this;
+    var button = document.createElement("button"),
+        div2 = document.createElement("div");
+    this.Label.innerText = label;
+    div2.setAttribute("class", "layui-form-mid layui-word-aux");
+    button.setAttribute("class", "layui-btn layui-btn-danger");
+    button.setAttribute("type", "button");
+    button.innerText = "取消";
+    button.addEventListener("click", function () {
+        _this.deleteBnt()
+    });
+    this.LayuiInputBox.style.width = "565px";
+    var input = document.createElement("input");
+    for (var i in param) {
+        input.setAttribute(i, param[i]);
+    }
+    div2.appendChild(button);
+    this.FormItem.appendChild(this.Label);
+    this.FormItem.appendChild(this.LayuiInputBox);
+    this.FormItem.appendChild(div2)
+    this.LayuiInputBox.appendChild(input);
+    return this.FormItem;
+};
+
+FormItem.prototype.deleteBnt = function () {
+    var index = $("#extPhoneGroup").children().length;
+    $("#extPhoneGroup").children()[index - 1].remove();
+};
+
+
+var test = new FormItem("block");
 
 
 
-
-
-
-// class FormItem{
-//     constructor(type){
-//         var formItem = document.createElement("div"),
-//             label = document.createElement('lebel'),
-//             layuiInputInline = document.createElement("div");
-//             formItem.setAttribute("class","layui-form-item");
-//             label.setAttribute("class","layui-form-label");
-//             switch (type) {
-//                 case 'inline':
-//                     layuiInputInline.setAttribute('class',"layui-input-inline");
-//                     break;
-//                 case 'block':
-//                     layuiInputInline.setAttribute('class',"layui-input-block");
-//                     break;
-//             }
-//
-//         this.FormItem = formItem;
-//         this.Label = label;
-//         this.LayuiInputBox = layuiInputInline;
-//
-//     };
-//
-//     addInput(param,label){
-//         /*
-//         *@param {object} param 属性和属性值
-//         *@param {String} label lebel的文本
-//         *
-//         * */
-//         var _this = this;
-//         var button = document.createElement("button"),
-//             div2 = document.createElement("div");
-//         this.Label.innerText = label;
-//         div2.setAttribute("class","layui-form-mid layui-word-aux");
-//         button.setAttribute("class","layui-btn layui-btn-danger");
-//         button.setAttribute("type","button");
-//         button.innerText = "取消";
-//         button.addEventListener("click",function () {
-//             _this.deleteBnt()
-//         });
-//         this.LayuiInputBox.style.width = "565px";
-//         var input = document.createElement("input");
-//         for(var i in param){
-//             input.setAttribute(i,param[i]);
-//         }
-//         div2.appendChild(button);
-//         this.FormItem.appendChild(this.Label);
-//         this.FormItem.appendChild(this.LayuiInputBox);
-//         this.FormItem.appendChild(div2)
-//         this.LayuiInputBox.appendChild(input);
-//         return this.FormItem;
-//     };
-//
-//     deleteBnt(){
-//         var index = $("#extPhoneGroup").children().length;
-//         $("#extPhoneGroup").children()[index-1].remove();
-//     }
-//
-// };
-//
-//
-// var test = new FormItem("block");
-
+/*
+*
+* 海康XML数据的函数构造
+* XmlDOM（）
+* */
 function XmlDOM(xmlStr) {
-    this.DOM = jQuery.parseXML(xmlStr);
-}
+    /*
+    * @param {String} xmlStr xml字符串数据
+    * */
+    this.DOM = $.parseXML(xmlStr);
+};
 
 XmlDOM.prototype.getDomValue = function (node) {
-    return this.DOM.getElementsByTagName(node)[0].childNodes[0].nodeValue
-}
+    /*
+    * @param {String} node xml的节点名称
+    * */
+    var node =this.DOM.getElementsByTagName(node)[0].childNodes;
+    if(node.length == 0){
+        return "无数据";
+    }else{
+        return node[0].nodeValue;
+    }
+};
+
+XmlDOM.prototype.addDom = function (Str) {
+    /*
+    * @param {String} Str 需要添加的xml字符串数据
+    * */
+    var xml =  $.parseXML(Str),Res = xml.getElementsByTagName("Result")[0];
+    Res.parentNode.removeChild(Res);
+    var messageList = xml.getElementsByTagName("Message")[0].childNodes;
+    for(var j=0;j<messageList.length;j++){
+        var addItem = messageList[j].cloneNode(true);
+        this.DOM.getElementsByTagName("Message")[0].appendChild(addItem)
+    };
+};
+
+
+XmlDOM.prototype.setXmlStr = function (obj,FIELD) {
+    console.log(obj);
+
+    this.DOM.getElementsByTagName("Cmd")[0].childNodes[0].nodeValue = FIELD;
+    this.DOM.getElementsByTagName("Len")[0].childNodes[0].nodeValue = "0000";
+    this.DOM.getElementsByTagName("Seq")[0].childNodes[0].nodeValue = "1000";
+    var message = this.DOM.getElementsByTagName("Message")[0];
+    while(message.hasChildNodes()) //当elem下还存在子节点时 循环继续
+    {
+        message.removeChild(message.firstChild);
+    }
+    for(var i in obj){
+        var newNode = this.DOM.createElement(i),newNodeText = this.DOM.createTextNode(obj[i]=="无数据"?'':obj[i]);
+        newNode.appendChild(newNodeText);
+        // xmlDOM.DOM.getElementsByTagName(i)[0].childNodes[0].nodeValue = obj.field[i];
+        this.DOM.getElementsByTagName("Message")[0].appendChild(newNode);
+
+
+    };
+
+    var xmlStr = "<?xml version='1.0'?>"+(new XMLSerializer()).serializeToString(this.DOM);
+    xmlStr = xmlStr.replace("<Len>0000</Len>", "<Len>" + padLeft(xmlStr.length, 4) + "</Len>");
+
+    function padLeft(num, n) {
+        var len = num.toString().length;
+        while (len < n) {
+            num = "0" + num;
+            len++;
+        }
+        return num;
+    };
+    return xmlStr;
+};
+
+

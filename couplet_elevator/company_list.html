@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>单位列表</title>
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/monitor_platform_css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/css/style.css"/>
+    <link rel="stylesheet" href="../websource/wlzd/monitor_platform_css/style.css">
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/css/mask.css">
+</head>
+<body>
+<div class="layui-col-md10 layui-col-md-offset1">
+    <form action="" class="layui-form" style="margin:40px 0">
+        <div class="search_row">
+            <span class="search_key">单位类别:</span>
+            <div class="layui-inline" style="width: 230px;">
+                <select name="corpType" lay-verify="required">
+                    <option value="">请选择单位类别</option>
+                    <option value="1">使用单位</option>
+                    <option value="2">维保单位</option>
+                    <option value="4">制造单位</option>
+                    <option value="8">安装单位</option>
+                    <option value="16">产权单位</option>
+                    <option value="17">监管单位</option>
+                </select>
+            </div>
+            <span class="search_key" style="margin-left: 20px">单位名称:</span>
+            <div class="layui-inline" style="width: 230px;">
+                <input type="text" class="layui-input" name="corpName" placeholder="请输入维保单位">
+            </div>
+            <button class="layui-btn layui-btn-normal layui-btn-sm" data-type="reload" lay-submit lay-filter="reload"
+                    style="padding: 0 10px ;font-size: 16px;width: 80px;margin-left: 20px"><i
+                    class="layui-icon layui-icon-search " style="color:white"></i>查询
+            </button>
+        </div>
+    </form>
+    <table id="company_list" lay-filter="company_list"></table>
+</div>
+<script type="text/html" id="toolbar">
+    <div class="layui-btn-container">
+        <button class="layui-btn layui-btn-sm layui-btn-normal" lay-event="addCompany">添加单位</button>
+    </div>
+</script>
+<script type="text/html" id="tool">
+    <a class="layui-icon layui-icon-edit" lay-event="edit" style="font-size: 22px"></a>
+    <a class="layui-icon layui-icon-delete" lay-event="edit" style="font-size: 22px"></a>
+</script>
+<script src="../websource/wlzd/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="../websource/wlzd/js/monitor_platform_js/config.js"></script>
+<script type="text/javascript" src="../websource/wlzd/js/mask.min.js"></script>
+<script src="../websource/wlzd/js/vue.js"></script>
+<script src="../websource/wlzd/js/layui/layui.all.js" type="text/javascript"  charset="utf-8"></script>
+<script src="../websource/wlzd/js/public.js" type="text/javascript" charset="utf-8"></script>
+<script >
+    layui.use(["table","form"],function () {
+        var form = layui.form,table = layui.table;
+        table.render({
+            elem: "#company_list",
+            method: "post",
+            url: request_url+'webApi/rpv1',
+            skin: "line",
+            headers:{
+                fromType:'wlzd'
+            },
+            where: {
+                methodName:"corpList",
+            },
+            request: {
+                pageName: "pageNo",
+                limitName: "pageSize"
+            },
+            parseData: function (res) {
+                return {
+                    "code": res.status,
+                    "msg": res.msg,
+                    "count": res.length,
+                    "data": res.obj
+                };
+            },
+            height: 540,
+            page: {limit: 10},
+            limit: 15,
+            loading: true,
+            toolbar: "#toolbar",
+            cols: [
+                [
+                    {
+                        field: '', title: '序号', width: '', align: "center", templet: function (data) {
+                            return data.LAY_INDEX;
+                        }
+                    },
+                    {field: 'corpName', title: '单位名称', width: '200'},
+                    {field: 'corpType', title: '单位类型', width: '100',templet:function (data) {
+                            var val = data.corpType;
+                            return val == '1'?'使用单位':val == '2'?'维保单位':val == '4'?'制造单位':val == '8'?'安装单位':val == '16'?'产权单位':'监管单位';
+                        }},
+                    {field: 'address', title: '单位地址', width: '200'},
+                    {field: 'useCorpName', title: '值守电话', width: '150'},
+                    {field: 'manager', title: '负责人', width: '100'},
+                    {field: 'managerPhone', title: '负责人号码', width: '150'},
+                    {field: 'rescueManager', title: '救援负责人', width: '100'},
+                    {field: 'rescueManagerPhone', title: '救援人号码', width: '150'},
+                    {field: 'createTime', title: '创建时间', width: '160'},
+                    {field: 'modifyTime', title: '更新时间', width: '160'},
+                    {field: '', title: '操作', width: '100',fixed:"right",toolbar:"#tool"},
+
+                ]
+            ]
+        });
+
+        form.on("submit(reload)",function (obj) {
+            console.log(obj.field)
+            table_search("company_list",obj.field,request_url+'webApi/rpv1')
+            return false;
+        })
+
+        table.on("toolbar(company_list)",function (obj) {
+            switch (obj.event) {
+                case "addCompany":
+                    ParentAddTab(PROJECT_PATH.addCompany)
+                    break;
+            }
+        })
+
+
+
+    })
+</script>
+</body>
+</html>

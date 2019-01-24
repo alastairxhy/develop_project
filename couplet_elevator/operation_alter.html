@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <title>入网管理列表</title>
-    <link rel="stylesheet" type="text/css" href="../websource/monitor_platform_css/layui.css"/>
-    <link rel="stylesheet" type="text/css" href="../websource/css/style.css"/>
-    <link rel="stylesheet" href="../websource/monitor_platform_css/style.css">
-    <link rel="stylesheet" type="text/css" href="../websource/css/mask.css">
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/monitor_platform_css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/css/style.css"/>
+    <link rel="stylesheet" href="../websource/wlzd/monitor_platform_css/style.css">
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/css/mask.css">
     <style>
         .layui-form-mid {padding: 0 !important;}
         #editGateway .layui-input-block{margin-left: 300px;}
@@ -17,7 +17,7 @@
 <body>
 <div class="layui-col-md10" id="Vue">
     <div style="padding: 20px 0"></div>
-    <form action="" class="layui-form" v-show="field=='editCorp'">
+    <form action="" class="layui-form" id="editCorp">
         <div class="layui-form-item">
             <label class="layui-form-label">使用单位</label>
             <div class="layui-input-inline" style="width: 565px">
@@ -51,201 +51,24 @@
             </div>
         </div>
     </form>
-    <form action="" class="layui-form" v-show="field=='editGateway'" style="width: 1200px" id="editGateway">
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">流量统计上报开关</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <select name="FlowEnable" lay-filter="province" id="FlowEnable">
-                        <option value="">请选择流量统计上报开关</option>
-                        <option value="1">开启</option>
-                        <option value="0">关闭</option>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">长时间挡门（流量统计上报周期）（秒）</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <input type="text" name="FlowIntv"  required lay-verify="required" placeholder="请输入载重量"
-                           autocomplete="off" class="layui-input" id="FlowIntv">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">订阅时状态上报周期（秒）</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <input type="text" name="StateIntv" required lay-verify="required" placeholder="请输入额定速度"
-                           autocomplete="off" class="layui-input" id="StateIntv">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">采集器传输模式</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <select name="TransMode" lay-filter="province" id="TransMode">
-                        <option value="">请选择采集器传输模式</option>
-                        <option value="0">Zigb</option>
-                        <option value="1">RS232</option>
-                        <option value="2">RS485</option>
-                        <option value="-1">不支持</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">传输通道号</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <input type="text" name="ZigbChannel" required lay-verify="required" placeholder="请输入额定速度"
-                           autocomplete="off" class="layui-input" id="ZigbChannel">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">传输功率</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <input type="text" name="ZigbPower"  required lay-verify="required" placeholder="请输入载重量"
-                           autocomplete="off" class="layui-input" id="ZigbPower">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">平层间距(mm)</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <input type="text" name="ElevFloorSpacing" required lay-verify="required" placeholder="请输入额定速度"
-                           autocomplete="off" class="layui-input" id="ElevFloorSpacing">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">总楼层数</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <input type="text" name="ElevFloorNum"  required lay-verify="required" placeholder="请输入载重量"
-                           autocomplete="off" class="layui-input" id="ElevFloorNum">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">前后门</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <select name="TwinDoor" lay-filter="province" id="TwinDoor">
-                        <option value="">请选择前后门</option>
-                        <option value="1">双门</option>
-                        <option value="0">单门</option>
-                    </select>
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">最大速度(mm/s)</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <input type="text" name="ElevMaxSpeed"  required lay-verify="required" placeholder="请输入载重量"
-                           autocomplete="off" class="layui-input" id="ElevMaxSpeed">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">平层无动作清速度延时(s)</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <input type="text" name="NoActionClearTime" required lay-verify="required" placeholder="请输入额定速度"
-                           autocomplete="off" class="layui-input" id="NoActionClearTime">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">平层后清速度延时(s)</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <input type="text" name="LvlClearTime"  required lay-verify="required" placeholder="请输入载重量"
-                           autocomplete="off" class="layui-input" id="LvlClearTime">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">门关后锁定有人延时(s)</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <input type="text" name="DoorCloseJudgeTime" required lay-verify="required" placeholder="请输入额定速度"
-                           autocomplete="off" class="layui-input" id="DoorCloseJudgeTime">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">关门后屏蔽锁定有人时间(s)</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <input type="text" name="JudgeNoPeopleTime"  required lay-verify="required" placeholder="请输入载重量"
-                           autocomplete="off" class="layui-input" id="JudgeNoPeopleTime">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">非平层故障困人报警延时(s)</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <input type="text" name="AlarmPeopleTime" required lay-verify="required" placeholder="请输入额定速度"
-                           autocomplete="off" class="layui-input" id="AlarmPeopleTime">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">非平层故障无人报警延时(s)</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <input type="text" name="AlarmNoPeopleTime"  required lay-verify="required" placeholder="请输入载重量"
-                           autocomplete="off" class="layui-input" id="AlarmNoPeopleTime">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-inline">
-                <label class="layui-form-label">平层困人报警延时(s)</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <input type="text" name="NoAlarmPeopleTime" required lay-verify="required" placeholder="请输入额定速度"
-                           autocomplete="off" class="layui-input" id="NoAlarmPeopleTime">
-                </div>
-            </div>
-            <div class="layui-inline">
-                <label class="layui-form-label">超速倍数(参数值/10)</label>
-                <div class="layui-input-block" style="width: 245px">
-                    <input type="text" name="OverSpeed"  required lay-verify="required" placeholder="请输入载重量"
-                           autocomplete="off" class="layui-input" id="OverSpeed">
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">屏蔽参数</label>
-            <div class="layui-input-block">
-                <input type="checkbox" name="CollideUpMask" title="冲顶" lay-skin="primary" value="1" id="CollideUpMask">
-                <input type="checkbox" name="CollideBottomMask" title="蹲底" lay-skin="primary" value="1" id="CollideBottomMask">
-                <input type="checkbox" name="DoorOpenRunMask" title="运行中开门" lay-skin="primary" value="1" id="DoorOpenRunMask">
-                <input type="checkbox" name="NoLvlMask" title="门区外停梯" lay-skin="primary" value="1"  id="NoLvlMask">
-                <input type="checkbox" name="OverSpeedMask" title="超速" lay-skin="primary" value="1" id="OverSpeedMask">
-                <input type="checkbox" name="PeopleTrapMask" title="其它困人" lay-skin="primary" value="1" id="PeopleTrapMask">
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <div class="layui-input-block">
-                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="editGateway"
-                        style="margin: 0 40%">
-                    立即提交
-                </button>
-            </div>
-        </div>
-    </form>
 </div>
-<object classid="clsid:AA4D0640-D331-431A-9213-5D24F6DC4464" id="hikOCX" name="hikOCX" width="0" height="0"></object>
-<script src="../websource/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
-<script src="../websource/js/monitor_platform_js/config.js"></script>
-<script type="text/javascript" src="../websource/js/mask.min.js"></script>
-<script src="../websource/js/vue.js"></script>
-<script src="../websource/js/layui/layui.all.js" type="text/javascript"  charset="utf-8"></script>
-<script src="../websource/js/public.js" type="text/javascript" charset="utf-8"></script>
-<script>
-    var hikOCX = document.getElementById("hikOCX");
+<script src="../websource/wlzd/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="../websource/wlzd/js/monitor_platform_js/config.js"></script>
+<script type="text/javascript" src="../websource/wlzd/js/mask.min.js"></script>
+<script src="../websource/wlzd/js/vue.js"></script>
+<script src="../websource/wlzd/js/layui/layui.all.js" type="text/javascript"  charset="utf-8"></script>
+<script src="../websource/wlzd/js/public.js" type="text/javascript" charset="utf-8"></script>
+<script >
+    var type = getQueryVariable("field"),elevatorID = getQueryVariable("elevatorID");
+
+
     layui.use(["layer","form"],function () {
         var layer = layui.layer,form=layui.form;
-        var type = getQueryVariable("field"),elevatorID = getQueryVariable("elevatorID");
-        console.log(type)
+
         var edtiForm = new Vue({
             el:"#Vue",
             data:{
                 editCorpData:[],
-                field:type
             },
             mounted:function () {
                 form.render()
@@ -254,67 +77,22 @@
                 form.render()
             }
         });
-        if(type == 'editCorp'){
-            $.ajax({
-                url:request_url+"tbElev/editPageDetail",
-                data:{
-                    pageType:"regDetailPage",
-                    id:elevatorID
-                },
-                success:function (res) {
-                    edtiForm.$set(edtiForm.$data,"editCorpData",res.obj.elev)
-                }
-            })
-        };
-        switch (type) {
-            case "editCorp":
-                $.ajax({
-                    url:request_url+"tbElev/editPageDetail",
-                    data:{
-                        pageType:"regDetailPage",
-                        id:elevatorID
-                    },
-                    success:function (res) {
-                        edtiForm.$set(edtiForm.$data,"editCorpData",res.obj.elev)
-                    }
-                });
-                break;
-            case "editGateway":
-                getGateway();
-                break;
-        }
 
+        $.ajax({
+            url:request_url+"tbElev/editPageDetail",
+            data:{
+                pageType:"regDetailPage",
+                id:elevatorID
+            },
+            success:function (res) {
+                edtiForm.$set(edtiForm.$data,"editCorpData",res.obj.elev)
+            }
+        })
 
-
-
-        form.on("submit(editCorp)",function (obj) {
-            console.log(obj.field);
-            $.extend(obj.field,{"pageType":'grantPage',"id":elevatorID});
-            $.ajax({
-                url:request_url+"tbElev/edit",
-                header:{
-                    fromType:"wlzd"
-                },
-                data:obj.field,
-                success:function (res) {
-                    if(res.success){
-                        layer.alert("保存成功");
-                    }else{
-                        layer.alert(res.msg)
-                    }
-                }
-            });
-            return false;
-        });
-        // form.on("submit(editGateway)",function (obj) {
-        //     console.log(obj.field);
-        //     return false;
-        // })
 
     })
     function useList(e) {
         var inpputID = e.parentNode.previousSibling.previousElementSibling.childNodes[0].getAttribute("id");
-        console.log(inpputID);
         layer.open({
             type: 2,
             title: "选择单位",
@@ -323,82 +101,7 @@
             content: "../admission_management/useList.html?listType="+e.getAttribute("dataType")+"&inpputID="+inpputID,
         });
     }
-
-    function getGateway() {
-        var IP = getQueryVariable("IP"),
-            Port=getQueryVariable("Port"),
-            elevCode = getQueryVariable("elevCode"),
-            elevatorID = getQueryVariable("elevatorID");
-        function GetDeviceInfo(hikOCX, elevCode) {
-            var result = hikOCX.GetGatewayParam(elevatorID,IP, Port);
-            if (result == 200) {
-                console.log(result)
-            } else {
-                layer.alert("获取设备信息失败!");
-                return false;
-            }
-        };
-
-        GetDeviceInfo(hikOCX,elevCode);
-    }
-
 </script>
-<script type="text/javascript" for="hikOCX" event="MsgCome(content,size)">
-    layui.use("form",function () {
-        var form = layui.form;
-        var xmlDOM = new XmlDOM(content);
-        var dataNum = xmlDOM.DOM.getElementsByTagName("Message")[0].childNodes;
-        for(var j=0; j<dataNum.length;j++){
-            var key = dataNum[j].tagName,val = xmlDOM.getDomValue(key),tlp = $("#"+ key).attr("tlp");
-            if($("#"+ key)[0] != undefined){
-                switch ($("#"+ key)[0].tagName) {
-                    case 'INPUT':
-                        switch ($("#"+ key)[0].getAttribute("type")) {
-                            case "text":
-                                $("#"+ key).val(val);
-                                break;
-                            case "checkbox":
-                                if(val == '1'){
-                                    $("#"+ key)[0].setAttribute("checked","checked");
-                                };
-                                break;
-                        };
-                        break;
-                    case "SELECT":
-                        for(var x=0;x<$("#"+ key)[0].childNodes.length;x++){
-                            if($("#"+ key)[0].childNodes[x].value == xmlDOM.getDomValue(key)){
-                                $("#"+ key)[0].childNodes[x].setAttribute("selected","selected");
-                            }
-                        };
-                        break;
-                };
-                form.render()
-            };
 
-            if(tlp != undefined){
-                var json = (new Function("return " + tlp))();
-                for(var i in json){
-                    if(i = val ){
-                        $("#"+ key).val(json[i]);
-                    }
-                }
-            };
-
-        };
-
-        form.on("submit(editGateway)",function (obj) {
-            console.log(obj.field);
-            for(var i in obj.field){
-                console.log(i)
-                // xmlDOM.DOM.getElementsByTagName(i)[0].childNodes[0].nodeValue = obj.field[i];
-            };
-
-            console.log(xmlDOM.DOM.getElementsByTagName("NoAlarmPeopleTime"));
-            return false;
-        })
-
-    })
-
-</script>
 </body>
 </html>

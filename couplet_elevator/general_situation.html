@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>电梯概况</title>
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/monitor_platform_css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/css/style.css"/>
+    <link rel="stylesheet" href="../websource/wlzd/monitor_platform_css/style.css">
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/css/mask.css">
+    <style>
+        .template:after,.layui-form-item:after{content: '';display: block;clear: both}
+        .layui-form-label{width: 120px}
+        .layui-form-item>div{float: left}
+        .layui-form-label{padding-left:0;padding-right: 0}
+    </style>
+</head>
+<body>
+<div class="layui-main">
+    <form action="" class="layui-form">
+        <div class="search_row">
+            <div class="layui-inline" style="width: 230px;">
+                <select name="city" lay-verify="required">
+                    <option value=""></option>
+                    <option value="0">北京</option>
+                    <option value="1">上海</option>
+                    <option value="2">广州</option>
+                    <option value="3">深圳</option>
+                    <option value="4">杭州</option>
+                </select>
+            </div>
+            <button class="layui-btn layui-btn-normal layui-btn-sm" data-type="reload" lay-submit lay-filter="reload"
+                    style="padding: 0 10px ;font-size: 16px;width: 80px;margin-left: 20px"><i
+                    class="layui-icon layui-icon-search " style="color:white"></i>查询
+            </button>
+        </div>
+    </form>
+    <div class="layui-row layui-col-space30" id="elevator_info">
+        <div class="layui-col-md6">
+            <blockquote class="layui-elem-quote">物联电梯安全管理情况</blockquote>
+            <div class="layui-form">
+                <div class="layui-form-item">
+                    <div  class="template">
+                        <label class="layui-form-label" >111</label>
+                        <div class="layui-input-inline" style="width: 160px;">
+                            <div class="layui-form-mid" style="margin-left: 10px;width: 100%">111</div>
+                        </div>
+                    </div>
+                    <div  class="template">
+                        <label class="layui-form-label" >111</label>
+                        <div class="layui-input-inline" style="width: 160px;">
+                            <div class="layui-form-mid" style="margin-left: 10px;width: 100%">111</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-md6">
+            <blockquote class="layui-elem-quote">物联电梯增长情况</blockquote>
+        </div>
+        <div class="layui-col-md6">
+            <blockquote class="layui-elem-quote">物联电梯类别</blockquote>
+        </div>
+        <div class="layui-col-md6">
+            <blockquote class="layui-elem-quote">区域分布比例</blockquote>
+        </div>
+    </div>
+</div>
+
+<script src="../websource/wlzd/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="../websource/wlzd/js/monitor_platform_js/config.js"></script>
+<script type="text/javascript" src="../websource/wlzd/js/mask.min.js"></script>
+<script src="../websource/wlzd/js/vue.js"></script>
+<script src="../websource/wlzd/js/layui/layui.all.js" type="text/javascript"  charset="utf-8"></script>
+<script src="../websource/wlzd/js/public.js" type="text/javascript" charset="utf-8"></script>
+<script src="">
+    layui.use(["form"],function () {
+        var form = layui.form;
+        var elevator_info = new Vue({
+            el:"#elevator_info",
+            data:{
+                elevator_info:[
+                    {title:"在册电梯数",field:''},
+                    {title:"在用电梯数",field:''},
+                    {title:"电梯隐患率",field:''},
+                    {title:"电梯登记",field:''},
+                    {title:"电梯校验率",field:''},
+                    {title:"电梯报检率",field:''},
+                    {title:"本年度事故数",field:''},
+                    {title:"本年度案件数",field:''},
+                    {title:"电梯维保单位",field:''},
+                    {title:"维保合同有效率",field:''},
+                ]
+            },
+            mounted:function () {
+
+            },
+            updated:function () {
+
+            }
+        });
+
+
+
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+    <title>入网管理列表</title>
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/monitor_platform_css/layui.css"/>
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/css/style.css"/>
+    <link rel="stylesheet" href="../websource/wlzd/monitor_platform_css/style.css">
+    <link rel="stylesheet" type="text/css" href="../websource/wlzd/css/mask.css">
+</head>
+<body>
+<div class="layui-col-md10">
+    <form action="" class="layui-form" id="editBasicGateway">
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">设备是否在线</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <select name="" lay-filter="province" id="IsOnline">
+                        <option value="">请选择流量统计上报开关</option>
+                        <option value="1">开启</option>
+                        <option value="0">关闭</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">在线时长</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <input type="text" name=""  required lay-verify="required" placeholder="请输入载重量"
+                           autocomplete="off" class="layui-input" id="OlTime">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">设备协议版本</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <input type="text" name=""  required lay-verify="required" placeholder="请输入载重量"
+                           autocomplete="off" class="layui-input" id="ProVer">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">设备IP地址</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <input type="text" name=""  required lay-verify="required" placeholder="请输入载重量"
+                           autocomplete="off" class="layui-input" id="DevIP">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">主机网络模式</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <select name="" lay-filter="province" id="NetMode">
+                        <option value="">请选择流量统计上报开关</option>
+                        <option value="0">有线网</option>
+                        <option value="1">WCDMA</option>
+                        <option value="2">EVDO</option>
+                        <option value="3">TD-SCDMA</option>
+                        <option value="4">GPRS</option>
+                        <option value="5">CDMA-1X</option>
+                        <option value="6">WIFI</option>
+                        <option value="7">ADSL</option>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">设备类型</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <input type="text" name=""  required lay-verify="required" placeholder="请输入载重量"
+                           autocomplete="off" class="layui-input" id="DevType">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">设备软件版本</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <input type="text" name=""  required lay-verify="required" placeholder="请输入载重量"
+                           autocomplete="off" class="layui-input" id="SWVer">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">设备软件编译日期</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <input type="text" name=""  required lay-verify="required" placeholder="请输入载重量"
+                           autocomplete="off" class="layui-input" id="SWBuild">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">设备硬件版本</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <input type="text" name=""  required lay-verify="required" placeholder="请输入载重量"
+                           autocomplete="off" class="layui-input" id="HWVer">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">查询升级时间（整点）</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <select name="UpdateTime" lay-filter="province" id="UpdateTime">
+                        <option value="">请选择流量统计上报开关</option>
+                        <option value="0">0点</option>
+                        <option value="1">1点</option>
+                        <option value="2">2点</option>
+                        <option value="3">3点</option>
+                        <option value="4">4点</option>
+                        <option value="5">5点</option>
+                        <option value="6">6点</option>
+                        <option value="7">7点</option>
+                        <option value="8">8点</option>
+                        <option value="9">9点</option>
+                        <option value="10">10点</option>
+                        <option value="11">11点</option>
+                        <option value="12">12点</option>
+                        <option value="13">13点</option>
+                        <option value="14">14点</option>
+                        <option value="15">15点</option>
+                        <option value="16">16点</option>
+                        <option value="17">17点</option>
+                        <option value="18">18点</option>
+                        <option value="19">19点</option>
+                        <option value="20">20点</option>
+                        <option value="21">21点</option>
+                        <option value="22">22点</option>
+                        <option value="23">23点</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">主机LAN地址</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <input type="text" name="LanIP"  required lay-verify="required" placeholder="请输入载重量"
+                           autocomplete="off" class="layui-input" id="LanIP">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">主机LAN子网掩码</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <input type="text" name="LanMask"  required lay-verify="required" placeholder="请输入载重量"
+                           autocomplete="off" class="layui-input" id="LanMask">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">主机LAN网关地址</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <input type="text" name="LanGateway"  required lay-verify="required" placeholder="请输入载重量"
+                           autocomplete="off" class="layui-input" id="LanGateway">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">主机物理地址</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <input type="text" name=""  required lay-verify="required" placeholder="请输入载重量"
+                           autocomplete="off" class="layui-input" id="LanMAC">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">注册服务器地址</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <input type="text" name="RegIP"  required lay-verify="required" placeholder="请输入载重量"
+                           autocomplete="off" class="layui-input" id="RegIP">
+                </div>
+            </div>
+            <div class="layui-inline">
+                <label class="layui-form-label">注册服务器端口</label>
+                <div class="layui-input-block" style="width: 245px">
+                    <input type="text" name="RegPort"  required lay-verify="required" placeholder="请输入载重量"
+                           autocomplete="off" class="layui-input" id="RegPort">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn layui-btn-normal" lay-submit lay-filter="editBasicGateway"
+                        style="margin: 0 40%">
+                    立即提交
+                </button>
+            </div>
+        </div>
+    </form>
+
+</div>
+<object classid="clsid:AA4D0640-D331-431A-9213-5D24F6DC4464" id="hikOCX" name="hikOCX" width="0" height="0"></object>
+<script src="../websource/wlzd/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="../websource/wlzd/js/monitor_platform_js/config.js"></script>
+<script type="text/javascript" src="../websource/wlzd/js/mask.min.js"></script>
+<script src="../websource/wlzd/js/vue.js"></script>
+<script src="../websource/wlzd/js/layui/layui.all.js" type="text/javascript"  charset="utf-8"></script>
+<script src="../websource/wlzd/js/public.js" type="text/javascript" charset="utf-8"></script>
+<script >
+    function getBasicGateway() {
+        var IP = getQueryVariable("IP"),
+            Port=getQueryVariable("Port"),
+            elevCode = getQueryVariable("elevCode");
+        layer.alert("正在获取信息");
+        var GetCommonParamState = hikOCX.GetCommonParam(elevCode,1,IP,Port);
+
+        if (GetCommonParamState == 200) {
+
+        } else {
+            layer.closeAll()
+            layer.alert("获取设备信息失败!");
+            return false;
+        }
+    }
+    getBasicGateway();
+</script>
+<script type="text/javascript" for="hikOCX" event="MsgCome(content,size)">
+    layer.closeAll();
+    layui.use("form",function () {
+        var form = layui.form;
+        var IP = getQueryVariable("IP"),
+            Port=getQueryVariable("Port"),
+            elevCode = getQueryVariable("elevCode");
+        var xmlDOM = new XmlDOM(content);
+
+        var Cmd = xmlDOM.DOM.getElementsByTagName("Cmd")[0].childNodes[0].nodeValue;
+        if(Cmd == "GET_COMMONPARA_REP"){
+
+            var GetDeviceInfoState = hikOCX.GetDeviceInfo(elevCode, 1,IP, Port);
+            if(GetDeviceInfoState == ''){
+                layer.alert("获取失败");
+                return;
+            }
+            xmlDOM.addDom(GetDeviceInfoState);
+
+        };
+
+        var dataNum = xmlDOM.DOM.getElementsByTagName("Message")[0].childNodes;
+        for(var j=0; j<dataNum.length;j++){
+            var key = dataNum[j].tagName,val = xmlDOM.getDomValue(key),tlp = $("#"+ key).attr("tlp");
+            if($("#"+ key)[0] != undefined){
+                switch ($("#"+ key)[0].tagName) {
+                    case 'INPUT':
+                        switch ($("#"+ key)[0].getAttribute("type")) {
+                            case "text":
+                                $("#"+ key).val(val);
+                                break;
+                            case "checkbox":
+                                if(val == '1'){
+                                    $("#"+ key)[0].setAttribute("checked","checked");
+                                };
+                                break;
+                        };
+                        break;
+                    case "SELECT":
+                        for(var x=0;x<$("#"+ key)[0].childNodes.length;x++){
+                            if($("#"+ key)[0].childNodes[x].value == xmlDOM.getDomValue(key)){
+                                $("#"+ key)[0].childNodes[x].setAttribute("selected","selected");
+                            }
+                        };
+                        break;
+                };
+                form.render()
+            };
+
+            if(tlp != undefined){
+                var json = (new Function("return " + tlp))();
+                for(var i in json){
+                    if(i = val ){
+                        $("#"+ key).val(json[i]);
+                    }
+                }
+            };
+
+        };
+
+
+
+        form.on("submit(editBasicGateway)",function (obj) {
+            var StrXml = xmlDOM.setXmlStr(obj.field,"SET_COMMONPARA_REQ");
+            console.log(StrXml)
+            var SetCommonState = hikOCX.SetCommonParam(StrXml,1,IP,Port);
+            console.log(SetCommonState);
+            if(SetCommonState == 200){
+                layer.alert("保存成功");
+            }else{
+                layer.alert("保存失败");
+            }
+            return false;
+        });
+
+        form.render();
+    })
+</script>
+</body>
+</html>
