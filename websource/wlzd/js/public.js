@@ -963,3 +963,41 @@ XmlDOM.prototype.setXmlStr = function (obj,FIELD) {
 };
 
 
+/*
+*
+* 基于Date对象重新封装时间对象
+*
+* */
+class Time{
+    constructor(){
+        this.Date = new Date();
+        this.day = this.Date.getDate();
+        this.month = this.Date.getMonth()+1;
+        this.year = this.Date.getFullYear();
+    };
+    //获取字符串时间
+    getStrTime(Symbol){
+        /*@param {string} Symbol 时间划分字符*/
+        return this.year+Symbol+this.month+Symbol+this.day;
+    };
+
+
+    //获取当前时间的之前的几个月的时间
+    getBeforeMonth(num,Symbol){
+        /*
+        *@param {number} num 月数时间
+        *@param {string} Symbol 时间划分字符
+        * */
+        var year = this.year,month = this.month;
+        var gapYear = Math.floor((month-1-num)/12);
+        year = year + gapYear;
+        var gapMonth =num%12;
+        if(month > gapMonth){
+            month = month-gapMonth;
+        }else{
+            month =12+month-gapMonth;
+        };
+        return year+Symbol+month+Symbol+this.day;
+    };
+}
+

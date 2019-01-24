@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
-    <title>每日报警统计</title>
+    <title>离线电梯记录</title>
     <link rel="stylesheet" type="text/css" href="../websource/wlzd/monitor_platform_css/layui.css"/>
     <link rel="stylesheet" type="text/css" href="../websource/wlzd/css/style.css"/>
     <link rel="stylesheet" href="../websource/wlzd/monitor_platform_css/style.css">
@@ -55,7 +55,7 @@
             fromType:'wlzd'
         },
         where: {
-            methodName:"accidentDailyRpt",
+            methodName:"elevOfflineRpt",
             startDate:date.getBeforeMonth(1,"-"),
             endDate:date.getStrTime("-")
         },
@@ -68,7 +68,7 @@
                 "code": res.status,
                 "msg": res.msg,
                 "count": res.length,
-                "data": res.obj.riskReasonList
+                "data": res.obj.elevOffList
             };
         },
         height: 775,
@@ -78,53 +78,27 @@
         toolbar: "#toolbar",
         cols: [
             [
-                {field: 'date', title: '日期',rowspan:'3',width:120},
-                {field: 'yujinTimes', title: '预警总数',rowspan:'3',width:120},
-                {field: 'alarmTimes', title: '报警总数',rowspan:'3',width:120},
-                { title: '有效报警',colspan:"16"},
-                { title: '无效报警',colspan:"17"},
-            ],
-            [
-                {title: '困人故障',colspan:"2"},
-                { title: '故障模式',colspan:"14"},
-                {field:'ft_total', title: '非困人故障',rowspan:'2',width:120},
-                { title: '困人故障',colspan:"2"},
-                { title: '故障模式',colspan:"14"},
-            ],
-            [
-                {field:'fpckr',title: '非平层困人',width:100},
-                {field:'pckr',title: '平层困人',width:100},
-                {field:'mquwtt',title: '开锁区外停梯',width:150},
-                {field:'yxzkm', title: '运行中开门',width:100},
-                {field:'cd', title: '冲顶',width:80},
-                {field:'dd', title: '蹲底',width:80},
-                {field:'csyx', title: '超速（溜车）',width:120},
-                {field:'', title: '轿厢意外移动',width:150},
-                {field:'', title: '断电',width:80},
-                {field:'', title: '安全回路断路',width:150},
-                {field:'', title: '运行超时',width:100},
-                {field:'', title: '反复开关门',width:150},
-                {field:'', title: '阻挡关门',width:100},
-                {field:'', title: '轿厢报警按钮动作',width:150},
-                {field:'other', title: '其他',width:100},
-                // {field:'anbj', title: '按钮报警',width:100},
-
-                {field:'fpckrVain',title: '非平层困人',width:100},
-                {field:'pckrVain',title: '平层困人',width:100},
-                {field:'mquwttVain',title: '开锁区外停梯',width:150},
-                {field:'yxzkmVain', title: '运行中开门',width:100},
-                {field:'cdVain', title: '冲顶',width:80},
-                {field:'ddVain', title: '蹲底',width:80},
-                {field:'csyxVain', title: '超速（溜车）',width:120},
-                {field:'', title: '轿厢意外移动',width:150,},
-                {field:'', title: '断电',width:80},
-                {field:'', title: '安全回路断路',width:150},
-                {field:'', title: '运行超时',width:100},
-                {field:'', title: '反复开关门',width:150},
-                {field:'', title: '阻挡关门',width:100},
-                {field:'', title: '轿厢报警按钮动作',width:150},
-                {field:'other', title: '其他',width:100},
-                // {field:'anbjVain', title: '按钮报警',width:100},
+                {field: '', title: '序号',templet:function (obj) {return obj.LAY_INDEX},width:60},
+                {field: 'communityName', title: '归属区域',width:200},
+                {field: 'elevCode', title: '注册代码',width:200},
+                {field: 'quickCode', title: '电梯救援识别码',width:120},
+                {field: 'location', title: '使用地点',width:250},
+                {field: 'elevBrand', title: '电梯品牌'},
+                {field: 'useCorpName', title: '使用单位'},
+                {field: 'serviceCorpName', title: '维保单位'},
+                {field: 'deviceType', title: '设备类型'},
+                {field: 'elevStatus', title: '平台检修状态'},
+                {field: 'registFlag', title: '设备冻结状态'},
+                {field: 'powerStatus', title: '电源状态'},
+                {field: 'faultCode', title: '故障状态'},
+                {field: 'onlineState', title: '网关在线'},
+                {field: 'stateTime', title: '网关上线时间'},
+                {field: 'onlineStateVideo', title: '视频在线'},
+                {field: 'alarmTimes', title: '视频上线时间'},
+                {field: 'safetyAdmin', title: '安管员姓名'},
+                {field: 'safetyAdminPhone', title: '安管联系方式'},
+                {field: 'servicePerson', title: '维保负责人'},
+                {field: 'servicePersonPhone', title: '维保联系方式'},
             ],
         ]
     });

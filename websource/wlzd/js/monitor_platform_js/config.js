@@ -27,6 +27,8 @@ PROJECT_PATH = {
     elevator_management:{url:"couplet_elevator/elevator_management.html",ID:10201,title:'电梯管理'},
     monitor:{url:"http://admincs.yunandawulian.com/appServer/tbElev/tbElevMonitorHk",ID:10202,title:'监控'},
     addCompany:{url:"couplet_elevator/addCompany.html",ID:10203,title:'添加单位'},
+    everyDayAlarm:{url:"couplet_elevator/everyDayAlarm.html",ID:10301,title:'每日报警统计'},
+    offLineelevator:{url:"couplet_elevator/offLineelevator.html",ID:10303,title:'离线电梯记录'},
 }
 
 $.ajaxSetup({
