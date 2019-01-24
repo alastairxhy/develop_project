@@ -4,9 +4,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>电梯应急处理平台</title>
-	<link rel="stylesheet" type="text/css" href="websource/js/layui/css/layui.css" />
-	<link rel="stylesheet" type="text/css" href="websource/css/style.css" />
-	<link rel="stylesheet" type="text/css" href="websource/css/animate.css" />
+	<link rel="stylesheet" type="text/css" href="websource/wlzd/js/layui/css/layui.css" />
+	<link rel="stylesheet" type="text/css" href="websource/wlzd/css/style.css" />
+	<link rel="stylesheet" type="text/css" href="websource/wlzd/css/animate.css" />
  	<style type="text/css">
 		html {
 			height: 100%
@@ -113,18 +113,18 @@
 
 
 
-<script src="websource/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
-<script src="websource/js/vue.js" type="text/javascript" charset="utf-8"></script>
-<script src="websource/js/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
+<script src="websource/wlzd/js/jquery-3.3.1.js" type="text/javascript" charset="utf-8"></script>
+<script src="websource/wlzd/js/vue.js" type="text/javascript" charset="utf-8"></script>
+<script src="websource/wlzd/js/layui/layui.all.js" type="text/javascript" charset="utf-8"></script>
 <script src="http://api.map.baidu.com/api?v=2.0&ak=3b55d902d2eb9763e7a76a40a2bfa0bf" type="text/javascript" ></script>
-<script src="websource/js/monitor_platform_js/config.js" type="text/javascript" charset="utf-8"></script>
-<script src="websource/js/public.js" type="text/javascript" charset="utf-8"></script>
-<script src="websource/js/echarts.js" type="text/javascript" charset="utf-8"></script>
+<script src="websource/wlzd/js/monitor_platform_js/config.js" type="text/javascript" charset="utf-8"></script>
+<script src="websource/wlzd/js/public.js" type="text/javascript" charset="utf-8"></script>
+<script src="websource/wlzd/js/echarts.js" type="text/javascript" charset="utf-8"></script>
 <!--实现聚合点API-->
 <script type="text/javascript" src="http://api.map.baidu.com/library/TextIconOverlay/1.2/src/TextIconOverlay_min.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/library/MarkerClusterer/1.2/src/MarkerClusterer_min.js"></script>
 <!--地图插件数据-->
-<script src="websource/js/jinhua.js" type="text/javascript" charset="utf-8"></script>
+<script src="websource/wlzd/js/jinhua.js" type="text/javascript" charset="utf-8"></script>
 
 
 
@@ -164,27 +164,27 @@
 		var myicon = function (status) {
             switch (status) {
                 case 0:
-				{var _icon = new BMap.Icon("websource/img/icon/elevator_hpmt.png", new BMap.Size(40,40));
+				{var _icon = new BMap.Icon("websource/wlzd/img/icon/elevator_hpmt.png", new BMap.Size(40,40));
 				return _icon;}
                     break; //调试
                 case 1:
-				{var _icon = new BMap.Icon("websource/img/icon/green_marker.png", new BMap.Size(40,40));
+				{var _icon = new BMap.Icon("websource/wlzd/img/icon/green_marker.png", new BMap.Size(40,40));
 				return _icon;}
                 	break;//正常
                 case 2:
-				{var _icon = new BMap.Icon("websource/img/icon/gray_marker.png", new BMap.Size(40,40));
+				{var _icon = new BMap.Icon("websource/wlzd/img/icon/gray_marker.png", new BMap.Size(40,40));
 				return _icon;}
                     break;//停用
                 case 3:
-				{var _icon = new BMap.Icon("websource/img/icon/elevator_warnning.png", new BMap.Size(40,40));
+				{var _icon = new BMap.Icon("websource/wlzd/img/icon/elevator_warnning.png", new BMap.Size(40,40));
 				return _icon;}
                     break;//设备上报检修
                 case 4:
-				{var _icon = new BMap.Icon("websource/img/icon/red_marker.png", new BMap.Size(40,40));
+				{var _icon = new BMap.Icon("websource/wlzd/img/icon/red_marker.png", new BMap.Size(40,40));
 				return _icon;}
                     break;//故障
                 case null:
-                {var _icon = new BMap.Icon("websource/img/icon/green_marker.png", new BMap.Size(40,40));
+                {var _icon = new BMap.Icon("websource/wlzd/img/icon/green_marker.png", new BMap.Size(40,40));
                     return _icon;}
                     break;//无状态
 
@@ -197,35 +197,35 @@
             switch (status) {
                 case 0: {
                     var marker = new BMap.Marker(point,
-                        {icon: new BMap.Icon("websource/img/icon/elevator_hpmt.png", new BMap.Size(40, 40))}
+                        {icon: new BMap.Icon("websource/wlzd/img/icon/elevator_hpmt.png", new BMap.Size(40, 40))}
                     );// 创建标注
                     map.addOverlay(marker);//将标注添加到地图中
                 }
                     break;
                 case 1: {
                     var marker = new BMap.Marker(point,
-                        {icon: new BMap.Icon("websource/img/icon/green_marker.png", new BMap.Size(40, 40))}
+                        {icon: new BMap.Icon("websource/wlzd/img/icon/green_marker.png", new BMap.Size(40, 40))}
                     );// 创建标注
                     map.addOverlay(marker);//将标注添加到地图中
                 }
                     break;
                 case 2: {
                     var marker = new BMap.Marker(point,
-                        {icon: new BMap.Icon("websource/img/icon/red_marker.png", new BMap.Size(40, 40))}
+                        {icon: new BMap.Icon("websource/wlzd/img/icon/red_marker.png", new BMap.Size(40, 40))}
                     );// 创建标注
                     map.addOverlay(marker);//将标注添加到地图中
                 }
                     break;
                 case 3: {
                     var marker = new BMap.Marker(point,
-                        {icon: new BMap.Icon("websource/img/icon/red_marker.png", new BMap.Size(40, 40))}
+                        {icon: new BMap.Icon("websource/wlzd/img/icon/red_marker.png", new BMap.Size(40, 40))}
                     );// 创建标注
                     map.addOverlay(marker);//将标注添加到地图中
                 }
                     break;
                 case 4: {
                     var marker = new BMap.Marker(point,
-                        {icon: new BMap.Icon("websource/img/icon/red_marker.png", new BMap.Size(40, 40))}
+                        {icon: new BMap.Icon("websource/wlzd/img/icon/red_marker.png", new BMap.Size(40, 40))}
                     );// 创建标注
                     map.addOverlay(marker);//将标注添加到地图中
                 }
@@ -261,7 +261,7 @@
                     switch (obj.list[i].status) {
                         case 1: {
                             var marker = new BMap.Marker(point,{
-                                icon:new BMap.Icon("websource/img/icon/green_marker.png", new BMap.Size(40,40))
+                                icon:new BMap.Icon("websource/wlzd/img/icon/green_marker.png", new BMap.Size(40,40))
                             });
                             // map.addOverlay(marker);
                             break;}
@@ -273,8 +273,8 @@
                 //电梯分布
                 var markers = []; //聚合点数组
                 var myStyle = [{
-                    url:'websource/img/icon/m0.png',
-                    size: new BMap.Size(53,52),
+                    url:'websource/wlzd/img/icon/m0.png',
+                    size: new BMap.Size(32,37),
                     gridSize:80
                 }]; //聚合点样式
                 for (var i = 0; i < 392; i++) {
@@ -365,7 +365,7 @@
 					//电梯分布
                     // var markers = []; //聚合点数组
                     // var myStyle = [{
-                    //     url:'websource/img/icon/m0.png',
+                    //     url:'websource/wlzd/img/icon/m0.png',
                     //     size: new BMap.Size(53,52),
                     //     gridSize:80
                     // }]; //聚合点样式
